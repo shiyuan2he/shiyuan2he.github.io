@@ -1,0 +1,815 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="log4j,java,日志,logback," />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties　　log4j.rootLogger = 日志级别，appender1, appender2,… 　　　　日志级别：ALL &amp;lt; D">
+<meta name="keywords" content="log4j,java,日志,logback">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(日志管理-2)log4j剖析">
+<meta property="og:url" content="http://yoursite.com/2017/04/26/日志管理-2-log4j剖析/index.html">
+<meta property="og:site_name" content="远哥家">
+<meta property="og:description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties　　log4j.rootLogger = 日志级别，appender1, appender2,… 　　　　日志级别：ALL &amp;lt; D">
+<meta property="og:updated_time" content="2017-04-27T12:06:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(日志管理-2)log4j剖析">
+<meta name="twitter:description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties　　log4j.rootLogger = 日志级别，appender1, appender2,… 　　　　日志级别：ALL &amp;lt; D">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/26/日志管理-2-log4j剖析/"/>
+
+
+
+
+
+  <title>(日志管理-2)log4j剖析 | 远哥家</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">远哥家</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">花钱的艺术，存钱的智慧</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            历史文章
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/26/日志管理-2-log4j剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天道悲鸣">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/photo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="远哥家">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">(日志管理-2)log4j剖析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-26T11:31:25+08:00">
+                2017-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/日志管理之美/" itemprop="url" rel="index">
+                    <span itemprop="name">日志管理之美</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置
+</code></pre><p>或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&gt; src同级创建并设置log4j.properties<br>　　log4j.rootLogger = 日志级别，appender1, appender2,…</p>
+<p>　　　　日志级别：ALL &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL &lt; OFF，不区分大小写</p>
+<p>　　　　注意，需在控制台输入，只需将其中一个appender定义为stdout即可<br>　　　　注意，rootLogger默认是对整个工程生效<br>　　　　注意，如果只想对某些包操作，<br>        那么：log4j.logger.hsy.utils = info, stdout，表示该日志对package hsy.util生效<br>　　　　注意，这样做可以区分dev/线上，也可以减小性能影响：if(log.isDebugEnabled()){log.debug();}<br>　　　　———————–</p>
+<p>　　　　log4j.appender.appender1 = org.apache.log4j.日志输出到哪儿<br>　　　　　　ConsoleAppender（控制台）<br>　　　　　　FileAppender（文件）<br>　　　　　　DailyRollingFileAppender（每天产生一个日志文件）<br>　　　　　　RollingFileAppender（文件大小到达指定尺寸时产生一个新的文件）<br>　　　　　　WriteAppender（将日志信息以流格式发送到任意指定的地方）<br>　　　　　　JDBCAppender（将日志信息保存到数据库中）<br>　　　　　　log4j.appender.appender1.File=文件目录及文件<br>　　　　    log4j.appender.appender1.MaxFileSize=最大文件大小<br>　　　　    log4j.appender.appender1.MaxBackupIndex=备份文件个数</p>
+<p>　　　　其中，appender1是在第一行定义过的；<br>　　　　文件目录及文件，例如，/home/admin/logs/jar/debug.log<br>    最大文件大小，例如，100KB<br>　　　　备份文件个数，例如，1</p>
+<p>　　　　—————–<br>　　　　log4j.appender.ServerDailyRollingFile.DatePattern=日志后缀格式<br>　　　　例如，’.’yyyy-MM-dd<br>　　　　　　log4j.appender.appender1.layout=org.apache.log4j.日志布局格式<br>　　　　　　HTMLLayout（以HTML表格形式布局）<br>　　　　　　SimpleLayout（包含日志信息的级别和信息字符串）<br>　　　　　　TTCCLayout（包含日志产生的时间，执行绪，类别等信息）<br>　　　　　　PatternLayout（可以灵活的指定布局格式，常用）<br>　　　　——————<br>　　　　log4j.appender.appender1.layout.ConversionPattern=日志输出格式<br>　　　　打印参数: Log4J采用类似C语言中的printf函数的打印格式格式化日志信息，如下:<br>　　　　例如，%d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n<br>　　　　　　%c 输出日志信息所属的类的全名<br>　　　　　　%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，<br>        比如：%d{yyy-M-dd HH:mm:ss SSS}，输出类似：2002-10-18 22:10:28,673<br>　　　　　　%f 输出日志信息所属的类的类名<br>　　　　　　%l 输出日志事件的发生位置，即输出日志信息的语句处于它所在的类的第几行<br>　　　　　　%m 输出代码中指定的信息，如log(message)中的message<br>　　　　　　%n 输出一个回车换行符，Windows平台为“rn”，Unix平台为“n”<br>　　　　　　%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL。<br>        如果是调用debug()输出的，则为DEBUG，依此类推<br>　　　　　　%r 输出自应用启动到输出该日志信息所耗费的毫秒数<br>　　　　　　%t 输出产生该日志事件的线程名<br>　　　　　　—————–<br>　　　　　　log4j.appender.ServerDailyRollingFile.Append=true<br>　　　　　　不解释，追加往后写便是<br>　　　　　　总结一下：<br>　　　　　　　　Logger类：完成日志记录，设置日志信息级别<br>　　　　　　　　Appender类：决定日志去向，终端、DB、硬盘<br>　　　　　　　　Layout类：决定日志输出的样式，例如包含当前线程、行号、时间<br>　　　　　　　　——————<br>　　　　　　　　在代码中使用log4j，初始化Logger:<br>　　　　　　　　　　1）在程序中调用BasicConfigurator.configure()方法：<br>            给根记录器增加一个ConsoleAppender，<br>            输出格式通过PatternLayout设为”%-4r [%t] %-5p %c %x - %m%n”，<br>            还有根记录器的默认级别是Level.DEBUG.<br>　　　　　　　　　　2）配置放在文件里，通过命令行参数传递文件名字，<br>            通过PropertyConfigurator.configure(args[x])解析并配置；<br>　　　　　　　　　　3）配置放在文件里，通过环境变量传递文件名等信息，<br>            利用log4j默认的初始化过程解析并配置；<br>　　　　　　　　　　4）配置放在文件里，通过应用服务器配置传递文件名等信息，<br>            利用一个特殊的servlet来完成配置。<br>    　　　　————————————————————————–<br>　　　　　　　　3. 为不同的 Appender 设置日志输出级别：<br>　　　　　　　　　　当调试系统时，我们往往注意的只是异常级别的日志输出，<br>            但是通常所有级别的输出都是放在一个文件里的，<br>            如果日志输出的级别是BUG！？那就慢慢去找吧。<br>　　　　　　　　　　这时我们也许会想要是能把异常信息单独输出到一个文件里该多好啊。<br>            当然可以，Log4j已经提供了这样的功能，我们只需要在配置中修改Appender的<br>        Threshold 就能实现,比如下面的例子：<br>　　　　　　　　[配置文件]<br>　　　　　　　　　　### set log levels ###<br>　　　　　　　　　　log4j.rootLogger = debug , stdout , D , E</p>
+<p>　　　　　　　　　　### 输出到控制台 ###<br>　　　　　　　　　　log4j.appender.stdout = org.apache.log4j.ConsoleAppender<br>　　　　　　　　　　log4j.appender.stdout.Target = System.out<br>　　　　　　　　　　log4j.appender.stdout.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.stdout.layout.ConversionPattern =<br>                %d{ABSOLUTE} %5p %c{ 1 }:%L - %m%n</p>
+<p>　　　　　　　　　　### 输出到日志文件 ###<br>　　　　　　　　　　log4j.appender.D = org.apache.log4j.DailyRollingFileAppender<br>　　　　　　　　　　log4j.appender.D.File = logs/log.log<br>　　　　　　　　　　log4j.appender.D.Append = true<br>　　　　　　　　　　log4j.appender.D.Threshold = DEBUG ## 输出DEBUG级别以上的日志<br>　　　　　　　　　　log4j.appender.D.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.D.layout.ConversionPattern =<br>                %-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ] %m%n</p>
+<p>　　　　　　　　　　### 保存异常信息到单独文件 ###<br>　　　　　　　　　　log4j.appender.D = org.apache.log4j.DailyRollingFileAppender<br>　　　　　　　　　　log4j.appender.D.File = logs/error.log ## 异常日志文件名<br>　　　　　　　　　　log4j.appender.D.Append = true<br>　　　　　　　　　　log4j.appender.D.Threshold = ERROR ## 只输出ERROR级别以上的日志!!!<br>　　　　　　　　　　log4j.appender.D.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.D.layout.ConversionPattern =<br>                %-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ] %m%n</p>
+<p>　　　　　　　　　　[代码中使用]<br>　　　　　　　　　　public class TestLog4j {<br>　　　　　　　　　　　　public static void main(String[] args) {<br>　　　　　　　　　　　　　　PropertyConfigurator.configure( “ D:/Code/conf/log4j.properties “ );<br>　　　　　　　　　　　　　　Logger logger = Logger.getLogger(TestLog4j. class );<br>    　　　　　　　　　　logger.debug( “ debug “ );<br>　　　　　　　　　　　　　　logger.error( “ error “ );<br>　　　　　　　　　　　　}<br>　　　　　　　　　　}<br>　　　　　　———————————————————————————–<br>　　　　　　public class Test {<br>　　　　　　　　private static Logger logger = Logger.getLogger(Test.class);<br>　　　　　　　　public static void main(String[] args) {<br>　　　　　　　　　　// System.out.println(“This is println message.”);</p>
+<p>　　　　　　　　　　// 记录debug级别的信息<br>　　　　　　　　　　logger.debug(“This is debug message.”);<br>　　　　　　　　　　// 记录info级别的信息<br>　　　　　　　　　　ogger.info(“This is info message.”);<br>　　　　　　　　　　// 记录error级别的信息<br>　　　　　　　　　　logger.error(“This is error message.”);<br>　　　　　　　　}<br>　　　　　　}<br>　　　　—————————————————————————–<br>　　　　最后粘上本人用的测试log4j的配置文件内容，仅供参考。希望对您有所帮助<br>　　　　　　log4j.rootLogger=INFO, stdout, file</p>
+<p>　　　　　　log4j.appender.stdout=org.apache.log4j.ConsoleAppender<br>　　　　　　log4j.appender.stdout.layout=org.apache.log4j.PatternLayout<br>　　　　　　log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n</p>
+<p>　　　　　　log4j.appender.file=org.apache.log4j.DailyRollingFileAppender<br>　　　　　　log4j.appender.file.Threshold=debug<br>　　　　　　log4j.appender.file.layout=org.apache.log4j.PatternLayout<br>　　　　　　log4j.appender.file.layout.ConversionPattern= %d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n<br>　　　　　　log4j.appender.file.File=D:/others/logs/jar/debug.log<br>　　　　　　#log4j.appender.file.File=/home/test_zzs_dzfp/logs/zzssl/zzssl.log<br>　　　　　　log4j.appender.file.MaxFileSize=200MB<br>　　　　　　log4j.appender.file.MaxBackupIndex=20</p>
+<p>　　　　　　#project defalult level<br>　　　　　　#log4j.logger.hsy.utils=INFO</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode.jpg# /uploads/wechat-qcode.jpg" alt="天道悲鸣 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的微信公众号！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/WechatPay.jpeg" alt="天道悲鸣 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/AliPay.jpeg" alt="天道悲鸣 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/log4j-java-日志-logback/" rel="tag"># log4j,java,日志,logback</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/26/日志管理-1-关于日志的扯淡/" rel="next" title="(日志管理-1)关于日志的扯淡">
+                <i class="fa fa-chevron-left"></i> (日志管理-1)关于日志的扯淡
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/photo.png"
+               alt="天道悲鸣" />
+          <p class="site-author-name" itemprop="name">天道悲鸣</p>
+           
+              <p class="site-description motion-element" itemprop="description">凡人求佛，圣人问心</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shiyuan2he" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/shiyuanhe/home" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/u012806787" target="_blank" title="csdn">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  csdn
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/hsyuan/" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://thoreauz.com/" title="二道崖" target="_blank">二道崖</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://aspiresnow.github.io/" title="立志" target="_blank">立志</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">天道悲鸣</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
