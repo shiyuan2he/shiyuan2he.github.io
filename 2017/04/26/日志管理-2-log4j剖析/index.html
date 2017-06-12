@@ -106,17 +106,17 @@
 
 
 
-<meta name="description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties　　log4j.rootLogger = 日志级别，appender1, appender2,… 　　　　日志级别：ALL &amp;lt; D">
+<meta name="description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties">
 <meta name="keywords" content="log4j,java,日志,logback">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(日志管理-2)log4j剖析">
 <meta property="og:url" content="http://yoursite.com/2017/04/26/日志管理-2-log4j剖析/index.html">
 <meta property="og:site_name" content="远哥家">
-<meta property="og:description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties　　log4j.rootLogger = 日志级别，appender1, appender2,… 　　　　日志级别：ALL &amp;lt; D">
-<meta property="og:updated_time" content="2017-04-27T12:06:45.000Z">
+<meta property="og:description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties">
+<meta property="og:updated_time" content="2017-06-12T10:02:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(日志管理-2)log4j剖析">
-<meta name="twitter:description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties　　log4j.rootLogger = 日志级别，appender1, appender2,… 　　　　日志级别：ALL &amp;lt; D">
+<meta name="twitter:description" content="Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置 或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&amp;gt; src同级创建并设置log4j.properties">
 
 
 
@@ -377,7 +377,7 @@
 
       
         <pre><code>Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置
-</code></pre><p>或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&gt; src同级创建并设置log4j.properties<br>　　log4j.rootLogger = 日志级别，appender1, appender2,…</p>
+</code></pre><p>或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&gt; src同级创建并设置log4j.properties<br><a id="more"></a><br>　　log4j.rootLogger = 日志级别，appender1, appender2,…</p>
 <p>　　　　日志级别：ALL &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL &lt; OFF，不区分大小写</p>
 <p>　　　　注意，需在控制台输入，只需将其中一个appender定义为stdout即可<br>　　　　注意，rootLogger默认是对整个工程生效<br>　　　　注意，如果只想对某些包操作，<br>        那么：log4j.logger.hsy.utils = info, stdout，表示该日志对package hsy.util生效<br>　　　　注意，这样做可以区分dev/线上，也可以减小性能影响：if(log.isDebugEnabled()){log.debug();}<br>　　　　———————–</p>
 <p>　　　　log4j.appender.appender1 = org.apache.log4j.日志输出到哪儿<br>　　　　　　ConsoleAppender（控制台）<br>　　　　　　FileAppender（文件）<br>　　　　　　DailyRollingFileAppender（每天产生一个日志文件）<br>　　　　　　RollingFileAppender（文件大小到达指定尺寸时产生一个新的文件）<br>　　　　　　WriteAppender（将日志信息以流格式发送到任意指定的地方）<br>　　　　　　JDBCAppender（将日志信息保存到数据库中）<br>　　　　　　log4j.appender.appender1.File=文件目录及文件<br>　　　　    log4j.appender.appender1.MaxFileSize=最大文件大小<br>　　　　    log4j.appender.appender1.MaxBackupIndex=备份文件个数</p>
@@ -459,8 +459,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/26/日志管理-1-关于日志的扯淡/" rel="next" title="(日志管理-1)关于日志的扯淡">
-                <i class="fa fa-chevron-left"></i> (日志管理-1)关于日志的扯淡
+              <a href="/2017/04/26/日志管理-3-logback剖析/" rel="next" title="(日志管理-3)-logback剖析">
+                <i class="fa fa-chevron-left"></i> (日志管理-3)-logback剖析
               </a>
             
           </div>
@@ -468,6 +468,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/26/日志管理-1-关于日志的扯淡/" rel="prev" title="(日志管理-1)关于日志的扯淡">
+                (日志管理-1)关于日志的扯淡 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
