@@ -92,7 +92,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="springboot,spring,架构," />
+  <meta name="keywords" content="centos7,jdk," />
 
 
 
@@ -106,17 +106,20 @@
 
 
 
-<meta name="description" content="springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。">
-<meta name="keywords" content="springboot,spring,架构">
+<meta name="description" content="本章讲解在centos服务器上部署java开发环境之jdk安装，分rpm安装和tar.gz安装">
+<meta name="keywords" content="centos7,jdk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="架构之路-springboot演进">
-<meta property="og:url" content="http://yoursite.com/2017/05/24/架构之路-springboot演进/index.html">
+<meta property="og:title" content="centos7自学之2-jdk配置">
+<meta property="og:url" content="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/index.html">
 <meta property="og:site_name" content="远哥家">
-<meta property="og:description" content="springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。">
-<meta property="og:updated_time" content="2017-06-11T01:50:32.000Z">
+<meta property="og:description" content="本章讲解在centos服务器上部署java开发环境之jdk安装，分rpm安装和tar.gz安装">
+<meta property="og:image" content="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/uploads/javaversion.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/uploads/javaversion.png">
+<meta property="og:updated_time" content="2017-08-11T04:18:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="架构之路-springboot演进">
-<meta name="twitter:description" content="springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。">
+<meta name="twitter:title" content="centos7自学之2-jdk配置">
+<meta name="twitter:description" content="本章讲解在centos服务器上部署java开发环境之jdk安装，分rpm安装和tar.gz安装">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/uploads/javaversion.png">
 
 
 
@@ -144,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/24/架构之路-springboot演进/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/"/>
 
 
 
 
 
-  <title>架构之路-springboot演进 | 远哥家</title>
+  <title>centos7自学之2-jdk配置 | 远哥家</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -290,7 +293,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/24/架构之路-springboot演进/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="天道悲鸣">
@@ -307,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">架构之路-springboot演进</h1>
+          <h1 class="post-title" itemprop="name headline">centos7自学之2-jdk配置</h1>
         
 
         <div class="post-meta">
@@ -319,8 +322,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T10:34:03+08:00">
-                2017-05-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-11T10:37:30+08:00">
+                2017-08-11
               </time>
             
 
@@ -329,6 +332,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/centos7自学/" itemprop="url" rel="index">
+                    <span itemprop="name">centos7自学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -354,7 +379,42 @@
       
 
       
-        <p>springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供<br>一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。<br><a id="more"></a><br>springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供<br>一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。<br>也正是这些特点，springboot迅速被市场上大小商业公司启用，也就有了我们学习springboot的必要性。<br>    springboot特点：<br>      1.创建独立的spring应用<br>      2.潜入的tomcat，无需部署war文件<br>      3.大大简化maven配置<br>      4.提供准生产型产品，如项目指标，项目健康检查，项目监控，项目部署等工具<br>      5.没有xml文件<br>      6.自动约定配置spring<br>    springboot项目的搭建过程在后续系列补充上，前期先架构一下项目<br>    <a href="/uploads/springboot01.png">jiagou</a></p>
+        <p>本章讲解在centos服务器上部署java开发环境之jdk安装，分rpm安装和tar.gz安装<br><a id="more"></a></p>
+<h2 id="安装之前"><a href="#安装之前" class="headerlink" title="安装之前"></a>安装之前</h2><h3 id="安装环境检查"><a href="#安装环境检查" class="headerlink" title="安装环境检查"></a>安装环境检查</h3><h4 id="查看当前系统jdk"><a href="#查看当前系统jdk" class="headerlink" title="查看当前系统jdk"></a>查看当前系统jdk</h4><blockquote>
+<p>java -version</p>
+</blockquote>
+<p><img src="uploads/javaversion.png" alt="javaversion"></p>
+<h4 id="进一步查看jdk信息"><a href="#进一步查看jdk信息" class="headerlink" title="进一步查看jdk信息"></a>进一步查看jdk信息</h4><blockquote>
+<p>rpm -qa | grep java  <br><br>rpm -qa | grep jdk   <br><br>rpm -qa | grep -E ‘^open[jre|jdk]|j[re|dk]</p>
+</blockquote>
+<h4 id="卸载jdk"><a href="#卸载jdk" class="headerlink" title="卸载jdk"></a>卸载jdk</h4><blockquote>
+<p>rpm -e –nodeps + 上面查出来的openjdk相关</p>
+</blockquote>
+<h2 id="rpm安装"><a href="#rpm安装" class="headerlink" title="rpm安装"></a>rpm安装</h2><h3 id="下载rpm安装文件"><a href="#下载rpm安装文件" class="headerlink" title="下载rpm安装文件"></a>下载rpm安装文件</h3><p>进oracle官网下载适用于自己版本的*.rpm格式的jdk<br>wget方式下载，进入保存下载文件的路径</p>
+<blockquote>
+<p>cd /home/robot/data <br><br>wget <a href="http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm</a><br><br></p>
+</blockquote>
+<p>如果没有wget命令，执行 <br></p>
+<blockquote>
+<p>yun install wget</p>
+</blockquote>
+<h3 id="rpm命令安装"><a href="#rpm命令安装" class="headerlink" title="rpm命令安装"></a>rpm命令安装</h3><blockquote>
+<p>rpm -ivh *.rpm</p>
+</blockquote>
+<h3 id="验证安装，终端输入-java-或者-javac-或者-java-version"><a href="#验证安装，终端输入-java-或者-javac-或者-java-version" class="headerlink" title="验证安装，终端输入 java  或者 javac 或者 java -version"></a>验证安装，终端输入 java  或者 javac 或者 java -version</h3><blockquote>
+<p>java</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>javac</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>java -version</p>
+</blockquote>
+<p>出现下图情况即为安装成功  <br><br><img src="uploads/javaversion.png" alt="javaversion"> <br><br>注意：此种安装方式不需要配置环境变量，比较快捷，方便！此方式也是我目前使用的方式</p>
+<h2 id="tar-gz解压安装"><a href="#tar-gz解压安装" class="headerlink" title="tar.gz解压安装"></a>tar.gz解压安装</h2><p>持续更新中…</p>
+<p>下一篇“centos7自学之3tomcat环境配置”正在疯狂编写中，敬请期待</p>
 
       
     </div>
@@ -410,7 +470,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/springboot-spring-架构/" rel="tag"># springboot,spring,架构</a>
+            <a href="/tags/centos7-jdk/" rel="tag"># centos7,jdk</a>
           
         </div>
       
@@ -423,18 +483,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/26/谈钱增感情-执行力很差劲！我不只说我自己，我说的是朋友圈的各位!/" rel="next" title="谈钱增进感情-执行力很差劲！我不只说我自己，我说的是朋友圈的各位。">
-                <i class="fa fa-chevron-left"></i> 谈钱增进感情-执行力很差劲！我不只说我自己，我说的是朋友圈的各位。
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/27/java基础-1-java安装及环境变量配置/" rel="prev" title="java基础-1-java安装及环境变量配置">
-                java基础-1-java安装及环境变量配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/10/jdk8-jdbc-mariadb/" rel="prev" title="商城项目之jdk8+jdbc+mariadb">
+                商城项目之jdk8+jdbc+mariadb <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -482,8 +538,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/photo.png"
@@ -601,6 +666,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装之前"><span class="nav-number">1.</span> <span class="nav-text">安装之前</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装环境检查"><span class="nav-number">1.1.</span> <span class="nav-text">安装环境检查</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看当前系统jdk"><span class="nav-number">1.1.1.</span> <span class="nav-text">查看当前系统jdk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进一步查看jdk信息"><span class="nav-number">1.1.2.</span> <span class="nav-text">进一步查看jdk信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载jdk"><span class="nav-number">1.1.3.</span> <span class="nav-text">卸载jdk</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rpm安装"><span class="nav-number">2.</span> <span class="nav-text">rpm安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载rpm安装文件"><span class="nav-number">2.1.</span> <span class="nav-text">下载rpm安装文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rpm命令安装"><span class="nav-number">2.2.</span> <span class="nav-text">rpm命令安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证安装，终端输入-java-或者-javac-或者-java-version"><span class="nav-number">2.3.</span> <span class="nav-text">验证安装，终端输入 java  或者 javac 或者 java -version</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar-gz解压安装"><span class="nav-number">3.</span> <span class="nav-text">tar.gz解压安装</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
