@@ -1,0 +1,929 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="solr,solrcloud," />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SolrCloud(solr集群)是Solr提供的分布式搜索方案。">
+<meta name="keywords" content="solr,solrcloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7自学之5-基于solr6.6的solrcloud集群搭建">
+<meta property="og:url" content="http://yoursite.com/2017/08/13/centos7自学之5-基于solr6-6的solrcloud集群搭建/index.html">
+<meta property="og:site_name" content="远哥家">
+<meta property="og:description" content="SolrCloud(solr集群)是Solr提供的分布式搜索方案。">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud1.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud2.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud3.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud4.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud5.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud6.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud7.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud8.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud9.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud10.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud11.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud12.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud13.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud14.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solrcloud15.png">
+<meta property="og:updated_time" content="2017-08-13T10:01:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos7自学之5-基于solr6.6的solrcloud集群搭建">
+<meta name="twitter:description" content="SolrCloud(solr集群)是Solr提供的分布式搜索方案。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/solrcloud1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/13/centos7自学之5-基于solr6-6的solrcloud集群搭建/"/>
+
+
+
+
+
+  <title>centos7自学之5-基于solr6.6的solrcloud集群搭建 | 远哥家</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">远哥家</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">花钱的艺术，存钱的智慧</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            历史文章
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-donate">
+          <a href="/donate" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            捐赠名单
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/13/centos7自学之5-基于solr6-6的solrcloud集群搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天道悲鸣">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/photo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="远哥家">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">centos7自学之5-基于solr6.6的solrcloud集群搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-13T16:14:55+08:00">
+                2017-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/centos7自学/" itemprop="url" rel="index">
+                    <span itemprop="name">centos7自学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>SolrCloud(solr集群)是Solr提供的分布式搜索方案。<br><a id="more"></a></p>
+<h2 id="Solrcloud介绍"><a href="#Solrcloud介绍" class="headerlink" title="Solrcloud介绍"></a>Solrcloud介绍</h2><p>SolrCloud(solr集群)是Solr提供的分布式搜索方案。<br>当你需要大规模，容错，分布式索引和检索能力时使用SolrCloud。<br>当索引量很大，搜索请求并发很高时，同样需要使用SolrCloud来满足这些需求。<br>不过当一个系统的索引数据量少的时候是没有必要使用SolrCloud的。<br>SolrCloud是基于Solr和Zookeeper的分布式搜索方案。<br>它的主要思想是使用Zookeeper作为SolrCloud集群的配置信息中心，统一管理solrcloud的配置，比如solrconfig.xml和schema.xml。</p>
+<h2 id="Solrcloud特点"><a href="#Solrcloud特点" class="headerlink" title="Solrcloud特点"></a>Solrcloud特点</h2><p>1.集中式的配置信息 <br><br>2.自动容错<br><br>3.近实时搜索<br><br>4.查询时自动负载均衡<br></p>
+<h2 id="Solrcloud结构"><a href="#Solrcloud结构" class="headerlink" title="Solrcloud结构"></a>Solrcloud结构</h2><p>solrcloud为了降低单机的处理压力，需要由多台服务器共同来完成索引和搜索任务。实现的思路是将索引数据进行Shard分片，每个分片由多台服务器共同完成，当一个索引或搜索请求过来时会分别从不同的Shard的服务器中操作索引。solrcloud是基于solr和zookeeper部署，zookeeper是一个集群管理软件，solrcloud需要由多台solr服务器组成，然后由zookeeper来进行协调管理。<br>由于solrcloud一般都是解决大数据量、大并发的搜索服务，所以搭建solrcloud之前，首先需要搭建zookeeper注册中心集群。</p>
+<h2 id="Solrcloud安装"><a href="#Solrcloud安装" class="headerlink" title="Solrcloud安装"></a>Solrcloud安装</h2><h3 id="搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。"><a href="#搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。" class="headerlink" title="搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。"></a>搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。</h3><p>1.安装jdk环境，tomcat，zookeeper依赖java环境，参考这里<a href="http://blog.csdn.net/u012806787/article/details/77096058" target="_blank" rel="external">centos7自学之2-jdk配置</a></p>
+<p>2.下载并配置zookeeper环境，解压到/home/root/solrcloud/zk1/</p>
+<blockquote>
+<p>cd /home/root/data/ <br><br>wget <a href="http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz" target="_blank" rel="external">http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz</a><br><br>tar -zxf zookeeper-3.4.10.tar.gz <br><br>mv zookeeper-3.4.10 ../solrcloud/zk1</p>
+</blockquote>
+<p>3.进入zk1/conf目录，将zoo_sample.cfg文件名称改为zoo.cfg</p>
+<blockquote>
+<p>cd ../solrcloud/zk1/conf <br><br>mv zoo_sample.cfg zoo.cfg</p>
+</blockquote>
+<p>4.修改zoo.cfg文件，配置集群信息(俩个截图信息都是配置在zoo.cfg文件中)</p>
+<blockquote>
+<p>mkdir ../data <br><br>vim zoo.cfg</p>
+</blockquote>
+<p><img src="/uploads/solrcloud1.png" alt=""></p>
+<p>5.在dataDir(对应zoo.cfg配置文件中的目录结构)目录下创建myid文件，文件内容为1，对应server.1中的1。</p>
+<blockquote>
+<p>vim /home/root/solrcloud/zk1/data/myid</p>
+</blockquote>
+<p><img src="/uploads/solrcloud2.png" alt=""></p>
+<p>6.拷贝zk1，复制两个目录zk2、zk3。并修改zoo.cfg和myid两个文件为对应的内容。</p>
+<blockquote>
+<p>cp -r zk1 zk2 <br><br>cp -r zk1 zk3 <br><br>vim /home/root/solrcooud/zk2/conf/zoo.cfg <br><br>vim /home/root/solrcooud/zk3/conf/zoo.cfg </p>
+</blockquote>
+<p><img src="/uploads/solrcloud3.png" alt=""></p>
+<p><img src="/uploads/solrcloud4.png" alt=""></p>
+<p>zk2,zk3 对应的myid改为2，3</p>
+<blockquote>
+<p>vim solrcloud/zk3/data/myid <br><br>vim solrcloud/zk2/data/myid</p>
+</blockquote>
+<h3 id="solr集群部署"><a href="#solr集群部署" class="headerlink" title="solr集群部署"></a>solr集群部署</h3><p>1.复制4个单机版solr服务对应的tomcat，并分别修改端口为：8081、8082、8083、8084。<br>单机版solr服务器可以参考这里部署<a href="http://blog.csdn.net/u012806787/article/details/77098148" target="_blank" rel="external">centos7自学之4-solr6.6搜索服务器安装及IK分词器配置 </a></p>
+<blockquote>
+<p> cp -r solr/tomcat-solr-8080 solrcloud/tomcat-solr-8081 <br><br> cp -r solr/tomcat-solr-8080 solrcloud/tomcat-solr-8082 <br><br> cp -r solr/tomcat-solr-8080 solrcloud/tomcat-solr-8083 <br><br> cp -r solr/tomcat-solr-8080 solrcloud/tomcat-solr-8084 <br></p>
+</blockquote>
+<p>2.复制4个solrhome，分别为solrhome8081、solrhome8082、solrhome8083、solrhome8084。一个solr实例对应一个solrhome。<br>solehome部署方式请参考这里<a href="http://blog.csdn.net/u012806787/article/details/77098148" target="_blank" rel="external">centos7自学之4-solr6.6搜索服务器安装及IK分词器配置 </a></p>
+<p>做完之后如下图</p>
+<p><img src="/uploads/solrcloud5.png" alt=""></p>
+<p>3.修改每个solr服务对应的Tomcat容器中solr项目的web.xml文件中的内容(目录结构为/home/root/solrcloud/tomcat-solr-8081/webapps/solr/WEB-INF)</p>
+<blockquote>
+<p> vim tomcat-solr-8081/webapps/solr/WEB-INF/web.xml </p>
+</blockquote>
+<p><img src="/uploads/solrcloud6.png" alt=""></p>
+<p>同理更改剩下的三个tomcat</p>
+<p>4.修改每个solrhome下的solr.xml，指定对应solr服务的tomcat的ip和端口。</p>
+<blockquote>
+<p>vim solrhome8081/solr.xml </p>
+</blockquote>
+<p><img src="/uploads/solrcloud7.png" alt=""></p>
+<p>5.设置tomcat的启动参数，在每个tomcat目录下的bin/catalina.sh，添加以下内容：</p>
+<blockquote>
+<p>JAVA_OPTS=”-DzkHost=192.168.216.129:2281,192.168.216.129:2282,192.168.216.129:2283” <br><br>vim tomcat-solr-8081/bin/catalina.sh </p>
+</blockquote>
+<p><img src="/uploads/solrcloud8.png" alt=""></p>
+<p>6.将solr配置文件上传到zookeeper中，进行统一管理，进入到/solr/solr-6.6.0/server/scripts/cloud-scripts/目录中执行zkcli.sh命令：</p>
+<blockquote>
+<p>./zkcli.sh -zkhost 192.168.216.129:2281,192.168.216.129:2282,192.168.216.129:2283 -cmd   upconfig -confdir /usr/local/solrcloud/solrhome8280/collection1/conf -confname   myconf(每个ip地址之间用逗号分隔)</p>
+</blockquote>
+<p><img src="/uploads/solrcloud9.png" alt=""></p>
+<p>7.编写脚本文件<br>启动所有的zookeeper服务</p>
+<blockquote>
+<p>mkdir /home/root/myShell <br><br>vim zk-start-all.sh</p>
+</blockquote>
+<p><img src="/uploads/solrcloud10.png" alt=""></p>
+<p>监控所有zk服务启动状态</p>
+<blockquote>
+<p>vim zk-status-all.sh </p>
+</blockquote>
+<p><img src="/uploads/solrcloud11.png" alt=""></p>
+<p>停止所有zk服务</p>
+<blockquote>
+<p>vim zk-stop-all.sh </p>
+</blockquote>
+<p><img src="/uploads/solrcloud12.png" alt=""></p>
+<p>启动所有tomcat服务器</p>
+<blockquote>
+<p>vim tomcat-start-all.sh  </p>
+</blockquote>
+<p><img src="/uploads/solrcloud13.png" alt=""></p>
+<p>停止所有tomcat服务器</p>
+<blockquote>
+<p>vim tomcat-shutdown-all.sh   </p>
+</blockquote>
+<p><img src="/uploads/solrcloud14.png" alt=""></p>
+<p>给创建的脚本赋权</p>
+<blockquote>
+<p>chmod a+x zk-status-all.sh <br><br>…</p>
+</blockquote>
+<p>8.访问部署的solr集群中任意的端口服务</p>
+<p><img src="/uploads/solrcloud15.png" alt=""></p>
+<h2 id="solrcloud部署完成"><a href="#solrcloud部署完成" class="headerlink" title="solrcloud部署完成"></a>solrcloud部署完成</h2>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode.jpg# /uploads/wechat-qcode.jpg" alt="天道悲鸣 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的微信公众号！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/WechatPay.jpeg" alt="天道悲鸣 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/AliPay.jpeg" alt="天道悲鸣 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/solr-solrcloud/" rel="tag"># solr,solrcloud</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/11/centos7自学之4-solr6-6搜索服务器安装及IK分词器配置/" rel="prev" title="centos7自学之4-solr6.6搜索服务器安装及IK分词器配置">
+                centos7自学之4-solr6.6搜索服务器安装及IK分词器配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/photo.png"
+               alt="天道悲鸣" />
+          <p class="site-author-name" itemprop="name">天道悲鸣</p>
+           
+              <p class="site-description motion-element" itemprop="description">凡人求佛，圣人问心</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shiyuan2he" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/shiyuanhe/home" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/u012806787" target="_blank" title="csdn">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  csdn
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/hsyuan/" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://thoreauz.com/" title="二道崖" target="_blank">二道崖</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://aspiresnow.github.io/" title="立志" target="_blank">立志</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solrcloud介绍"><span class="nav-number">1.</span> <span class="nav-text">Solrcloud介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solrcloud特点"><span class="nav-number">2.</span> <span class="nav-text">Solrcloud特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solrcloud结构"><span class="nav-number">3.</span> <span class="nav-text">Solrcloud结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solrcloud安装"><span class="nav-number">4.</span> <span class="nav-text">Solrcloud安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。"><span class="nav-number">4.1.</span> <span class="nav-text">搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solr集群部署"><span class="nav-number">4.2.</span> <span class="nav-text">solr集群部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solrcloud部署完成"><span class="nav-number">5.</span> <span class="nav-text">solrcloud部署完成</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">天道悲鸣</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

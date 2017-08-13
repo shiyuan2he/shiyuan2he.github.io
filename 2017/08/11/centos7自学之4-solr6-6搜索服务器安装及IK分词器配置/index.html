@@ -116,7 +116,11 @@
 <meta property="og:image" content="http://yoursite.com/uploads/solr.png">
 <meta property="og:image" content="http://yoursite.com/uploads/solr-collection1.png">
 <meta property="og:image" content="http://yoursite.com/uploads/solr2.png">
-<meta property="og:updated_time" content="2017-08-11T07:24:22.000Z">
+<meta property="og:image" content="http://yoursite.com/uploads/IKanylics.png">
+<meta property="og:image" content="http://yoursite.com/uploads/ik.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solr3.png">
+<meta property="og:image" content="http://yoursite.com/uploads/solr4.png">
+<meta property="og:updated_time" content="2017-08-13T08:09:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7自学之4-solr6.6搜索服务器安装及IK分词器配置">
 <meta name="twitter:description" content="Solr是一个高性能，采用Java5开发，Solr基于Lucene的全文搜索服务器。同时对其进行了扩展，提供了比Lucene更为丰富的查询语言，同时实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面，是一款非常优秀的全文搜索引擎。">
@@ -425,7 +429,35 @@
 <h2 id="运行solr"><a href="#运行solr" class="headerlink" title="运行solr"></a>运行solr</h2><p>./root/solr/tomcat-solr-8080/bin/startup.sh &amp; tail -f /root/solr/tomcat-solr-8080/logs/catalina.out</p>
 </blockquote>
 <p>访问solr服务器 <br><br><img src="/uploads/solr-collection1.png" alt=""> <br><br>效果图 <br><br><img src="/uploads/solr2.png" alt=""></p>
-<h2 id="ik分词器配置"><a href="#ik分词器配置" class="headerlink" title="ik分词器配置"></a>ik分词器配置</h2><p>码农疯狂编写中，敬请期待。。。</p>
+<h2 id="ik分词器配置"><a href="#ik分词器配置" class="headerlink" title="ik分词器配置"></a>ik分词器配置</h2><p>Elasticsearch 内置的分词器对中文不友好，会把中文分成单个字来进行全文检索，不能达到想要的结果,所以需要配置一款智能的中文分词器–ik中文分词器<br>下载地址：<a href="http://download.csdn.net/download/u012806787/9930802" target="_blank" rel="external">点击这里</a></p>
+<blockquote>
+<p>cd /home/root/data/ <br></p>
+</blockquote>
+<p>下载完成并上传到/home/root/data/，解压</p>
+<blockquote>
+<p>yum install -y zip unzip <br><br>unzip ikanalyzer-solr6.6.zip  <br><br>mkdir /home/root/solr/ik<br>mv /home/root/data/ikanalyzer-solr5 /home/root/solr/ik/ <br><br> cd /home/root/solr/ik/<br>cp -r ext.dic stopword.dic IKAnalyzer.cfg.xml solr/tomcat-solr-8080/webapps/solr/WEB-INF/classes/  <br></p>
+</blockquote>
+<p>修改IKAnalyzer.cfg.xml</p>
+<blockquote>
+<p> vim solr/tomcat-solr-8080/webapps/solr/WEB-INF/classes/IKAnalyzer.cfg.xml <br></p>
+</blockquote>
+<p><img src="/uploads/IKanylics.png" alt=""></p>
+<p>复制solr-analyzer-ik-5.1.0.jar ik-analyzer-solr5-5.x.jar到solr/tomcat-solr-8080/webapps/solr/WEB-INF/lib/目录下。</p>
+<blockquote>
+<p>cp ik-analyzer-solr5-5.x.jar solr-analyzer-ik-5.1.0.jar solr/tomcat-solr-8080/webapps/solr/WEB-INF/lib/</p>
+</blockquote>
+<p>在 solr/solrhome8080/isolr/conf/managed-schema文件前增加如下配置</p>
+<blockquote>
+<p>vim solr/solrhome8080/isolr/conf/managed-schema </p>
+</blockquote>
+<p><img src="/uploads/ik.png" alt=""></p>
+<p>重启solr服务器</p>
+<blockquote>
+<p>./solr/tomcat-solr-8080/bin/shutdown.sh<br> ./solr/tomcat-solr-8080/bin/startup.sh &amp; tail -f solr/tomcat-solr-8080/logs/catalina.out </p>
+</blockquote>
+<p>查看效果</p>
+<p><img src="/uploads/solr3.png" alt=""></p>
+<p><img src="/uploads/solr4.png" alt=""></p>
 
       
     </div>
@@ -493,6 +525,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/centos7自学之5-基于solr6-6的solrcloud集群搭建/" rel="next" title="centos7自学之5-基于solr6.6的solrcloud集群搭建">
+                <i class="fa fa-chevron-left"></i> centos7自学之5-基于solr6.6的solrcloud集群搭建
+              </a>
             
           </div>
 
@@ -574,7 +610,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -596,7 +632,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
