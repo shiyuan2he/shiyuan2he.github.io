@@ -106,17 +106,19 @@
 
 
 
-<meta name="description" content="待填充">
+<meta name="description" content="日志系统作为一种应用程序服务，对于跟踪调试、程序状态记录、崩溃数据恢复都有着重要的作用。">
 <meta name="keywords" content="log4j,java,日志,logback">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(日志管理-1)关于日志的扯淡">
 <meta property="og:url" content="http://yoursite.com/2017/04/26/日志管理-1-关于日志的扯淡/index.html">
 <meta property="og:site_name" content="远哥家">
-<meta property="og:description" content="待填充">
-<meta property="og:updated_time" content="2017-04-27T11:45:34.000Z">
+<meta property="og:description" content="日志系统作为一种应用程序服务，对于跟踪调试、程序状态记录、崩溃数据恢复都有着重要的作用。">
+<meta property="og:image" content="http://yoursite.com/uploads/logger.png">
+<meta property="og:updated_time" content="2017-08-17T02:30:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(日志管理-1)关于日志的扯淡">
-<meta name="twitter:description" content="待填充">
+<meta name="twitter:description" content="日志系统作为一种应用程序服务，对于跟踪调试、程序状态记录、崩溃数据恢复都有着重要的作用。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/logger.png">
 
 
 
@@ -376,8 +378,47 @@
       
 
       
-        <pre><code>待填充
-</code></pre><a id="more"></a>
+        <p>日志系统作为一种应用程序服务，对于跟踪调试、程序状态记录、崩溃数据恢复都有着重要的作用。<br><a id="more"></a></p>
+<h2 id="日志简介"><a href="#日志简介" class="headerlink" title="日志简介"></a>日志简介</h2><p>对于一个应用程序来说日志记录是必不可少的一部分。线上问题追踪，基于日志的业务逻辑统计分析等都离不开日志。java领域存在多种日志框架，目前常用的日志框架包括Log4j，Log4j 2，Commons Logging，slf4j，logback，jul。如果不是用心归纳过，相信很多java开发者都会混乱。</p>
+<h2 id="java日志框架门派"><a href="#java日志框架门派" class="headerlink" title="java日志框架门派"></a>java日志框架门派</h2><ul>
+<li><p>Log4j：Apache Log4j是一个基于Java的日志记录工具。它是由Ceki Gülcü首创的，现在则是Apache软件基金会的一个项目。</p>
+</li>
+<li><p>Log4j 2：Apache Log4j 2是apache开发的一款Log4j的升级产品。</p>
+</li>
+<li><p>Commons Logging：Apache基金会所属的项目，是一套Java日志接口，之前叫Jakarta Commons Logging，后更名为Commons Logging。</p>
+</li>
+<li><p>slf4j：类似于Commons Logging，是一套简易Java日志门面，本身并无日志的实现。（Simple Logging Facade for Java，缩写Slf4j）。</p>
+</li>
+<li><p>Logback：一套日志组件的实现(slf4j阵营)。</p>
+</li>
+<li><p>Jul (Java Util Logging)：自Java1.4以来的官方日志实现。</p>
+</li>
+</ul>
+<h2 id="Java日志框架门派历史"><a href="#Java日志框架门派历史" class="headerlink" title="Java日志框架门派历史"></a>Java日志框架门派历史</h2><ol>
+<li><p>1996年早期，欧洲安全电子市场项目组决定编写它自己的程序跟踪API(Tracing API)。经过不断的完善，这个API终于成为一个十分受欢迎的Java日志软件包，即Log4j。后来Log4j成为Apache基金会项目中的一员。</p>
+</li>
+<li><p>期间Log4j近乎成了Java社区的日志标准。据说Apache基金会还曾经建议sun引入Log4j到java的标准库中，但Sun拒绝了。</p>
+</li>
+<li><p>2002年Java1.4发布，Sun推出了自己的日志库JUL(Java Util Logging),其实现基本模仿了Log4j的实现。在JUL出来以前，log4j就已经成为一项成熟的技术，使得log4j在选择上占据了一定的优势。</p>
+</li>
+<li><p>接着，Apache推出了Jakarta Commons Logging，JCL只是定义了一套日志接口(其内部也提供一个Simple Log的简单实现)，支持运行时动态加载日志组件的实现，也就是说，在你应用代码里，只需调用Commons Logging的接口，底层实现可以是log4j，也可以是Java Util Logging。</p>
+</li>
+<li><p>后来(2006年)，Ceki Gülcü不适应Apache的工作方式，离开了Apache。然后先后创建了slf4j(日志门面接口，类似于Commons Logging)和Logback(Slf4j的实现)两个项目，并回瑞典创建了QOS公司，QOS官网上是这样描述Logback的：The Generic，Reliable Fast&amp;Flexible Logging Framework(一个通用，可靠，快速且灵活的日志框架)。</p>
+</li>
+<li><p>现今，Java日志领域被划分为两大阵营：Commons Logging阵营和SLF4J阵营。<br>Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有证据表明，形式正在发生变化。2013年底有人分析了GitHub上30000个项目，统计出了最流行的100个Libraries，可以看出slf4j的发展趋势更好：</p>
+</li>
+<li>Apache眼看有被Logback反超的势头，于2012-07重写了log4j 1.x，成立了新的项目Log4j 2。Log4j 2具有logback的所有特性。</li>
+</ol>
+<p><img src="/uploads/logger.png" alt=""></p>
+<h2 id="java日志框架门派之间的关系"><a href="#java日志框架门派之间的关系" class="headerlink" title="java日志框架门派之间的关系"></a>java日志框架门派之间的关系</h2><ul>
+<li>Log4j2与Log4j1发生了很大的变化，log4j2不兼容log4j1。</li>
+<li>Commons Logging和Slf4j是日志门面(门面模式是软件工程中常用的一种软件设计模式，也被称为正面模式、外观模式。它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用)。log4j和Logback则是具体的日志实现方案。可以简单的理解为接口与接口的实现，调用这只需要关注接口而无需关注具体的实现，做到解耦。</li>
+<li>比较常用的组合使用方式是slf4j与logback组合使用，Commons Logging与Log4j组合使用。</li>
+<li>Logback必须配合Slf4j使用。由于Logback和Slf4j是同一个作者，其兼容性不言而喻。</li>
+</ul>
+<h2 id="Commons-Logging与Slf4j实现机制对比"><a href="#Commons-Logging与Slf4j实现机制对比" class="headerlink" title="Commons Logging与Slf4j实现机制对比"></a>Commons Logging与Slf4j实现机制对比</h2><h3 id="Commons-logging实现机制"><a href="#Commons-logging实现机制" class="headerlink" title="Commons logging实现机制"></a>Commons logging实现机制</h3><p>Commons logging是通过动态查找机制，在程序运行时，使用自己的ClassLoader寻找和载入本地具体的实现。详细策略可以查看commons-logging-*.jar包中的org.apache.commons.logging.impl.LogFactoryImpl.java文件。由于OSGi不同的插件使用独立的ClassLoader，OSGI的这种机制保证了插件互相独立, 其机制限制了commons logging在OSGi中的正常使用。</p>
+<h3 id="Slf4j实现机制"><a href="#Slf4j实现机制" class="headerlink" title="Slf4j实现机制"></a>Slf4j实现机制</h3><p>slf4j在编译期间，静态绑定本地的LOG库，因此可以在OSGi中正常使用。它是通过查找类路径下org.slf4j.impl.StaticLoggerBinder，然后绑定工作都在这类里面进行。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>以上简单的介绍了日志框架各门派之间的异同之处，通过基本的介绍相信读者能够做出自己的日志框架选型，后续的系列博客会详细介绍各个框架的详细运用。敬请期待。。。</p>
 
       
     </div>
@@ -501,8 +542,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/photo.png"
@@ -620,6 +670,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#日志简介"><span class="nav-number">1.</span> <span class="nav-text">日志简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java日志框架门派"><span class="nav-number">2.</span> <span class="nav-text">java日志框架门派</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java日志框架门派历史"><span class="nav-number">3.</span> <span class="nav-text">Java日志框架门派历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java日志框架门派之间的关系"><span class="nav-number">4.</span> <span class="nav-text">java日志框架门派之间的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commons-Logging与Slf4j实现机制对比"><span class="nav-number">5.</span> <span class="nav-text">Commons Logging与Slf4j实现机制对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Commons-logging实现机制"><span class="nav-number">5.1.</span> <span class="nav-text">Commons logging实现机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slf4j实现机制"><span class="nav-number">5.2.</span> <span class="nav-text">Slf4j实现机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
