@@ -1,43 +1,35 @@
-function hasClass(obj, cls) {
-    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+function myEvent(obj,ev,fn){
+	if(obj.attachEvent){
+		obj.attachEvent('on'+ev,fn);
+	}else{
+		obj.addEventListener(ev,fn,false);
+	}
 }
-function addClass(obj, cls) {
-    if (!hasClass(obj, cls)) obj.className += " " + cls;
-}
-function removeClass(obj, cls) {
-    if (hasClass(obj, cls)) {
-        var reg = new RegExp('(\\s+|^)' + cls + '(\\s|$)');
-        obj.className = obj.className.replace(reg, ' ');
-    }
-}
-window.onscroll = function() {
-  var totop = document.getElementById('totop');
-  var scroll = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY;
-  if (scroll >= 300) {
-    addClass(totop,"show");
-    //totop.classList.add("show");
-  } else {
-    removeClass(totop,"show");
-    removeClass(totop,"launch");
-    //totop.classList.remove("show", "launch");
-  }
-};
-function gotoTop(aSpeed, time) {
-  aSpeed = aSpeed || 0.1;
-  time = time || 10;
-  var totop = document.getElementById('totop');
-  var scroll = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY || 0;
-  var speeding = 1 + aSpeed;
-  window.scrollTo(0, Math.floor(scroll / speeding));
-  if (scroll > 0) {
-    var run = "gotoTop(" + aSpeed + ", " + time + ")";
-    window.setTimeout(run, time);
-  }
-}
-totop.onclick = function() {
-  var totop = document.getElementById('totop');
-  gotoTop(0.1, 20);
-  addClass(totop,"launch");
-  //totop.classList.add('launch');
-  return false;
-};
+myEvent(window,'load',function(){
+	var oRTT=document.getElementById('back_to_top');
+	var pH=document.documentElement.clientHeight;
+	var timer=null;
+	var scrollTop;
+	window.onscroll=function(){
+		scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+		if(scrollTop>=pH){
+			oRTT.style.display='block';
+		}else{
+			oRTT.style.display='none';
+		}
+		return scrollTop;
+	};
+	oRTT.onclick=function(){
+		clearInterval(timer);
+		timer=setInterval(function(){
+			var now=scrollTop;
+			var speed=(0-now)/10;
+			speed=speed>0?Math.ceil(speed):Math.floor(speed);
+			if(scrollTop==0){
+				clearInterval(timer);
+			}
+			document.documentElement.scrollTop=scrollTop+speed;
+			document.body.scrollTop=scrollTop+speed;
+		}, 30);
+	}
+});

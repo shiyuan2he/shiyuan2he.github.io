@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[(日志管理-3)Commons logging+log4j日志框架剖析]]></title>
+      <url>/2017/08/30/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-3-Commons-logging-log4j%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%89%96%E6%9E%90/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学之6-redis-4.0.1单例服务器搭建]]></title>
+      <url>/2017/08/22/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B6-redis-4-0-1%E5%8D%95%E4%BE%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
+      <content type="html"><![CDATA[<p>摘要: redis作为一种NoSql数据库，其提供了一种高效的缓存方案，本文则主要对其单例，主从模式，sentinel以及集群的配置方式进行说明，对比其优缺点，阐述redis作为一种缓存框架的高可用性。<br><a id="more"></a></p>
+<h2 id="redis简介"><a href="#redis简介" class="headerlink" title="redis简介"></a>redis简介</h2><p> redis作为一种高效的缓存框架，使用是非常广泛的，在数据存储上，在运行时其将数据存储在内存中，以实现数据的高效读写，并且根据定制的持久化规则不同，其会不定期的将数据持久化到硬盘中。另外相较于其他的NoSql数据库，redis提供了非常丰富的数据结构，如dict，sds，linkedlist，ziplist，set，quicklist，geometry。在这些存储结构的基础上，redis为用户提供了非常丰富的操作选择，如通过zskiplist来达到对某种类型的数据的排序目的，而排序在数据库中是一个非常耗时的操作。redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。与memcached一样，为了保证效率，数据都是缓存在内存中。区别的是redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步。</p>
+<h2 id="redis安装"><a href="#redis安装" class="headerlink" title="redis安装"></a>redis安装</h2><p>redis相对于其他的缓存框架安装非常的方便，只需要从<a href="http://download.redis.io/releases/redis-4.0.1.tar.gz" target="_blank" rel="external">https://redis.io/download</a>下载后解压,执行命令启动服务即可完成安装</p>
+<h3 id="redis下载"><a href="#redis下载" class="headerlink" title="redis下载"></a>redis下载</h3><blockquote>
+<p>cd /root/data <br><br>wget <a href="http://download.redis.io/releases/redis-4.0.1.tar.gz" target="_blank" rel="external">http://download.redis.io/releases/redis-4.0.1.tar.gz</a> <br><br>tar -xzvf redis-4.0.1.tar.gz <br><br>cd redis-4.0.1</p>
+</blockquote>
+<h3 id="redis安装-1"><a href="#redis安装-1" class="headerlink" title="redis安装"></a>redis安装</h3><p>进入redis-4.0.1执行make命令，注意，make是gcc库里的命令，如果报错请先安装gcc</p>
+<blockquote>
+<p>yum -y install gcc <br><br>make</p>
+</blockquote>
+<p>make会生成很多命令到src文件夹，进入文件夹可以看到有redis-server,reids-cli等命令，说明make成功</p>
+<blockquote>
+<p>make install PREFIX=/usr/local/redis</p>
+</blockquote>
+<p>此命令会将redis常用命令安装到/usr/local/redis/bin下面，如果/usr/local/redis/bin下面有以下命令即为安装redis成功</p>
+<p><img src="/uploads/redis1.png" alt=""></p>
+<h3 id="redis配置"><a href="#redis配置" class="headerlink" title="redis配置"></a>redis配置</h3><p>将解压的redis文件夹肿的redis.conf配置文件复制到/usr/local/redis/bin/，并用配置文件启动</p>
+<blockquote>
+<p> cp redis-4.0.1/redis.conf /usr/local/redis/bin/</p>
+</blockquote>
+<p>编辑redis.conf</p>
+<blockquote>
+<p>vim /usr/local/redis/bin/redis.conf</p>
+</blockquote>
+<p>1.将daemonize 由no改为yes    设置成开机启动</p>
+<p>2.将bind localhost(127.0.0.1) 注释掉 否则其他主机不能连接</p>
+<p>3.将protected-mode 设置为no 默认为yes需要使用密码</p>
+<h2 id="启动redis"><a href="#启动redis" class="headerlink" title="启动redis"></a>启动redis</h2><p>以配置文件启动</p>
+<blockquote>
+<p> ./redis-server redis.conf</p>
+</blockquote>
+<p><img src="/uploads/redis2.png" alt=""></p>
+<p>1.查看是否启动成功</p>
+<p><img src="/uploads/reids3.png" alt=""></p>
+<p>2.用redisclient或者redis desktop manage客户端工具连接测试。</p>
+<h2 id="关闭redis"><a href="#关闭redis" class="headerlink" title="关闭redis"></a>关闭redis</h2><p>命令行ctrl+c即可退出redis服务，或者使用命令关闭</p>
+<blockquote>
+<p> ./redis-cli shutdown</p>
+</blockquote>
+<h2 id="恭喜，完成redis单实例的搭建"><a href="#恭喜，完成redis单实例的搭建" class="headerlink" title="恭喜，完成redis单实例的搭建"></a>恭喜，完成redis单实例的搭建</h2>]]></content>
+      
+        <categories>
+            
+            <category> centos7自学 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学之5-基于solr6.6的solrcloud集群搭建]]></title>
+      <url>/2017/08/13/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B5-%E5%9F%BA%E4%BA%8Esolr6-6%E7%9A%84solrcloud%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</url>
+      <content type="html"><![CDATA[<p>SolrCloud(solr集群)是Solr提供的分布式搜索方案。<br><a id="more"></a></p>
+<h2 id="Solrcloud介绍"><a href="#Solrcloud介绍" class="headerlink" title="Solrcloud介绍"></a>Solrcloud介绍</h2><p>SolrCloud(solr集群)是Solr提供的分布式搜索方案。<br>当你需要大规模，容错，分布式索引和检索能力时使用SolrCloud。<br>当索引量很大，搜索请求并发很高时，同样需要使用SolrCloud来满足这些需求。<br>不过当一个系统的索引数据量少的时候是没有必要使用SolrCloud的。<br>SolrCloud是基于Solr和Zookeeper的分布式搜索方案。<br>它的主要思想是使用Zookeeper作为SolrCloud集群的配置信息中心，统一管理solrcloud的配置，比如solrconfig.xml和schema.xml。</p>
+<h2 id="Solrcloud特点"><a href="#Solrcloud特点" class="headerlink" title="Solrcloud特点"></a>Solrcloud特点</h2><p>1.集中式的配置信息 <br><br>2.自动容错<br><br>3.近实时搜索<br><br>4.查询时自动负载均衡<br></p>
+<h2 id="Solrcloud结构"><a href="#Solrcloud结构" class="headerlink" title="Solrcloud结构"></a>Solrcloud结构</h2><p>solrcloud为了降低单机的处理压力，需要由多台服务器共同来完成索引和搜索任务。实现的思路是将索引数据进行Shard分片，每个分片由多台服务器共同完成，当一个索引或搜索请求过来时会分别从不同的Shard的服务器中操作索引。solrcloud是基于solr和zookeeper部署，zookeeper是一个集群管理软件，solrcloud需要由多台solr服务器组成，然后由zookeeper来进行协调管理。<br>由于solrcloud一般都是解决大数据量、大并发的搜索服务，所以搭建solrcloud之前，首先需要搭建zookeeper注册中心集群。</p>
+<h2 id="Solrcloud安装"><a href="#Solrcloud安装" class="headerlink" title="Solrcloud安装"></a>Solrcloud安装</h2><h3 id="搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。"><a href="#搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。" class="headerlink" title="搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。"></a>搭建zookeeper集群步骤：需要三台zookeeper、分别是zk1、zk2、zk3，对应的端口分别为2281、2282、2283。</h3><p>1.安装jdk环境，tomcat，zookeeper依赖java环境，参考这里<a href="http://blog.csdn.net/u012806787/article/details/77096058" target="_blank" rel="external">centos7自学之2-jdk配置</a></p>
+<p>2.下载并配置zookeeper环境，解压到/home/root/solrcloud/zk1/</p>
+<blockquote>
+<p>cd /home/root/data/ <br><br>wget <a href="http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz" target="_blank" rel="external">http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz</a><br><br>tar -zxf zookeeper-3.4.10.tar.gz <br><br>mv zookeeper-3.4.10 ../solrcloud/zk1</p>
+</blockquote>
+<p>3.进入zk1/conf目录，将zoo_sample.cfg文件名称改为zoo.cfg</p>
+<blockquote>
+<p>cd ../solrcloud/zk1/conf <br><br>mv zoo_sample.cfg zoo.cfg</p>
+</blockquote>
+<p>4.修改zoo.cfg文件，配置集群信息(俩个截图信息都是配置在zoo.cfg文件中)</p>
+<blockquote>
+<p>mkdir ../data <br><br>vim zoo.cfg</p>
+</blockquote>
+<p><img src="/uploads/solrcloud1.png" alt=""></p>
+<p>5.在dataDir(对应zoo.cfg配置文件中的目录结构)目录下创建myid文件，文件内容为1，对应server.1中的1。</p>
+<blockquote>
+<p>vim /home/root/solrcloud/zk1/data/myid</p>
+</blockquote>
+<p><img src="/uploads/solrcloud2.png" alt=""></p>
+<p>6.拷贝zk1，复制两个目录zk2、zk3。并修改zoo.cfg和myid两个文件为对应的内容。</p>
+<blockquote>
+<p>cp -r zk1 zk2 <br><br>cp -r zk1 zk3 <br><br>vim /home/root/solrcooud/zk2/conf/zoo.cfg <br><br>vim /home/root/solrcooud/zk3/conf/zoo.cfg </p>
+</blockquote>
+<p><img src="/uploads/solrcloud3.png" alt=""></p>
+<p><img src="/uploads/solrcloud4.png" alt=""></p>
+<p>zk2,zk3 对应的myid改为2，3</p>
+<blockquote>
+<p>vim solrcloud/zk3/data/myid <br><br>vim solrcloud/zk2/data/myid</p>
+</blockquote>
+<h3 id="solr集群部署"><a href="#solr集群部署" class="headerlink" title="solr集群部署"></a>solr集群部署</h3><p>1.复制4个单机版solr服务对应的tomcat，并分别修改端口为：8081、8082、8083、8084。<br>单机版solr服务器可以参考这里部署<a href="http://blog.csdn.net/u012806787/article/details/77098148" target="_blank" rel="external">centos7自学之4-solr6.6搜索服务器安装及IK分词器配置 </a></p>
+<blockquote>
+<p> cp -r solr/tomcat-solr-8080 solrcloud/tomcat-solr-8081 <br><br> cp -r solr/tomcat-solr-8080 solrcloud/tomcat-solr-8082 <br><br> cp -r solr/tomcat-solr-8080 solrcloud/tomcat-solr-8083 <br><br> cp -r solr/tomcat-solr-8080 solrcloud/tomcat-solr-8084 <br></p>
+</blockquote>
+<p>2.复制4个solrhome，分别为solrhome8081、solrhome8082、solrhome8083、solrhome8084。一个solr实例对应一个solrhome。<br>solehome部署方式请参考这里<a href="http://blog.csdn.net/u012806787/article/details/77098148" target="_blank" rel="external">centos7自学之4-solr6.6搜索服务器安装及IK分词器配置 </a></p>
+<p>做完之后如下图</p>
+<p><img src="/uploads/solrcloud5.png" alt=""></p>
+<p>3.修改每个solr服务对应的Tomcat容器中solr项目的web.xml文件中的内容(目录结构为/home/root/solrcloud/tomcat-solr-8081/webapps/solr/WEB-INF)</p>
+<blockquote>
+<p> vim tomcat-solr-8081/webapps/solr/WEB-INF/web.xml </p>
+</blockquote>
+<p><img src="/uploads/solrcloud6.png" alt=""></p>
+<p>同理更改剩下的三个tomcat</p>
+<p>4.修改每个solrhome下的solr.xml，指定对应solr服务的tomcat的ip和端口。</p>
+<blockquote>
+<p>vim solrhome8081/solr.xml </p>
+</blockquote>
+<p><img src="/uploads/solrcloud7.png" alt=""></p>
+<p>5.设置tomcat的启动参数，在每个tomcat目录下的bin/catalina.sh，添加以下内容：</p>
+<blockquote>
+<p>JAVA_OPTS=”-DzkHost=192.168.216.129:2281,192.168.216.129:2282,192.168.216.129:2283” <br><br>vim tomcat-solr-8081/bin/catalina.sh </p>
+</blockquote>
+<p><img src="/uploads/solrcloud8.png" alt=""></p>
+<p>6.将solr配置文件上传到zookeeper中，进行统一管理，进入到/solr/solr-6.6.0/server/scripts/cloud-scripts/目录中执行zkcli.sh命令：</p>
+<blockquote>
+<p>./zkcli.sh -zkhost 192.168.216.129:2281,192.168.216.129:2282,192.168.216.129:2283 -cmd   upconfig -confdir /usr/local/solrcloud/solrhome8280/collection1/conf -confname   myconf(每个ip地址之间用逗号分隔)</p>
+</blockquote>
+<p><img src="/uploads/solrcloud9.png" alt=""></p>
+<p>7.编写脚本文件<br>启动所有的zookeeper服务</p>
+<blockquote>
+<p>mkdir /home/root/myShell <br><br>vim zk-start-all.sh</p>
+</blockquote>
+<p><img src="/uploads/solrcloud10.png" alt=""></p>
+<p>监控所有zk服务启动状态</p>
+<blockquote>
+<p>vim zk-status-all.sh </p>
+</blockquote>
+<p><img src="/uploads/solrcloud11.png" alt=""></p>
+<p>停止所有zk服务</p>
+<blockquote>
+<p>vim zk-stop-all.sh </p>
+</blockquote>
+<p><img src="/uploads/solrcloud12.png" alt=""></p>
+<p>启动所有tomcat服务器</p>
+<blockquote>
+<p>vim tomcat-start-all.sh  </p>
+</blockquote>
+<p><img src="/uploads/solrcloud13.png" alt=""></p>
+<p>停止所有tomcat服务器</p>
+<blockquote>
+<p>vim tomcat-shutdown-all.sh   </p>
+</blockquote>
+<p><img src="/uploads/solrcloud14.png" alt=""></p>
+<p>给创建的脚本赋权</p>
+<blockquote>
+<p>chmod a+x zk-status-all.sh <br><br>…</p>
+</blockquote>
+<p>8.访问部署的solr集群中任意的端口服务</p>
+<p><img src="/uploads/solrcloud15.png" alt=""></p>
+<h2 id="solrcloud部署完成"><a href="#solrcloud部署完成" class="headerlink" title="solrcloud部署完成"></a>solrcloud部署完成</h2>]]></content>
+      
+        <categories>
+            
+            <category> centos7自学 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> solr,solrcloud </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学之4-solr6.6搜索服务器安装及IK分词器配置]]></title>
+      <url>/2017/08/11/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B4-solr6-6%E6%90%9C%E7%B4%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85%E5%8F%8AIK%E5%88%86%E8%AF%8D%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>Solr是一个高性能，采用Java5开发，Solr基于Lucene的全文搜索服务器。同时对其进行了扩展，提供了比Lucene更为丰富的查询语言，同时实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面，是一款非常优秀的全文搜索引擎。<br><a id="more"></a></p>
+<h2 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h2><p>安装前请确保centos7系统已经安装过jdk8和tomcat8 <br><br>jdk安装请参考<a href="http://blog.csdn.net/u012806787/article/details/77096058" target="_blank" rel="external">http://blog.csdn.net/u012806787/article/details/77096058</a>  <br><br>tomcat安装请参考<a href="http://blog.csdn.net/u012806787/article/details/77096522" target="_blank" rel="external">centos7自学之3-tomcat环境配置</a></p>
+<h2 id="下载solr"><a href="#下载solr" class="headerlink" title="下载solr"></a>下载solr</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /root/data</div><div class="line">wget http:<span class="comment">//apache.fayea.com/lucene/solr/6.6.0/solr-6.6.0.tgz</span></div><div class="line">tar -zxvf solr-<span class="number">6.6</span>.0.tgz</div><div class="line">mv solr-<span class="number">6.6</span>.0 ../solr/</div></pre></td></tr></table></figure>
+<p>将tomcat解压后的文件夹移动到/root/solr/下面，如图 <br><br><img src="/uploads/solr.png" alt=""></p>
+<h2 id="安装solr"><a href="#安装solr" class="headerlink" title="安装solr"></a>安装solr</h2><p>1.将/root/solr/solr-6.6.0/server/solr-webapp/webapp文件夹复制到tomcat\webapps\下</p>
+<blockquote>
+<p>mv /root/solr/solr-6.6.0/server/solr-webapp/webapp solr/tomcat-solr-8080/webapps/solr</p>
+</blockquote>
+<p>2.将/root/solr/solr-6.6.0/server/lib/ext中的jar全部复制到/root/solr/tomcat-solr-8080/webapps/solr/WEB-INF/lib/目录中</p>
+<blockquote>
+<p> mv solr/solr-6.6.0/server/lib/ext/*.jar solr/tomcat-solr-8080/webapps/solr/WEB-INF/lib/</p>
+</blockquote>
+<p>3.将/root/solr/solr-6.6.0/server/lib/metrics*开头的jar全部复制到solr/tomcat-solr-8080/webapps/solr/WEB-INF/lib/目录中</p>
+<blockquote>
+<p>mv solr/solr-6.6.0/server/lib/metrics-*.jar solr/tomcat-solr-8080/webapps/solr/WEB-INF/lib/</p>
+</blockquote>
+<p>4.在/root/solr/tomcat-solr-8080/webapps/solr/WEB-INF下新建classes文件夹</p>
+<blockquote>
+<p>mkdir /root/solr/tomcat-solr-8080/webapps/solr/WEB-INF/classes</p>
+</blockquote>
+<p>5.将/root/solr/solr-6.6.0/server/resources/log4j.properties文件复制其中。</p>
+<blockquote>
+<p>cp -r /root/solr/solr-6.6.0/server/resources/log4j.properties solr/tomcat-solr-8080/webapps/solr/WEB-INF/classes/  </p>
+</blockquote>
+<p>6.新建文件夹solrhome，创建core使用</p>
+<blockquote>
+<p>mkdir /root/solr/solrhome8080</p>
+</blockquote>
+<p>7.复制solr/solr-6.6.0/server/solr/*所有文件到tomcat/solrhome目录，用到创建solr的core时使用。</p>
+<blockquote>
+<p> cp -r solr/solr-6.6.0/server/solr/* solr/solrhome8080/</p>
+</blockquote>
+<h2 id="配置solr"><a href="#配置solr" class="headerlink" title="配置solr"></a>配置solr</h2><p>编辑web.xml文件，并配置solrhome路径</p>
+<blockquote>
+<p>vim solr/tomcat-solr-8080/webapps/solr/WEB-INF/web.xml</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;env-entry&gt;</div><div class="line">    &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;</div><div class="line">    &lt;env-entry-value&gt;/root/solr/solrhome8080&lt;/env-entry-value&gt;</div><div class="line">    &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;</div><div class="line">&lt;/env-entry&gt;</div></pre></td></tr></table></figure>
+<p>配置访问权限,找到如下内容，并注释掉</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;!--</div><div class="line">  &lt;security-constraint&gt;</div><div class="line">    &lt;web-resource-collection&gt;</div><div class="line">      &lt;web-resource-name&gt;Disable TRACE&lt;/web-resource-name&gt;</div><div class="line">      &lt;url-pattern&gt;/&lt;/url-pattern&gt;</div><div class="line">      &lt;http-method&gt;TRACE&lt;/http-method&gt;</div><div class="line">    &lt;/web-resource-collection&gt;</div><div class="line">    &lt;auth-constraint/&gt;</div><div class="line">  &lt;/security-constraint&gt;</div><div class="line">  &lt;security-constraint&gt;</div><div class="line">    &lt;web-resource-collection&gt;</div><div class="line">      &lt;web-resource-name&gt;Enable everything but TRACE&lt;/web-resource-name&gt;</div><div class="line">      &lt;url-pattern&gt;/&lt;/url-pattern&gt;</div><div class="line">      &lt;http-method-omission&gt;TRACE&lt;/http-method-omission&gt;</div><div class="line">    &lt;/web-resource-collection&gt;</div><div class="line">  &lt;/security-constraint&gt;</div><div class="line">  --&gt;</div></pre></td></tr></table></figure>
+<h2 id="创建core-collection1"><a href="#创建core-collection1" class="headerlink" title="创建core-collection1"></a>创建core-collection1</h2><p>1.新建文件夹</p>
+<blockquote>
+<p>mkdir /root/solr/solrhome8080/collection1 <br><br>cp -r solr/solrhome8080/configsets/sample_techproducts_configs/conf solr/solrhome8080/collection1</p>
+<h2 id="运行solr"><a href="#运行solr" class="headerlink" title="运行solr"></a>运行solr</h2><p>./root/solr/tomcat-solr-8080/bin/startup.sh &amp; tail -f /root/solr/tomcat-solr-8080/logs/catalina.out</p>
+</blockquote>
+<p>访问solr服务器 <br><br><img src="/uploads/solr-collection1.png" alt=""> <br><br>效果图 <br><br><img src="/uploads/solr2.png" alt=""></p>
+<h2 id="ik分词器配置"><a href="#ik分词器配置" class="headerlink" title="ik分词器配置"></a>ik分词器配置</h2><p>Elasticsearch 内置的分词器对中文不友好，会把中文分成单个字来进行全文检索，不能达到想要的结果,所以需要配置一款智能的中文分词器–ik中文分词器<br>下载地址：<a href="http://download.csdn.net/download/u012806787/9930802" target="_blank" rel="external">点击这里</a></p>
+<blockquote>
+<p>cd /home/root/data/ <br></p>
+</blockquote>
+<p>下载完成并上传到/home/root/data/，解压</p>
+<blockquote>
+<p>yum install -y zip unzip <br><br>unzip ikanalyzer-solr6.6.zip  <br><br>mkdir /home/root/solr/ik<br>mv /home/root/data/ikanalyzer-solr5 /home/root/solr/ik/ <br><br> cd /home/root/solr/ik/<br>cp -r ext.dic stopword.dic IKAnalyzer.cfg.xml solr/tomcat-solr-8080/webapps/solr/WEB-INF/classes/  <br></p>
+</blockquote>
+<p>修改IKAnalyzer.cfg.xml</p>
+<blockquote>
+<p> vim solr/tomcat-solr-8080/webapps/solr/WEB-INF/classes/IKAnalyzer.cfg.xml <br></p>
+</blockquote>
+<p><img src="/uploads/IKanylics.png" alt=""></p>
+<p>复制solr-analyzer-ik-5.1.0.jar ik-analyzer-solr5-5.x.jar到solr/tomcat-solr-8080/webapps/solr/WEB-INF/lib/目录下。</p>
+<blockquote>
+<p>cp ik-analyzer-solr5-5.x.jar solr-analyzer-ik-5.1.0.jar solr/tomcat-solr-8080/webapps/solr/WEB-INF/lib/</p>
+</blockquote>
+<p>在 solr/solrhome8080/isolr/conf/managed-schema文件前增加如下配置</p>
+<blockquote>
+<p>vim solr/solrhome8080/isolr/conf/managed-schema </p>
+</blockquote>
+<p><img src="/uploads/ik.png" alt=""></p>
+<p>重启solr服务器</p>
+<blockquote>
+<p>./solr/tomcat-solr-8080/bin/shutdown.sh<br> ./solr/tomcat-solr-8080/bin/startup.sh &amp; tail -f solr/tomcat-solr-8080/logs/catalina.out </p>
+</blockquote>
+<p>查看效果</p>
+<p><img src="/uploads/solr3.png" alt=""></p>
+<p><img src="/uploads/solr4.png" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> centos7自学 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> centos7,solr,solr6,ik,分词器 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学之3-tomcat环境配置]]></title>
+      <url>/2017/08/11/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B3-tomcat%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>centos7配置tomcat服务器<br><a id="more"></a></p>
+<h3 id="下载tomcat"><a href="#下载tomcat" class="headerlink" title="下载tomcat"></a>下载tomcat</h3><blockquote>
+<p>cd /home/robot/Downloads</p>
+</blockquote>
+<p>打开浏览器进入tamcat官网查看tamcat下载地址：chrome下鼠标右健 edit as html 查看地址 并且复制出来</p>
+<blockquote>
+<p>wget <a href="http://mirrors.noc.im/apache/tomcat/tomcat-9/v9.0.0.M4/bin/apache-tomcat-9.0.0.M4.tar.gz" target="_blank" rel="external">http://mirrors.noc.im/apache/tomcat/tomcat-9/v9.0.0.M4/bin/apache-tomcat-9.0.0.M4.tar.gz</a>  </p>
+</blockquote>
+<p>没有wget命令</p>
+<blockquote>
+<p>yum -y install wget</p>
+</blockquote>
+<h3 id="安装tomcat"><a href="#安装tomcat" class="headerlink" title="安装tomcat"></a>安装tomcat</h3><blockquote>
+<p>mv  /home/robot/Downloads/*.tar.gz /home/robot/devTools/tomcat<br>cd /home/robot/devTools/tomcat/    </p>
+</blockquote>
+<p>执行命令    </p>
+<blockquote>
+<p>tar -zxvf *.tar.gz</p>
+</blockquote>
+<h3 id="启动tomcat"><a href="#启动tomcat" class="headerlink" title="启动tomcat"></a>启动tomcat</h3><blockquote>
+<p>./home/robot/devTools/tomcat/tomcat文件夹名/startup.sh &amp; tail -f /home/robot/devTools/tomcat/tomcat文件夹名/logs/catalina.out</p>
+</blockquote>
+<h3 id="开放防火墙端口号"><a href="#开放防火墙端口号" class="headerlink" title="开放防火墙端口号"></a>开放防火墙端口号</h3><blockquote>
+<p>vim /etc/systemfig/iptables    </p>
+</blockquote>
+<p>增加一行    </p>
+<blockquote>
+<p>-A RH-Firewall-1-INPUT -m state –state NEW -m tcp -p tcp –dport 8080 -j ACCEPT</p>
+</blockquote>
+<p>或者关闭防火墙 </p>
+<blockquote>
+<p>systemctl stop firewalld.service</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>firewall-cmd –zone=public –add-port=8080/tcp –permanent <br><br>firewall-cmd –reload</p>
+<h3 id="检验tomcat安装成功与否"><a href="#检验tomcat安装成功与否" class="headerlink" title="检验tomcat安装成功与否"></a>检验tomcat安装成功与否</h3><p>浏览器输入地址：<a href="http://ip:8080" target="_blank" rel="external">http://ip:8080</a>    看到tomcat界面即成功</p>
+<h3 id="停止tomcat"><a href="#停止tomcat" class="headerlink" title="停止tomcat"></a>停止tomcat</h3><p>./home/robot/devTools/tomcat/tomcat文件夹名/shutdown.sh &amp; tail -f /home/robot/devTools/tomcat/tomcat文件夹名/logs/catalina.out</p>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> centos7自学 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> linux,centos7,tomcat </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学之2-jdk配置]]></title>
+      <url>/2017/08/11/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B2-jdk%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>本章讲解在centos服务器上部署java开发环境之jdk安装，分rpm安装和tar.gz安装<br><a id="more"></a></p>
+<h2 id="安装之前"><a href="#安装之前" class="headerlink" title="安装之前"></a>安装之前</h2><h3 id="安装环境检查"><a href="#安装环境检查" class="headerlink" title="安装环境检查"></a>安装环境检查</h3><h4 id="查看当前系统jdk"><a href="#查看当前系统jdk" class="headerlink" title="查看当前系统jdk"></a>查看当前系统jdk</h4><blockquote>
+<p>java -version</p>
+</blockquote>
+<p><img src="uploads/javaversion.png" alt="javaversion"></p>
+<h4 id="进一步查看jdk信息"><a href="#进一步查看jdk信息" class="headerlink" title="进一步查看jdk信息"></a>进一步查看jdk信息</h4><blockquote>
+<p>rpm -qa | grep java  <br><br>rpm -qa | grep jdk   <br><br>rpm -qa | grep -E ‘^open[jre|jdk]|j[re|dk]</p>
+</blockquote>
+<h4 id="卸载jdk"><a href="#卸载jdk" class="headerlink" title="卸载jdk"></a>卸载jdk</h4><blockquote>
+<p>rpm -e –nodeps + 上面查出来的openjdk相关</p>
+</blockquote>
+<h2 id="rpm安装"><a href="#rpm安装" class="headerlink" title="rpm安装"></a>rpm安装</h2><h3 id="下载rpm安装文件"><a href="#下载rpm安装文件" class="headerlink" title="下载rpm安装文件"></a>下载rpm安装文件</h3><p>进oracle官网下载适用于自己版本的*.rpm格式的jdk<br>wget方式下载，进入保存下载文件的路径</p>
+<blockquote>
+<p>cd /home/robot/data <br><br>wget <a href="http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm</a><br><br></p>
+</blockquote>
+<p>如果没有wget命令，执行 <br></p>
+<blockquote>
+<p>yun install wget</p>
+</blockquote>
+<h3 id="rpm命令安装"><a href="#rpm命令安装" class="headerlink" title="rpm命令安装"></a>rpm命令安装</h3><blockquote>
+<p>rpm -ivh *.rpm</p>
+</blockquote>
+<h3 id="验证安装，终端输入-java-或者-javac-或者-java-version"><a href="#验证安装，终端输入-java-或者-javac-或者-java-version" class="headerlink" title="验证安装，终端输入 java  或者 javac 或者 java -version"></a>验证安装，终端输入 java  或者 javac 或者 java -version</h3><blockquote>
+<p>java</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>javac</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>java -version</p>
+</blockquote>
+<p>出现下图情况即为安装成功  <br><br><img src="uploads/javaversion.png" alt="javaversion"> <br><br>注意：此种安装方式不需要配置环境变量，比较快捷，方便！此方式也是我目前使用的方式</p>
+<h2 id="tar-gz解压安装"><a href="#tar-gz解压安装" class="headerlink" title="tar.gz解压安装"></a>tar.gz解压安装</h2><p>持续更新中…</p>
+<p>下一篇“centos7自学之3tomcat环境配置”正在疯狂编写中，敬请期待</p>
+]]></content>
+      
+        <categories>
+            
+            <category> centos7自学 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> centos7,jdk </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[商城项目之jdk8+jdbc+mariadb]]></title>
+      <url>/2017/08/10/jdk8-jdbc-mariadb/</url>
+      <content type="html"><![CDATA[<p>jdk8+jdbc连接数据库<br><a id="more"></a></p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><h4 id="前言-什么是JDBC"><a href="#前言-什么是JDBC" class="headerlink" title="前言 什么是JDBC"></a>前言 什么是JDBC</h4><p>  维基百科的简介：<br>　　Java 数据库连接，（Java Database Connectivity，简称JDBC）是Java语言中用来规范客户端程序如何来访问数据库的应用程序接口，提供了诸如查询和更新数据库中数据的方法。JDBC也是Sun Microsystems的商标。它JDBC是面向关系型数据库的。<br>　　简单地说，就是用于执行SQL语句的一类Java API，通过JDBC使得我们可以直接使用Java编程来对关系数据库进行操作。通过封装，可以使开发人员使用纯Java API完成SQL的执行。</p>
+<h4 id="（一）准备工作"><a href="#（一）准备工作" class="headerlink" title="（一）准备工作"></a>（一）准备工作</h4><h5 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1.创建数据库"></a>1.创建数据库</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">DROP TABLE IF EXISTS `t_goods`;</div><div class="line">CREATE TABLE `t_goods` (</div><div class="line">  `id` bigint(20) NOT NULL COMMENT '主键',</div><div class="line">  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '商品名称',</div><div class="line">  `price` double(10,0) DEFAULT NULL COMMENT '价钱',</div><div class="line">  `number` int(11) DEFAULT NULL COMMENT '数量',</div><div class="line">  PRIMARY KEY (`id`)</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</div><div class="line">DROP TABLE IF EXISTS `t_r_goods_salesperson`;</div><div class="line">CREATE TABLE `t_r_goods_salesperson` (</div><div class="line">  `id` bigint(20) NOT NULL COMMENT '主键',</div><div class="line">  `goods_id` bigint(20) NOT NULL COMMENT '商品表外键',</div><div class="line">  `salesperosn_id` bigint(20) NOT NULL COMMENT '销售员外键',</div><div class="line">  `number` int(10) NOT NULL COMMENT '销售量',</div><div class="line">  `sales_time` datetime NOT NULL COMMENT '商品卖出时间',</div><div class="line">  PRIMARY KEY (`id`)</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</div><div class="line">DROP TABLE IF EXISTS `t_salesperson`;</div><div class="line">CREATE TABLE `t_salesperson` (</div><div class="line">  `id` bigint(20) NOT NULL COMMENT '主键',</div><div class="line">  `name` varchar(4) DEFAULT NULL COMMENT '销售员姓名',</div><div class="line">  `password` varchar(30) DEFAULT NULL COMMENT '销售员密码',</div><div class="line">  PRIMARY KEY (`id`)</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</div><div class="line">```	</div><div class="line">#####  2.导包</div><div class="line">![enter description here][1]</div><div class="line">##### 3.实体</div><div class="line">```java</div><div class="line">public class Goods &#123;</div><div class="line">   	private Integer id ;</div><div class="line">   	private String name ;</div><div class="line">   	private Double price ;</div><div class="line">   	private Integer number ;</div><div class="line">   	....</div><div class="line">省略构造器，setter，getter</div><div class="line">&#125;</div><div class="line">public class GoodsSalesperson &#123;</div><div class="line">    private Integer id ;</div><div class="line">    private Integer goodsId ;</div><div class="line">    private Integer salespersonId ;</div><div class="line">    private Integer number ;</div><div class="line">    private Date salesTime ;</div><div class="line">	....</div><div class="line">	省略构造器，setter，getter</div><div class="line">&#125;</div><div class="line">public class Salesperson &#123;</div><div class="line">    private Integer id ;</div><div class="line">    private String name ;</div><div class="line">    private String password ;</div><div class="line">    ....</div><div class="line">	省略构造器，setter，getter</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="4-建立连接"><a href="#4-建立连接" class="headerlink" title="4.建立连接"></a>4.建立连接</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBUtils</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnetction</span><span class="params">()</span> </span>&#123;</div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        String user   = <span class="string">"root"</span>;</div><div class="line">        String passwd = <span class="string">"htbuy@2016"</span>;</div><div class="line">        String url = <span class="string">"jdbc:mariadb://192.168.6.101:3306/test_shopping"</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">//Class.forName("oracle.jdbc.driver.OracleDriver");</span></div><div class="line">            Class.forName(<span class="string">"org.mariadb.jdbc.Driver"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            conn = DriverManager.getConnection(url,user,passwd);</div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> conn;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">closeResource</span><span class="params">(PreparedStatement pstmt, Connection conn)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">if</span> (pstmt != <span class="keyword">null</span>) &#123;</div><div class="line">                pstmt.close();</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e1) &#123;</div><div class="line">            e1.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</div><div class="line">                conn.close();</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">closeResource</span><span class="params">(PreparedStatement pstmt, ResultSet rs, Connection conn)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">if</span> (pstmt != <span class="keyword">null</span>) &#123;</div><div class="line">                pstmt.close();</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e1) &#123;</div><div class="line">            e1.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">if</span> (rs != <span class="keyword">null</span> ) &#123;</div><div class="line">                rs.close();</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e1) &#123;</div><div class="line">            e1.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</div><div class="line">                conn.close();</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="5-insert"><a href="#5-insert" class="headerlink" title="5.insert"></a>5.insert</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * <span class="doctag">@description</span> &lt;p&gt;添加商品到数据库t_goods表&lt;/p&gt;</div><div class="line">  * <span class="doctag">@author</span> heshiyuan</div><div class="line">  * <span class="doctag">@date</span> 2017/7/20 11:39</div><div class="line">  * <span class="doctag">@param</span> goods 商品对象</div><div class="line">  */</div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addGoods</span><span class="params">(Goods goods)</span> </span>&#123;</div><div class="line">     <span class="keyword">boolean</span> bool = <span class="keyword">false</span>;</div><div class="line">     conn = DBUtils.getConnetction();</div><div class="line">     String sql = <span class="string">"INSERT INTO t_GOODS(id,NAME,PRICE,number) VALUES(?,?,?,?)"</span>;</div><div class="line">     <span class="keyword">try</span> &#123;</div><div class="line">         pstmt = conn.prepareStatement(sql);</div><div class="line">         pstmt.setInt(<span class="number">1</span>, goods.getId());</div><div class="line">         pstmt.setString(<span class="number">2</span>, goods.getName());</div><div class="line">         pstmt.setDouble(<span class="number">3</span>, goods.getPrice());</div><div class="line">         pstmt.setInt(<span class="number">4</span>, goods.getNumber());</div><div class="line">         <span class="keyword">int</span> rs = pstmt.executeUpdate();</div><div class="line">         <span class="keyword">if</span> (rs &gt; <span class="number">0</span>) &#123;</div><div class="line">             bool = <span class="keyword">true</span>;</div><div class="line">         &#125;</div><div class="line">     &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">     &#125; <span class="keyword">finally</span> &#123;</div><div class="line">         DBUtils.closeResource(pstmt, conn);</div><div class="line">     &#125;</div><div class="line">     <span class="keyword">return</span> bool;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h5 id="6-update"><a href="#6-update" class="headerlink" title="6.update"></a>6.update</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * <span class="doctag">@description</span> &lt;p&gt;更改商品信息到数据库t_goods表&lt;/p&gt;</div><div class="line">    * <span class="doctag">@author</span> heshiyuan</div><div class="line">    * <span class="doctag">@param</span> key   选择要更改商品信息</div><div class="line">    * <span class="doctag">@param</span> goods 商品对象</div><div class="line">    * <span class="doctag">@date</span> 2017/7/20 11:39</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">updateGoods</span><span class="params">(<span class="keyword">int</span> key, Goods goods)</span> </span>&#123;</div><div class="line">       <span class="keyword">boolean</span> bool = <span class="keyword">false</span>;</div><div class="line">       conn = DBUtils.getConnetction();</div><div class="line">       <span class="keyword">switch</span> (key) &#123;</div><div class="line">           <span class="keyword">case</span> <span class="number">1</span>:        <span class="comment">//	key=1,更改商品名称</span></div><div class="line">               String sqlName = <span class="string">"UPDATE t_goods SET NAME=? WHERE ID=?"</span>;</div><div class="line">               <span class="keyword">try</span> &#123;</div><div class="line">                   pstmt = conn.prepareStatement(sqlName);</div><div class="line">                   pstmt.setString(<span class="number">1</span>, goods.getName());</div><div class="line">                   pstmt.setLong(<span class="number">2</span>, goods.getId());</div><div class="line">                   <span class="keyword">int</span> rs = pstmt.executeUpdate();</div><div class="line">                   <span class="keyword">if</span> (rs &gt; <span class="number">0</span>) &#123;</div><div class="line">                       bool = <span class="keyword">true</span>;</div><div class="line">                   &#125;</div><div class="line">               &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">                   e.printStackTrace();</div><div class="line">               &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                   DBUtils.closeResource(pstmt, conn);</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">           <span class="keyword">case</span> <span class="number">2</span>:        <span class="comment">//	key=2,更改商品价格</span></div><div class="line">               String sqlPrice = <span class="string">"UPDATE t_goods SET PRICE=? WHERE ID=?"</span>;</div><div class="line">               <span class="keyword">try</span> &#123;</div><div class="line">                   conn = DBUtils.getConnetction();</div><div class="line">                   pstmt = conn.prepareStatement(sqlPrice);</div><div class="line">                   pstmt.setDouble(<span class="number">1</span>, goods.getPrice());</div><div class="line">                   pstmt.setLong(<span class="number">2</span>, goods.getId());</div><div class="line">                   <span class="keyword">int</span> rs = pstmt.executeUpdate();</div><div class="line">                   <span class="keyword">if</span> (rs &gt; <span class="number">0</span>) &#123;</div><div class="line">                       bool = <span class="keyword">true</span>;</div><div class="line">                   &#125;</div><div class="line">               &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">                   e.printStackTrace();</div><div class="line">               &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                   DBUtils.closeResource(pstmt, conn);</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">           <span class="keyword">case</span> <span class="number">3</span>:        <span class="comment">//	key=3,更改商品数量</span></div><div class="line">               String sqlNum = <span class="string">"UPDATE t_goods SET number=? WHERE ID=?"</span>;</div><div class="line">               <span class="keyword">try</span> &#123;</div><div class="line">                   conn = DBUtils.getConnetction();</div><div class="line">                   pstmt = conn.prepareStatement(sqlNum);</div><div class="line">                   pstmt.setInt(<span class="number">1</span>, goods.getNumber());</div><div class="line">                   pstmt.setLong(<span class="number">2</span>, goods.getId());</div><div class="line">                   <span class="keyword">int</span> rs = pstmt.executeUpdate();</div><div class="line">                   <span class="keyword">if</span> (rs &gt; <span class="number">0</span>) &#123;</div><div class="line">                       bool = <span class="keyword">true</span>;</div><div class="line">                   &#125;</div><div class="line">               &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">                   e.printStackTrace();</div><div class="line">               &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                   DBUtils.closeResource(pstmt, conn);</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">           <span class="keyword">default</span>:</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> bool;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h5 id="7-select"><a href="#7-select" class="headerlink" title="7.select"></a>7.select</h5><pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span>  List&lt;Map&lt;String,Object&gt;&gt; dailyGsales() &#123;</div><div class="line">       List&lt;Map&lt;String,Object&gt;&gt; returnMapList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">       conn = DBUtils.getConnetction();</div><div class="line">       String sql = <span class="string">"SELECT"</span> +</div><div class="line">               <span class="string">" gs.sales_time as salesTime,"</span> +</div><div class="line">               <span class="string">" gs.id as id,"</span> +</div><div class="line">               <span class="string">" g.`name` as goodsName,"</span> +</div><div class="line">               <span class="string">" s.`name` as salesName,"</span> +</div><div class="line">               <span class="string">" g.price as price,"</span> +</div><div class="line">               <span class="string">" gs.number as count,"</span> +</div><div class="line">               <span class="string">" g.price * g.number as total"</span> +</div><div class="line">               <span class="string">" FROM"</span> +</div><div class="line">               <span class="string">" t_r_goods_salesperson gs left join t_salesperson s on gs.salesperosn_id = s.id"</span> +</div><div class="line">               <span class="string">" left join t_goods g on gs.goods_id = g.id"</span> +</div><div class="line">               <span class="string">";"</span>;</div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           pstmt = conn.prepareStatement(sql);</div><div class="line">           rs = pstmt.executeQuery();</div><div class="line">           <span class="keyword">while</span> (rs.next()) &#123;</div><div class="line">               Map&lt;String,Object&gt; returnMap = <span class="keyword">new</span> HashMap&lt;&gt;() ;</div><div class="line">               returnMap.put(<span class="string">"saleTime"</span>,rs.getTimestamp(<span class="number">1</span>));</div><div class="line">               returnMap.put(<span class="string">"id"</span>,rs.getInt(<span class="number">2</span>));</div><div class="line">               returnMap.put(<span class="string">"goodsName"</span>,rs.getString(<span class="number">3</span>));</div><div class="line">               returnMap.put(<span class="string">"salesName"</span>,rs.getString(<span class="number">4</span>));</div><div class="line">               returnMap.put(<span class="string">"price"</span>,rs.getDouble(<span class="number">5</span>));</div><div class="line">               returnMap.put(<span class="string">"count"</span>,rs.getInt(<span class="number">6</span>));</div><div class="line">               returnMap.put(<span class="string">"total"</span>,rs.getDouble(<span class="number">7</span>));</div><div class="line">               returnMapList.add(returnMap) ;</div><div class="line">           &#125;</div><div class="line">       &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">       &#125; <span class="keyword">finally</span> &#123;</div><div class="line">           DBUtils.closeResource(pstmt, rs, conn);</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> returnMapList;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</code></pre><h5 id="8-delete"><a href="#8-delete" class="headerlink" title="8.delete"></a>8.delete</h5><pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * <span class="doctag">@description</span> &lt;p&gt;从数据库goods表中-刪除商品&lt;/p&gt;</div><div class="line">    * <span class="doctag">@author</span> heshiyuan</div><div class="line">    * <span class="doctag">@date</span> 2017/7/20 11:38</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">deleteGoods</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">       <span class="keyword">boolean</span> bool = <span class="keyword">false</span>;</div><div class="line">       String sql = <span class="string">"DELETE FROM t_GOODS WHERE ID=?"</span>;</div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           conn = DBUtils.getConnetction();</div><div class="line">           pstmt = conn.prepareStatement(sql);</div><div class="line">           pstmt.setLong(<span class="number">1</span>,id);</div><div class="line">           <span class="keyword">int</span> rs = pstmt.executeUpdate();</div><div class="line">           <span class="keyword">if</span> (rs &gt; <span class="number">0</span>) &#123;</div><div class="line">               bool = <span class="keyword">true</span>;</div><div class="line">           &#125;</div><div class="line">       &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">       &#125; <span class="keyword">finally</span> &#123;</div><div class="line">           DBUtils.closeResource(pstmt, conn);</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> bool;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</code></pre><h4 id="（二）项目演示"><a href="#（二）项目演示" class="headerlink" title="（二）项目演示"></a>（二）项目演示</h4><p>1.商城主页面<br><img src="/uploads/main.png" alt="商城主页面"><br>2.商品列表<br><img src="/uploads/goodslist.png" alt="商品列表"><br>3.售出列表<br><img src="/uploads/salesList.png" alt="售出列表"></p>
+<h4 id="（三）篇后感"><a href="#（三）篇后感" class="headerlink" title="（三）篇后感"></a>（三）篇后感</h4><p>目前的项目功能并不丰富，简单的jdbc增删改查，此项目会继续维护，<br>项目源码托管在GitHub：<a href="https://github.com/shiyuan2he/framework.git" target="_blank" rel="external">https://github.com/shiyuan2he/framework.git</a><br>后续会增加jdbc增删改查的封装（思路是java 反射），添加jdbc事务支持，aop切面拦截<br>持续更新中，敬请期待</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 开源框架 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> jdk8,jdbc,mariadb </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[谈钱增进感情-人生定位]]></title>
+      <url>/2017/07/28/%E8%B0%88%E9%92%B1%E5%A2%9E%E8%BF%9B%E6%84%9F%E6%83%85-%E4%BA%BA%E7%94%9F%E5%AE%9A%E4%BD%8D/</url>
+      <content type="html"><![CDATA[<p>  瓜瓜之林，人人之森<br><a id="more"></a></p>
+<h2 id="乏日子"><a href="#乏日子" class="headerlink" title="乏日子"></a>乏日子</h2><p><img src="/uploads/生活.jpeg" alt="生活"><br>今年自换工作以来生活浑浑噩噩，其实也不知道为什么会换工作，没有以前累但充满能量的状态，<br>14年15年买了1000块钱的书，送人的送人，丢的丢绝大部分没有看过，纸质书没翻几本，it技术没有多少研究，当时心血来潮搞起来的立志一周写一篇文章的订阅号也没有更新文章。工作中做好本职工作，得空看一看关心的动漫，按照加班的点儿准时下班，到家洗洗打会游戏或看看lol比赛，睡觉，日复一日，如果不是每月按时领工资，真的感觉时间像静止了一样感觉不到流逝。想法没有实现，投资没有赚钱，生活没有改变，整个北京城就像那锅温水，而我是一只蛙。</p>
+<h2 id="泛工作"><a href="#泛工作" class="headerlink" title="泛工作"></a>泛工作</h2><p><img src="/uploads/工作.jpg" alt="工作"><br>在恒天，其实还算稳定，我所在的技术部比较轻松，每天边熟悉业务边做一些小需求，时常跟恒生的人扯扯淡，业务不明白的问一问老人，产品能够搞定。一般技术问题能够自己搞定，二般技术问题网上搜索能够搞定，三般技术问题问架构师能够搞定，日常写邮件，发周报，写月度绩效，季度考核。搞好同事关系，不二不犯大错，职场就那么回事。</p>
+<h2 id="思财富"><a href="#思财富" class="headerlink" title="思财富"></a>思财富</h2><p><img src="/uploads/财富.jpg" alt="财富"><br>之前一直想过靠合适的买卖股票致富，但16年初碰上股灾大赔3800让我对股市忌惮。近两年定投基金也没有明显的回报，反而现在觉得买定期的p2p反而是不错的选择。90%定期p2p+10%基金定投，不图发财只为存钱。</p>
+<h2 id="渴求知"><a href="#渴求知" class="headerlink" title="渴求知"></a>渴求知</h2><p><img src="/uploads/读书.jpg" alt="读书"><br>记得以前吃饭拉屎都会带上kindle，一有空隙就看会儿书，那时候是真的能看进去，有收获，三天就能看一本书。现在地铁上打开手机刷微博看朋友圈追修真小说。人穷多读书，增加谈资。</p>
+<h2 id="梦人生"><a href="#梦人生" class="headerlink" title="梦人生"></a>梦人生</h2><p><img src="/uploads/梦想.jpg" alt="梦想"><br>大学四年，工作三年一共七年时间。<br><br>从跟爸妈要0.7k/月到薪资19k/月,从计算机小白到成为一名能够独立写商业网站的优秀程序员。<br>从对这个世界茫然到了解自己，认识身边接触的小社会的社会中青年。<br>从依赖家庭依赖社会资源到利用社会资源创造财富，懂点投资之道，渴望也极可能做点生意的创业者。<br>梦没熄灭过，作为一个感性者，情怀总能打动我自己，打动人心，却很难打动现实</p>
+<h2 id="盼未来"><a href="#盼未来" class="headerlink" title="盼未来"></a>盼未来</h2><p>作为一个it技术工作者还是很有前途的，随着经验越来越丰富，精力越来越多机会还是很多的。<br>有合适的机会就进bat那样的大公司，拥有技术+人生经验也能适应大公司的企业文化。<br>倘若不成挑一个10～20人的初创公司做一个感兴趣的项目，成长为一个项目经理或者架构师，尽全力把项目做成功。<br>倘若还走不通此路，寻找志趣相投的商业合伙人去创业，使自己成为一个“稳中求胜”的人。<br>身边最近赚钱的人和事非常多，小到小面馆面包馆大到互联网创业工资某轮融资成功，不止关注此类事件，多想多打听别人的成功之道。<br>无论走哪条路，技术都是最根本的，是铁饭碗的保障，不能轻易放弃技术。</p>
+<h2 id="识人心"><a href="#识人心" class="headerlink" title="识人心"></a>识人心</h2><p>自称“感性，拥有情怀，为别人而活”，这都建立在自己是有钱人的基础之上，如果穷，我也是一个自私的人。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>无论行与不行，幸或不幸，都不能丢掉的是亲人和朋友。这种无形的财富才是最稳定稳固的。</p>
+<p>blog:<a href="https://shiyuan2he.github.io/" target="_blank" rel="external">https://shiyuan2he.github.io/</a><br>csdn:<a href="http://write.blog.csdn.net/postlist" target="_blank" rel="external">http://write.blog.csdn.net/postlist</a><br>github:<a href="https://github.com/shiyuan2he" target="_blank" rel="external">https://github.com/shiyuan2he</a><br>订阅号：远观钱途<br>新浪微博：远观钱途</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 谈钱增进感情 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 定位 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[谈钱增进感情-执行力很差劲！我不只说我自己，我说的是朋友圈的各位。]]></title>
+      <url>/2017/05/26/%E8%B0%88%E9%92%B1%E5%A2%9E%E6%84%9F%E6%83%85-%E6%89%A7%E8%A1%8C%E5%8A%9B%E5%BE%88%E5%B7%AE%E5%8A%B2%EF%BC%81%E6%88%91%E4%B8%8D%E5%8F%AA%E8%AF%B4%E6%88%91%E8%87%AA%E5%B7%B1%EF%BC%8C%E6%88%91%E8%AF%B4%E7%9A%84%E6%98%AF%E6%9C%8B%E5%8F%8B%E5%9C%88%E7%9A%84%E5%90%84%E4%BD%8D!/</url>
+      <content type="html"><![CDATA[<p>   人生时间有限，应该把更多的时间利用在自己喜欢的工作娱乐上，将精力投入到更有意义的项目上。<br>   <a id="more"></a><br>   高中大学看过8年玄幻小说最后也没写下一篇读后感或者半本小说。<br>   2014～2015买过一千多块钱的it书籍，几乎没有一本能从头看到结尾。<br>   知乎，csdn，open-open，github，微博，各种论坛常出没也没有成为大v。<br>   。。。<br>   执行力太差劲。确实对自己太失望了，对不起向偶像学习的人，更对不起”向我学习的人“。<br>   人生时间有限，应该把更多的时间利用在自己喜欢的工作娱乐上，将精力投入到更有意义的项目上。<br>   百度百科对执行力的描述当中的一句话是<br>   “执行力就是在既定的战略和愿景的前提下 ，组织对内外部可利用的资源进行综合协调<br>     制定出可行性的战略，并通过有效的执行措施从而最终实现组织目标、达成组织愿景的一种力量。”<br>   因为我们都不是咸鱼，所以我们每个人都有梦想。但是绝大多数的人都是空有梦想不去实现！为什么不去做y，<br>我想到的答案是没有成就感。大梦想有大成就感，小目标有小成就感。挣一个亿的成就感与挣一万块的成就感在<br>精神层面的差距绝对没有在数量层面的差距大。<br>   因此，提出以下解决办法：<br>   1.树立明确的梦想<br>   是挣一亿人民币还是当官。挣钱是为了自己，家人还是为了社会。。当官是为了名声还是为了挣钱或者二者都有。<br>   明确的梦想：40岁的时候，我是身价过一亿的富豪。30岁的时候我是一名500强公司的高管，年薪100万。。。<br>   不明确的梦想：40岁的时候我要财务自由，30岁的时候我的工资够还银行贷款。。。<br>   2.量化梦想<br>   梦想本身是主观性的，只有经过拆解，量化才能成为客观的。<br>   40岁挣一个亿，假如还有十年时间，平均每年挣一千万，考虑到挣钱能力随着时间成几何增长，第一年30万，<br>第二年50万，第三年100万，第四年200万，，，第十年挣够一亿。<br>   3.寻找方法<br>   第一年挣30万。<br>   a.包装自己，靠脸或者靠技术找一份月薪1万的稳定工作。<br>   b.整理手头上的流动资金，买p2p,定投基金，选择一只熟悉的上市公司长期持有公司股票。。<br>   c.和朋友一起或者寻找值得跟随的合作伙伴搞一个“鲍师傅糕点”“黄焖鸡米饭”<br>   d.如果自己有其他方面的擅长。字好，画好，吉他好都可以挣点外快。<br>   e.最后还是离三十万有点远，抢银行也是个不错的法子。<br>   4.执行<br>   计划已经订好了，按照步骤执行，鼓足干劲干下去。控制力差的可以公开自己的目标让身边的朋友监督。<br>   定闹钟，每天闹钟响起，“老板，今天要挣1000块钱才能一年挣30万”<br>   每天完成一件事给自己一个鼓励，给自己一个微笑，老婆给自己一个吻。<br>   记住，完成目标，不择“手段”。<br>   5.总结<br>   每个一个月都要对自己的行动做总结，回头看看自己的目标，实现过程，完成度。<br>   如果完成了，优化提升执行力度，没有完成反思方法，重构计划。切莫自欺欺人。</p>
+<p>   篇后感言：<br>   30万确实是很大的挑战，但根据个人情况不一，其数字可以是20.1705万，11.1111万。。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 执行力 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[架构之路-springboot演进]]></title>
+      <url>/2017/05/24/%E6%9E%B6%E6%9E%84%E4%B9%8B%E8%B7%AF-springboot%E6%BC%94%E8%BF%9B/</url>
+      <content type="html"><![CDATA[<p>springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供<br>一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。<br><a id="more"></a><br>springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供<br>一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。<br>也正是这些特点，springboot迅速被市场上大小商业公司启用，也就有了我们学习springboot的必要性。<br>    springboot特点：<br>      1.创建独立的spring应用<br>      2.潜入的tomcat，无需部署war文件<br>      3.大大简化maven配置<br>      4.提供准生产型产品，如项目指标，项目健康检查，项目监控，项目部署等工具<br>      5.没有xml文件<br>      6.自动约定配置spring<br>    springboot项目的搭建过程在后续系列补充上，前期先架构一下项目<br>    <a href="/uploads/springboot01.png">jiagou</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> springboot,spring,架构 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java基础-1-java安装及环境变量配置]]></title>
+      <url>/2017/04/27/java%E5%9F%BA%E7%A1%80-1-java%E5%AE%89%E8%A3%85%E5%8F%8A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>Java具有简单性、面向对象、分布式、健壮性、安全性、平台独立与可移植性、多线程、动态性等特点。<br><a id="more"></a><br>    由于没有修改/etc/profile的权限，故此处采用单独用户配置<br>    1.打开terminal或者iterm，输入java -version查看系统是否已经安装过jdk<br>    2.下载jdk mac版<br>    （<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）</a><br>    3.安装完之后，cd /Library/Java/JavaVirtualMachines/  查看jdk安装情况<br>    4.vim ~/.bash_profile 输入以下代码<br>        AVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home<br>        PATH=$JAVA_HOME/bin:$PATH<br>        export JAVA_HOME<br>        export PATH<br>    5.输入 source ~/.bash_profile 使配置文件生效<br>    6.输入 java -version查看安装是否成功<br>    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 小白入门篇-java </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[项目管理-1-maven安装及环境变量配置]]></title>
+      <url>/2017/04/27/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86-1-maven%E5%AE%89%E8%A3%85%E5%8F%8A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<pre><code>越来越多的公司启用maven管理公司商业项目，所以maven的学习势在必行。
+</code></pre><a id="more"></a>
+<p>Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具.<br>Maven 除了以程序构建能力为特色之外，还提供高级项目管理工具。由于 Maven 的缺省构建规则有较高的<br>可重用性，所以常常用两三行 Maven 构建脚本就可以构建简单的项目。由于 Maven 的面向项目的方法，<br>许多 Apache Jakarta 项目发文时使用 Maven，而且公司项目采用 Maven 的比例在持续增长。<br>    本篇介绍macbookpro下安装及配置maven环境变量。<br>    1.下载maven（<a href="https://maven.apache.org/download.cgi），并解压到某一个目录，" target="_blank" rel="external">https://maven.apache.org/download.cgi），并解压到某一个目录，</a><br>如:/Users/heshiyuan/data/devTools/maven/apache-maven-3.3.9<br>    2.打开iterm或者terminal，输入以下命令：<br>        vim ~/.bash_profile<br>    3.添加以下几行代码，之后保存并推出:wq<br>        MAVEN_HOME=/Users/heshiyuan/data/devTools/maven/apache-maven-3.3.9<br>        PATH=$MAVEN_HOME/bin:$PATH<br>        export MAVEN_HOME<br>        export PATH<br>    4.输入以下命令使.bash_profile生效<br>        source ~/.bash_profile<br>    5.输入mvn -version查看是否成功<br>    6.如果未安装成功，检查是否先设置了java环境变量<br>        JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home<br>        PATH=$JAVA_HOME/bin:$PATH<br>        export JAVA_HOME<br>        export PATH<br>    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 项目管理利器-maven </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> maven,项目管理,mac </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[(日志管理-3)-slf4j+logback日志框架剖析]]></title>
+      <url>/2017/04/26/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-3-slf4j+logback%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%89%96%E6%9E%90/</url>
+      <content type="html"><![CDATA[<p>如何从缤纷复杂的日志系统世界筛选出适合自己的日志框架以及slf4j+logback的组合美妙之处？此文可能有帮助<br><a id="more"></a></p>
+<h2 id="为什么选择slf4j-logback日志框架"><a href="#为什么选择slf4j-logback日志框架" class="headerlink" title="为什么选择slf4j+logback日志框架"></a>为什么选择slf4j+logback日志框架</h2><p>如果是在一个新的项目中建议使用Slf4j与Logback组合，这样有如下的几个优点。</p>
+<ul>
+<li>Slf4j实现机制决定Slf4j限制较少，使用范围更广。由于Slf4j在编译期间，静态绑定本地的LOG库使得通用性要比Commons logging要好。</li>
+<li>Logback拥有更好的性能。Logback声称：某些关键操作，比如判定是否记录一条日志语句的操作，其性能得到了显著的提高。这个操作在Logback中需要3纳秒，而在Log4J中则需要30纳秒。LogBack创建记录器（logger）的速度也更快：13毫秒，而在Log4J中需要23毫秒。更重要的是，它获取已存在的记录器只需94纳秒，而Log4J需要2234纳秒，时间减少到了1/23。跟JUL相比的性能提高也是显著的。</li>
+<li>Commons Logging开销更高 在使Commons Logging时为了减少构建日志信息的开销，通常的做法是：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(log.isDebugEnabled())&#123;</div><div class="line">	log.debug(<span class="string">"User name： "</span> + user.getName() + <span class="string">" buy goods id ："</span> + good.getId());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Slf4j阵营，你只需这么做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">log.debug(<span class="string">"User name：&#123;&#125; ,buy goods id ：&#123;&#125;"</span>, user.getName(),good.getId());</div></pre></td></tr></table></figure>
+<p>也就是说，slf4j把构建日志的开销放在了它确认需要显示这条日志之后，减少内存和cpu的开销，使用占位符号，代码也更为简洁</p>
+<ul>
+<li>Logback文档免费。Logback的所有文档是全面免费提供的，不象Log4J那样只提供部分免费文档而需要用户去购买付费文档。</li>
+</ul>
+<h2 id="使用slf4j-logback"><a href="#使用slf4j-logback" class="headerlink" title="使用slf4j+logback"></a>使用slf4j+logback</h2><h3 id="选择jar包"><a href="#选择jar包" class="headerlink" title="选择jar包"></a>选择jar包</h3><p><img src="/uploads/slf4j+logback.png" alt=""></p>
+<h3 id="分析jar包"><a href="#分析jar包" class="headerlink" title="分析jar包"></a>分析jar包</h3><p>logback主要由三个部分组成：logback-core、logback-classic、logback-access。</p>
+<ul>
+<li>logback-core是其他模块的基础设施，其他模块基于它构建。</li>
+<li>logback-classic时log4j的一个改进版，它完整实现了SLF4J。</li>
+<li>logback-access主要作为一个与Servlet容器交互的模块，比如tomcat或者jetty，提供一些与HTTP访问相关的功能。</li>
+</ul>
+<h3 id="配置文件解析"><a href="#配置文件解析" class="headerlink" title="配置文件解析"></a>配置文件解析</h3><h4 id="自动重新加载"><a href="#自动重新加载" class="headerlink" title="自动重新加载"></a>自动重新加载</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;configuration scan="true" scanPeriod="10 seconds"&gt;</div><div class="line">	...</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<h4 id="appender"><a href="#appender" class="headerlink" title="appender"></a>appender</h4><p>Appender是configuration的子节点，是负责写日志的组件。常用的Appder有三个：ConsoleAppender、FileAppende、RollingFileAppder，它们来自同一个超类OutputStreamAppender。RollingFileAppender需要搭配相应的滚动策略（rolliingPolicy）和触发策略（tripggringPolicy）使用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;configuration scan="true" scanPeriod="10 seconds"&gt;</div><div class="line">    &lt;!--控制台日志--&gt;</div><div class="line">    &lt;appender name="console" class="ch.qos.logback.core.ConsoleAppender"&gt;</div><div class="line">        &lt;encoder&gt;</div><div class="line">            &lt;pattern&gt;%d&#123;HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;36&#125; - %msg%n&lt;/pattern&gt;</div><div class="line">            &lt;charset&gt;UTF-8&lt;/charset&gt;</div><div class="line">        &lt;/encoder&gt;</div><div class="line">    &lt;/appender&gt;</div><div class="line">    &lt;root level="info"&gt;</div><div class="line">        &lt;appender-ref ref="console"/&gt;</div><div class="line">    &lt;/root&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<h3 id="代码应用测试"><a href="#代码应用测试" class="headerlink" title="代码应用测试"></a>代码应用测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger _logger = LoggerFactory.getLogger(CollectionHelper.class) ;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@description</span> &lt;p&gt;处理的集合元素越多，去重速度更快，10万元素100毫秒，10个元素200毫秒&lt;/p&gt;</div><div class="line"> * <span class="doctag">@param</span> list</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> * <span class="doctag">@returnType</span> List&lt;Object&gt;</div><div class="line"> * <span class="doctag">@author</span> heshiyuan <span class="doctag">@date</span> 2017年3月16日 下午7:37:53</div><div class="line"> * <span class="doctag">@path</span> javase-common/com.javase.util/CollectionHelper.java</div><div class="line"> * <span class="doctag">@date</span> 2017年3月16日 下午7:37:53</div><div class="line"> * <span class="doctag">@price</span> ￥：三毛三</div><div class="line"> * <span class="doctag">@copyright</span> 如有复制粘贴请通知本人或者捐赠，微信号：hewei1109</div><div class="line"> * <span class="doctag">@email</span> heshiyuan@chtwm.com</div><div class="line"> * <span class="doctag">@callnumber</span> 15910868535</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">duplicateRemoval</span><span class="params">(List&lt;Integer&gt; list)</span> </span>&#123;</div><div class="line">    _logger.info(<span class="string">"CollectionHelper.duplicateRemoval工具类去重开始！"</span>);</div><div class="line">    <span class="keyword">long</span> startTime = System.currentTimeMillis() ;</div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        <span class="keyword">if</span>(list == <span class="keyword">null</span>) &#123;</div><div class="line">            _logger.info(<span class="string">"将要去重的list集合是空，请检查参数再行调用！"</span>);</div><div class="line">            <span class="keyword">long</span> endTime = System.currentTimeMillis() ;</div><div class="line">            _logger.info(<span class="string">"调用去重工具类耗时&#123;&#125;毫秒！"</span>,(endTime - startTime));</div><div class="line">            <span class="keyword">return</span> ;</div><div class="line">        &#125;</div><div class="line">        _logger.info(<span class="string">"去重之前的集合是&#123;&#125;"</span>,list.toString());</div><div class="line">        list = list.parallelStream().distinct().collect(Collectors.toList()) ;</div><div class="line">        _logger.info(<span class="string">"去重之后的集合是&#123;&#125;"</span>,list.toString());</div><div class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">        _logger.error(<span class="string">"调用去重工具类CollectionHelper.duplicateRemoval遇到异常，异常信息:&#123;&#125;"</span>,e.getMessage());</div><div class="line">        <span class="keyword">throw</span> e ;</div><div class="line">    &#125;<span class="keyword">finally</span>&#123;</div><div class="line">        <span class="keyword">long</span> endTime = System.currentTimeMillis() ;</div><div class="line">        _logger.info(<span class="string">"调用去重工具类耗时&#123;&#125;毫秒"</span>,(endTime - startTime));</div><div class="line">        _logger.info(<span class="string">"CollectionHelper.duplicateRemoval工具类去重结束！"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>由于logback别的方面本次没有用到，此博客会后续维护。。。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 日志管理之美 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> log4j,java,日志,logback </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[(日志管理-2)log4j剖析]]></title>
+      <url>/2017/04/26/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-2-log4j%E5%89%96%E6%9E%90/</url>
+      <content type="html"><![CDATA[<pre><code>Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置
+</code></pre><p>或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&gt; src同级创建并设置log4j.properties<br><a id="more"></a><br>　　log4j.rootLogger = 日志级别，appender1, appender2,…</p>
+<p>　　　　日志级别：ALL &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL &lt; OFF，不区分大小写</p>
+<p>　　　　注意，需在控制台输入，只需将其中一个appender定义为stdout即可<br>　　　　注意，rootLogger默认是对整个工程生效<br>　　　　注意，如果只想对某些包操作，<br>        那么：log4j.logger.hsy.utils = info, stdout，表示该日志对package hsy.util生效<br>　　　　注意，这样做可以区分dev/线上，也可以减小性能影响：if(log.isDebugEnabled()){log.debug();}<br>　　　　———————–</p>
+<p>　　　　log4j.appender.appender1 = org.apache.log4j.日志输出到哪儿<br>　　　　　　ConsoleAppender（控制台）<br>　　　　　　FileAppender（文件）<br>　　　　　　DailyRollingFileAppender（每天产生一个日志文件）<br>　　　　　　RollingFileAppender（文件大小到达指定尺寸时产生一个新的文件）<br>　　　　　　WriteAppender（将日志信息以流格式发送到任意指定的地方）<br>　　　　　　JDBCAppender（将日志信息保存到数据库中）<br>　　　　　　log4j.appender.appender1.File=文件目录及文件<br>　　　　    log4j.appender.appender1.MaxFileSize=最大文件大小<br>　　　　    log4j.appender.appender1.MaxBackupIndex=备份文件个数</p>
+<p>　　　　其中，appender1是在第一行定义过的；<br>　　　　文件目录及文件，例如，/home/admin/logs/jar/debug.log<br>    最大文件大小，例如，100KB<br>　　　　备份文件个数，例如，1</p>
+<p>　　　　—————–<br>　　　　log4j.appender.ServerDailyRollingFile.DatePattern=日志后缀格式<br>　　　　例如，’.’yyyy-MM-dd<br>　　　　　　log4j.appender.appender1.layout=org.apache.log4j.日志布局格式<br>　　　　　　HTMLLayout（以HTML表格形式布局）<br>　　　　　　SimpleLayout（包含日志信息的级别和信息字符串）<br>　　　　　　TTCCLayout（包含日志产生的时间，执行绪，类别等信息）<br>　　　　　　PatternLayout（可以灵活的指定布局格式，常用）<br>　　　　——————<br>　　　　log4j.appender.appender1.layout.ConversionPattern=日志输出格式<br>　　　　打印参数: Log4J采用类似C语言中的printf函数的打印格式格式化日志信息，如下:<br>　　　　例如，%d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n<br>　　　　　　%c 输出日志信息所属的类的全名<br>　　　　　　%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，<br>        比如：%d{yyy-M-dd HH:mm:ss SSS}，输出类似：2002-10-18 22:10:28,673<br>　　　　　　%f 输出日志信息所属的类的类名<br>　　　　　　%l 输出日志事件的发生位置，即输出日志信息的语句处于它所在的类的第几行<br>　　　　　　%m 输出代码中指定的信息，如log(message)中的message<br>　　　　　　%n 输出一个回车换行符，Windows平台为“rn”，Unix平台为“n”<br>　　　　　　%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL。<br>        如果是调用debug()输出的，则为DEBUG，依此类推<br>　　　　　　%r 输出自应用启动到输出该日志信息所耗费的毫秒数<br>　　　　　　%t 输出产生该日志事件的线程名<br>　　　　　　—————–<br>　　　　　　log4j.appender.ServerDailyRollingFile.Append=true<br>　　　　　　不解释，追加往后写便是<br>　　　　　　总结一下：<br>　　　　　　　　Logger类：完成日志记录，设置日志信息级别<br>　　　　　　　　Appender类：决定日志去向，终端、DB、硬盘<br>　　　　　　　　Layout类：决定日志输出的样式，例如包含当前线程、行号、时间<br>　　　　　　　　——————<br>　　　　　　　　在代码中使用log4j，初始化Logger:<br>　　　　　　　　　　1）在程序中调用BasicConfigurator.configure()方法：<br>            给根记录器增加一个ConsoleAppender，<br>            输出格式通过PatternLayout设为”%-4r [%t] %-5p %c %x - %m%n”，<br>            还有根记录器的默认级别是Level.DEBUG.<br>　　　　　　　　　　2）配置放在文件里，通过命令行参数传递文件名字，<br>            通过PropertyConfigurator.configure(args[x])解析并配置；<br>　　　　　　　　　　3）配置放在文件里，通过环境变量传递文件名等信息，<br>            利用log4j默认的初始化过程解析并配置；<br>　　　　　　　　　　4）配置放在文件里，通过应用服务器配置传递文件名等信息，<br>            利用一个特殊的servlet来完成配置。<br>    　　　　————————————————————————–<br>　　　　　　　　3. 为不同的 Appender 设置日志输出级别：<br>　　　　　　　　　　当调试系统时，我们往往注意的只是异常级别的日志输出，<br>            但是通常所有级别的输出都是放在一个文件里的，<br>            如果日志输出的级别是BUG！？那就慢慢去找吧。<br>　　　　　　　　　　这时我们也许会想要是能把异常信息单独输出到一个文件里该多好啊。<br>            当然可以，Log4j已经提供了这样的功能，我们只需要在配置中修改Appender的<br>        Threshold 就能实现,比如下面的例子：<br>　　　　　　　　[配置文件]<br>　　　　　　　　　　### set log levels ###<br>　　　　　　　　　　log4j.rootLogger = debug , stdout , D , E</p>
+<p>　　　　　　　　　　### 输出到控制台 ###<br>　　　　　　　　　　log4j.appender.stdout = org.apache.log4j.ConsoleAppender<br>　　　　　　　　　　log4j.appender.stdout.Target = System.out<br>　　　　　　　　　　log4j.appender.stdout.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.stdout.layout.ConversionPattern =<br>                %d{ABSOLUTE} %5p %c{ 1 }:%L - %m%n</p>
+<p>　　　　　　　　　　### 输出到日志文件 ###<br>　　　　　　　　　　log4j.appender.D = org.apache.log4j.DailyRollingFileAppender<br>　　　　　　　　　　log4j.appender.D.File = logs/log.log<br>　　　　　　　　　　log4j.appender.D.Append = true<br>　　　　　　　　　　log4j.appender.D.Threshold = DEBUG ## 输出DEBUG级别以上的日志<br>　　　　　　　　　　log4j.appender.D.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.D.layout.ConversionPattern =<br>                %-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ] %m%n</p>
+<p>　　　　　　　　　　### 保存异常信息到单独文件 ###<br>　　　　　　　　　　log4j.appender.D = org.apache.log4j.DailyRollingFileAppender<br>　　　　　　　　　　log4j.appender.D.File = logs/error.log ## 异常日志文件名<br>　　　　　　　　　　log4j.appender.D.Append = true<br>　　　　　　　　　　log4j.appender.D.Threshold = ERROR ## 只输出ERROR级别以上的日志!!!<br>　　　　　　　　　　log4j.appender.D.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.D.layout.ConversionPattern =<br>                %-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ] %m%n</p>
+<p>　　　　　　　　　　[代码中使用]<br>　　　　　　　　　　public class TestLog4j {<br>　　　　　　　　　　　　public static void main(String[] args) {<br>　　　　　　　　　　　　　　PropertyConfigurator.configure( “ D:/Code/conf/log4j.properties “ );<br>　　　　　　　　　　　　　　Logger logger = Logger.getLogger(TestLog4j. class );<br>    　　　　　　　　　　logger.debug( “ debug “ );<br>　　　　　　　　　　　　　　logger.error( “ error “ );<br>　　　　　　　　　　　　}<br>　　　　　　　　　　}<br>　　　　　　———————————————————————————–<br>　　　　　　public class Test {<br>　　　　　　　　private static Logger logger = Logger.getLogger(Test.class);<br>　　　　　　　　public static void main(String[] args) {<br>　　　　　　　　　　// System.out.println(“This is println message.”);</p>
+<p>　　　　　　　　　　// 记录debug级别的信息<br>　　　　　　　　　　logger.debug(“This is debug message.”);<br>　　　　　　　　　　// 记录info级别的信息<br>　　　　　　　　　　ogger.info(“This is info message.”);<br>　　　　　　　　　　// 记录error级别的信息<br>　　　　　　　　　　logger.error(“This is error message.”);<br>　　　　　　　　}<br>　　　　　　}<br>　　　　—————————————————————————–<br>　　　　最后粘上本人用的测试log4j的配置文件内容，仅供参考。希望对您有所帮助<br>　　　　　　log4j.rootLogger=INFO, stdout, file</p>
+<p>　　　　　　log4j.appender.stdout=org.apache.log4j.ConsoleAppender<br>　　　　　　log4j.appender.stdout.layout=org.apache.log4j.PatternLayout<br>　　　　　　log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n</p>
+<p>　　　　　　log4j.appender.file=org.apache.log4j.DailyRollingFileAppender<br>　　　　　　log4j.appender.file.Threshold=debug<br>　　　　　　log4j.appender.file.layout=org.apache.log4j.PatternLayout<br>　　　　　　log4j.appender.file.layout.ConversionPattern= %d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n<br>　　　　　　log4j.appender.file.File=D:/others/logs/jar/debug.log<br>　　　　　　#log4j.appender.file.File=/home/test_zzs_dzfp/logs/zzssl/zzssl.log<br>　　　　　　log4j.appender.file.MaxFileSize=200MB<br>　　　　　　log4j.appender.file.MaxBackupIndex=20</p>
+<p>　　　　　　#project defalult level<br>　　　　　　#log4j.logger.hsy.utils=INFO</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 日志管理之美 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> log4j,java,日志,logback </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[(日志管理-1)关于日志的扯淡]]></title>
+      <url>/2017/04/26/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-1-%E5%85%B3%E4%BA%8E%E6%97%A5%E5%BF%97%E7%9A%84%E6%89%AF%E6%B7%A1/</url>
+      <content type="html"><![CDATA[<p>日志系统作为一种应用程序服务，对于跟踪调试、程序状态记录、崩溃数据恢复都有着重要的作用。<br><a id="more"></a></p>
+<h2 id="日志简介"><a href="#日志简介" class="headerlink" title="日志简介"></a>日志简介</h2><p>对于一个应用程序来说日志记录是必不可少的一部分。线上问题追踪，基于日志的业务逻辑统计分析等都离不开日志。java领域存在多种日志框架，目前常用的日志框架包括Log4j，Log4j 2，Commons Logging，slf4j，logback，jul。如果不是用心归纳过，相信很多java开发者都会混乱。</p>
+<h2 id="java日志框架门派"><a href="#java日志框架门派" class="headerlink" title="java日志框架门派"></a>java日志框架门派</h2><ul>
+<li><p>Log4j：Apache Log4j是一个基于Java的日志记录工具。它是由Ceki Gülcü首创的，现在则是Apache软件基金会的一个项目。</p>
+</li>
+<li><p>Log4j 2：Apache Log4j 2是apache开发的一款Log4j的升级产品。</p>
+</li>
+<li><p>Commons Logging：Apache基金会所属的项目，是一套Java日志接口，之前叫Jakarta Commons Logging，后更名为Commons Logging。</p>
+</li>
+<li><p>slf4j：类似于Commons Logging，是一套简易Java日志门面，本身并无日志的实现。（Simple Logging Facade for Java，缩写Slf4j）。</p>
+</li>
+<li><p>Logback：一套日志组件的实现(slf4j阵营)。</p>
+</li>
+<li><p>Jul (Java Util Logging)：自Java1.4以来的官方日志实现。</p>
+</li>
+</ul>
+<h2 id="Java日志框架门派历史"><a href="#Java日志框架门派历史" class="headerlink" title="Java日志框架门派历史"></a>Java日志框架门派历史</h2><ol>
+<li><p>1996年早期，欧洲安全电子市场项目组决定编写它自己的程序跟踪API(Tracing API)。经过不断的完善，这个API终于成为一个十分受欢迎的Java日志软件包，即Log4j。后来Log4j成为Apache基金会项目中的一员。</p>
+</li>
+<li><p>期间Log4j近乎成了Java社区的日志标准。据说Apache基金会还曾经建议sun引入Log4j到java的标准库中，但Sun拒绝了。</p>
+</li>
+<li><p>2002年Java1.4发布，Sun推出了自己的日志库JUL(Java Util Logging),其实现基本模仿了Log4j的实现。在JUL出来以前，log4j就已经成为一项成熟的技术，使得log4j在选择上占据了一定的优势。</p>
+</li>
+<li><p>接着，Apache推出了Jakarta Commons Logging，JCL只是定义了一套日志接口(其内部也提供一个Simple Log的简单实现)，支持运行时动态加载日志组件的实现，也就是说，在你应用代码里，只需调用Commons Logging的接口，底层实现可以是log4j，也可以是Java Util Logging。</p>
+</li>
+<li><p>后来(2006年)，Ceki Gülcü不适应Apache的工作方式，离开了Apache。然后先后创建了slf4j(日志门面接口，类似于Commons Logging)和Logback(Slf4j的实现)两个项目，并回瑞典创建了QOS公司，QOS官网上是这样描述Logback的：The Generic，Reliable Fast&amp;Flexible Logging Framework(一个通用，可靠，快速且灵活的日志框架)。</p>
+</li>
+<li><p>现今，Java日志领域被划分为两大阵营：Commons Logging阵营和SLF4J阵营。<br>Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有证据表明，形式正在发生变化。2013年底有人分析了GitHub上30000个项目，统计出了最流行的100个Libraries，可以看出slf4j的发展趋势更好：</p>
+</li>
+<li>Apache眼看有被Logback反超的势头，于2012-07重写了log4j 1.x，成立了新的项目Log4j 2。Log4j 2具有logback的所有特性。</li>
+</ol>
+<p><img src="/uploads/logger.png" alt=""></p>
+<h2 id="java日志框架门派之间的关系"><a href="#java日志框架门派之间的关系" class="headerlink" title="java日志框架门派之间的关系"></a>java日志框架门派之间的关系</h2><ul>
+<li>Log4j2与Log4j1发生了很大的变化，log4j2不兼容log4j1。</li>
+<li>Commons Logging和Slf4j是日志门面(门面模式是软件工程中常用的一种软件设计模式，也被称为正面模式、外观模式。它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用)。log4j和Logback则是具体的日志实现方案。可以简单的理解为接口与接口的实现，调用这只需要关注接口而无需关注具体的实现，做到解耦。</li>
+<li>比较常用的组合使用方式是slf4j与logback组合使用，Commons Logging与Log4j组合使用。</li>
+<li>Logback必须配合Slf4j使用。由于Logback和Slf4j是同一个作者，其兼容性不言而喻。</li>
+</ul>
+<h2 id="Commons-Logging与Slf4j实现机制对比"><a href="#Commons-Logging与Slf4j实现机制对比" class="headerlink" title="Commons Logging与Slf4j实现机制对比"></a>Commons Logging与Slf4j实现机制对比</h2><h3 id="Commons-logging实现机制"><a href="#Commons-logging实现机制" class="headerlink" title="Commons logging实现机制"></a>Commons logging实现机制</h3><p>Commons logging是通过动态查找机制，在程序运行时，使用自己的ClassLoader寻找和载入本地具体的实现。详细策略可以查看commons-logging-*.jar包中的org.apache.commons.logging.impl.LogFactoryImpl.java文件。由于OSGi不同的插件使用独立的ClassLoader，OSGI的这种机制保证了插件互相独立, 其机制限制了commons logging在OSGi中的正常使用。</p>
+<h3 id="Slf4j实现机制"><a href="#Slf4j实现机制" class="headerlink" title="Slf4j实现机制"></a>Slf4j实现机制</h3><p>slf4j在编译期间，静态绑定本地的LOG库，因此可以在OSGi中正常使用。它是通过查找类路径下org.slf4j.impl.StaticLoggerBinder，然后绑定工作都在这类里面进行。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>以上简单的介绍了日志框架各门派之间的异同之处，通过基本的介绍相信读者能够做出自己的日志框架选型，后续的系列博客会详细介绍各个框架的详细运用。敬请期待。。。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 日志管理之美 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> log4j,java,日志,logback </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
