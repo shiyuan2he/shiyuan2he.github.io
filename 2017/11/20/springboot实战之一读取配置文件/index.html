@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="springboot实战之一读取配置文件"/>
+
+
+
+
+  <meta name="keywords" content="springboot,配置文件, 远哥家" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="远哥家">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2017/11/20/springboot实战之一读取配置文件/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> springboot实战之一读取配置文件 - 远哥家 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">远哥家</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about/">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">远哥家</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          springboot实战之一读取配置文件
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-11-20
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/springboot实战/">springboot实战</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#大话springboot"><span class="toc-text">大话springboot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导包"><span class="toc-text">导包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件和启动入口"><span class="toc-text">配置文件和启动入口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#读取项目配置文件内容"><span class="toc-text">读取项目配置文件内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提供http-api接口"><span class="toc-text">提供http api接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尾声"><span class="toc-text">尾声</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>我们聊一聊最近很火的springboot，它可以很快捷，快速的创建一个spring的web项目。说白一点，他是spring+springMVC+持久层框架+数据源连接池+web容器+。。。的脚手架.<br><a id="more"></a></p>
+<h2 id="大话springboot"><a href="#大话springboot" class="headerlink" title="大话springboot"></a>大话springboot</h2><p>我们聊一聊最近很火的springboot，它可以很快捷，快速的创建一个spring的web项目。说白一点，他是spring+springMVC+持久层框架+数据源连接池+web容器+。。。的脚手架。<br>springboot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。对于很熟练的开发（以我所见，起码是处于开发一线3年以上期间的才算熟练），spingboot的出现无疑是福音。否则，强行去运用springboot反而适得其反，黑盒开发。如果一定要用springboot，那么一定要多动脑，多思考，多去开源社区走走开发前辈趟出来坑。</p>
+<h2 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;parent&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.5.8.RELEASE&lt;/version&gt;</div><div class="line">&lt;/parent&gt;</div><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</div><div class="line">        &lt;scope&gt;test&lt;/scope&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+<p>导入以上jar包即可进行简单的spingboot项目开发</p>
+<h2 id="配置文件和启动入口"><a href="#配置文件和启动入口" class="headerlink" title="配置文件和启动入口"></a>配置文件和启动入口</h2><p>resources文件夹下新建application.yml 文件。文件内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  profiles:</div><div class="line">    active: dev</div></pre></td></tr></table></figure>
+<p>resources文件夹下新建application-dev.yml 文件。文件内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">server:</div><div class="line">  port: <span class="number">9527</span></div></pre></td></tr></table></figure>
+<p>src文件夹下建包并创建java文件，内容如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringbootConfigApplication</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        SpringApplication.run(SpringbootConfigApplication.class,args) ;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时已经创建好基于springboot的web项目，可以启动SpringbootConfigApplication的main方法，然后用telnet localhost 9527 能够连接上服务。</p>
+<h2 id="读取项目配置文件内容"><a href="#读取项目配置文件内容" class="headerlink" title="读取项目配置文件内容"></a>读取项目配置文件内容</h2><p>在resources文件夹下新建test.properties，内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">com.hsy.name=heshiyuan</div><div class="line">com.hsy.age=<span class="number">18</span></div></pre></td></tr></table></figure>
+<p>在SpringbootConfigApplication所在包下新建bean包（很重要，springboot只会扫描入口类层级一下的注解），并新建user.java文件，内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@PropertySource</span>(value = <span class="string">"classpath:test.properties"</span>)</div><div class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"com.hsy"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在application.yml添加如下内容，实现第二种配置属性读取。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">my:</div><div class="line"> name: heshiyuan</div><div class="line"> age: <span class="number">18</span></div><div class="line"> number:  $&#123;random.<span class="keyword">int</span>&#125;</div><div class="line"> uuid : $&#123;random.uuid&#125;</div><div class="line"> max: $&#123;random.<span class="keyword">int</span>(<span class="number">10</span>)&#125;</div><div class="line"> value: $&#123;random.value&#125;</div><div class="line"> greeting: hi,i<span class="string">'m  $&#123;my.name&#125;</span></div></pre></td></tr></table></figure>
+<p>bean包下新建ConfigBean.java.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"my"</span>)</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigBean</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> number;</div><div class="line">    <span class="keyword">private</span> String uuid;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> max;</div><div class="line">    <span class="keyword">private</span> String value;</div><div class="line">    <span class="keyword">private</span> String greeting;</div><div class="line">    <span class="comment">//...省略seter，getter方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="提供http-api接口"><a href="#提供http-api接口" class="headerlink" title="提供http api接口"></a>提供http api接口</h2><p>在bean包统计目录创建controller包，并新建RestfulController.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/api/restful/"</span>)</div><div class="line"><span class="meta">@EnableConfigurationProperties</span>(&#123;ConfigBean.class,User.class&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestfulController</span> </span>&#123;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    ConfigBean configBean;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/v1.0/configBean"</span>,method = RequestMethod.GET)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">beanValue</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> configBean.getGreeting()+<span class="string">" &gt;&gt;&gt;&gt;"</span>+configBean.getName()+<span class="string">" &gt;&gt;&gt;&gt;"</span>+ configBean.getUuid()+<span class="string">" &gt;&gt;&gt;&gt;"</span>+configBean.getMax();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    User user;</div><div class="line">    <span class="meta">@RequestMapping</span>(value = &#123;<span class="string">"/v1.0/user/list"</span>,<span class="string">"/users"</span>&#125;,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">user</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> user.getName()+user.getAge();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;my.name&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;my.age&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/v1.0/my"</span>,method = RequestMethod.GET)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">dataValue</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> name+<span class="string">":"</span>+age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>用postman api工具进行测试</p>
+<p><img src="uploads/springboot-config.png" alt="image"></p>
+<h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>项目源码：<a href="https://github.com/shiyuan2he/springboot.git" target="_blank" rel="external">https://github.com/shiyuan2he/springboot.git</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="http://yoursite.com">天道悲鸣</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="http://yoursite.com/2017/11/20/springboot实战之一读取配置文件/">http://yoursite.com/2017/11/20/springboot实战之一读取配置文件/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">Reward</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/uploads/WechatPay.jpeg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/uploads/AliPay.jpeg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/springboot-配置文件/">springboot,配置文件</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/08/30/日志管理-3-Commons-logging-log4j日志框架剖析/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">(日志管理-3)Commons logging+log4j日志框架剖析</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:shiyuan4work@sina.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/shiyuan2he" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="http://weibo.com/shiyuanhe/home" class="iconfont icon-weibo" title="weibo"></a>
+        
+      
+    
+      
+        
+          <a href="http://blog.csdn.net/u012806787" class="iconfont icon-csdn" title="csdn"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">天道悲鸣</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>
