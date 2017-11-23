@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[spring读取配置文件属性]]></title>
+      <title><![CDATA[spring之一读取配置文件属性]]></title>
       <url>/2017/11/23/spring%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7/</url>
       <content type="html"><![CDATA[<p>在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。但读取*.properties文件有N多种方式，本文根据我工作中用到的读取properties配置文件的方法小小总结一下，主要叙述的是spring读取配置文件的方法。</p>
