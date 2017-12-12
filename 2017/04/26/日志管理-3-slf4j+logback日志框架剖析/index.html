@@ -10,11 +10,6 @@
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
 
 
   <meta name="description" content="(日志管理-3)-slf4j+logback日志框架剖析"/>
@@ -22,79 +17,68 @@
 
 
 
-  <meta name="keywords" content="log4j,java,日志,logback, 远哥家" />
+  <meta name="keywords" content="log4j,java,日志,logback," />
 
 
 
 
+  <link rel="alternate" href="/default" title="人生苦短，我选编程">
 
 
 
 
-
-
-  <link rel="alternate" href="/default" title="远哥家">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
 
 
 
 <link rel="canonical" href="http://yoursite.com/2017/04/26/日志管理-3-slf4j+logback日志框架剖析/"/>
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+<meta name="description" content="如何从缤纷复杂的日志系统世界筛选出适合自己的日志框架以及slf4j+logback的组合美妙之处？此文可能有帮助">
+<meta name="keywords" content="log4j,java,日志,logback">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(日志管理-3)-slf4j+logback日志框架剖析">
+<meta property="og:url" content="http://yoursite.com/2017/04/26/日志管理-3-slf4j+logback日志框架剖析/index.html">
+<meta property="og:site_name" content="人生苦短，我选编程">
+<meta property="og:description" content="如何从缤纷复杂的日志系统世界筛选出适合自己的日志框架以及slf4j+logback的组合美妙之处？此文可能有帮助">
+<meta property="og:image" content="http://yoursite.com/uploads/slf4j+logback.png">
+<meta property="og:updated_time" content="2017-08-17T05:33:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(日志管理-3)-slf4j+logback日志框架剖析">
+<meta name="twitter:description" content="如何从缤纷复杂的日志系统世界筛选出适合自己的日志框架以及slf4j+logback的组合美妙之处？此文可能有帮助">
+<meta name="twitter:image" content="http://yoursite.com/uploads/slf4j+logback.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
 
 
 
 
 
 
-  
-  <script id="baidu_analytics">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
-
-
-
-  <script id="baidu_push">
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
+<script>
+  var CONFIG = {
+    search: false,
+    searchPath: "/search.xml",
+    fancybox: false,
+    toc: true,
+  }
 </script>
 
 
 
 
+  
 
 
 
-
-
-    <title> (日志管理-3)-slf4j+logback日志框架剖析 - 远哥家 </title>
+    <title> (日志管理-3)-slf4j+logback日志框架剖析 · 人生苦短，我选编程 </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/." class="logo">远哥家</a>
+    <a href="/." class="logo">人生苦短，我选编程</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -110,7 +94,7 @@
         <li class="mobile-menu-item">
           
           
-            首页
+            Home
           
         </li>
       </a>
@@ -119,34 +103,7 @@
         <li class="mobile-menu-item">
           
           
-            归档
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            标签
-          
-        </li>
-      </a>
-    
-      <a href="/categories/">
-        <li class="mobile-menu-item">
-          
-          
-            分类
-          
-        </li>
-      </a>
-    
-      <a href="/about/">
-        <li class="mobile-menu-item">
-          
-          
-            关于
+            Archives
           
         </li>
       </a>
@@ -156,7 +113,7 @@
 
     <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
-  <a href="/." class="logo">远哥家</a>
+  <a href="/." class="logo">人生苦短，我选编程</a>
 </div>
 
 <nav class="site-navbar">
@@ -167,7 +124,7 @@
           <a class="menu-item-link" href="/">
             
             
-              首页
+              Home
             
           </a>
         </li>
@@ -176,37 +133,11 @@
           <a class="menu-item-link" href="/archives/">
             
             
-              归档
+              Archives
             
           </a>
         </li>
       
-        <li class="menu-item">
-          <a class="menu-item-link" href="/tags/">
-            
-            
-              标签
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/categories/">
-            
-            
-              分类
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/about/">
-            
-            
-              关于
-            
-          </a>
-        </li>
       
     </ul>
   
@@ -229,23 +160,15 @@
 
       <div class="post-meta">
         <span class="post-time">
-          2017-04-26
+          2017年4月26日
         </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/日志管理之美/">日志管理之美</a>
-            
-          </div>
-        
-        
       </div>
     </header>
 
     
     
   <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">文章目录</h2>
+    <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么选择slf4j-logback日志框架"><span class="toc-text">为什么选择slf4j+logback日志框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用slf4j-logback"><span class="toc-text">使用slf4j+logback</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择jar包"><span class="toc-text">选择jar包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析jar包"><span class="toc-text">分析jar包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件解析"><span class="toc-text">配置文件解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自动重新加载"><span class="toc-text">自动重新加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#appender"><span class="toc-text">appender</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码应用测试"><span class="toc-text">代码应用测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol>
     </div>
@@ -288,44 +211,10 @@
       
       
 
-  <div class="post-copyright">
-    <p class="copyright-item">
-      <span>原文作者: </span>
-      <a href="http://yoursite.com">天道悲鸣</a>
-    </p>
-    <p class="copyright-item">
-      <span>原文链接: </span>
-      <a href="http://yoursite.com/2017/04/26/日志管理-3-slf4j+logback日志框架剖析/">http://yoursite.com/2017/04/26/日志管理-3-slf4j+logback日志框架剖析/</a>
-    </p>
-    <p class="copyright-item">
-      <span>许可协议: </span>
-      
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
-    </p>
-  </div>
-
 
 
       
       
-  <div class="post-reward">
-    <input type="checkbox" name="reward" id="reward" hidden />
-    <label class="reward-button" for="reward">赞赏支持</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
-          <img class="image" src="/uploads/WechatPay.jpeg" title="wechat">
-        </label>
-      
-      
-        <label class="qr-code-image" for="reward">
-          <img class="image" src="/uploads/AliPay.jpeg" title="alipay">
-        </label>
-      
-    </div>
-  </div>
-
     
 
     
@@ -344,13 +233,13 @@
       <a class="prev" href="/2017/04/26/日志管理-1-关于日志的扯淡/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">(日志管理-1)关于日志的扯淡</span>
-        <span class="prev-text nav-mobile">上一篇</span>
+        <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
       <a class="next" href="/2017/04/27/项目管理-1-maven安装及环境变量配置/">
         <span class="next-text nav-default">项目管理-1-maven安装及环境变量配置</span>
-        <span class="prev-text nav-mobile">下一篇</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
     
@@ -369,7 +258,7 @@
   </div>
 
 
-        </div>
+        </div>  
       </main>
 
       <footer id="footer" class="footer">
@@ -378,7 +267,7 @@
     
       
         
-          <a href="mailto:shiyuan4work@sina.com" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -390,24 +279,6 @@
     
       
     
-      
-    
-      
-        
-          <a href="https://github.com/shiyuan2he" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="http://weibo.com/shiyuanhe/home" class="iconfont icon-weibo" title="weibo"></a>
-        
-      
-    
-      
-        
-          <a href="http://blog.csdn.net/u012806787" class="iconfont icon-csdn" title="csdn"></a>
-        
       
     
       
@@ -430,11 +301,11 @@
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
   </span>
-  <span class="division">|</span>
+  
   <span class="theme-info">
-    主题 - 
+    Theme - 
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
@@ -452,7 +323,6 @@
     <span class="author">天道悲鸣</span>
   </span>
 </div>
-
       </footer>
 
       <div class="back-to-top" id="back-to-top">
@@ -462,6 +332,9 @@
 
     
   
+  
+  
+
 
 
 
@@ -481,8 +354,9 @@
   
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
 
+    
   </body>
 </html>
