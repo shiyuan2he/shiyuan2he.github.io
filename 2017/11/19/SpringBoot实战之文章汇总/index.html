@@ -12,10 +12,12 @@
 
 
 
-  <meta name="description" content="凡人求佛，圣人问心"/>
+  <meta name="description" content="SpringBoot实战之文章汇总"/>
 
 
 
+
+  <meta name="keywords" content="springboot," />
 
 
 
@@ -29,18 +31,20 @@
 
 
 
-<link rel="canonical" href="http://yoursite.com/"/>
+<link rel="canonical" href="http://yoursite.com/2017/11/19/SpringBoot实战之文章汇总/"/>
 
 
-<meta name="description" content="凡人求佛，圣人问心">
-<meta property="og:type" content="website">
-<meta property="og:title" content="人生苦短，我选编程">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="spingboot实战 配置篇  第一篇：springboot读取配置文件数据 博客地址：springboot之一读取配置文件  项目地址：springboot-config  数据源篇  第二篇：springboot整合jdbc博客地址：暂无 项目地址：springboot-jdbc 第三篇：springboot整合hibernate博客地址：暂无 项目地址：springboot-hiberna">
+<meta name="keywords" content="springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot实战之文章汇总">
+<meta property="og:url" content="http://yoursite.com/2017/11/19/SpringBoot实战之文章汇总/index.html">
 <meta property="og:site_name" content="人生苦短，我选编程">
-<meta property="og:description" content="凡人求佛，圣人问心">
+<meta property="og:description" content="spingboot实战 配置篇  第一篇：springboot读取配置文件数据 博客地址：springboot之一读取配置文件  项目地址：springboot-config  数据源篇  第二篇：springboot整合jdbc博客地址：暂无 项目地址：springboot-jdbc 第三篇：springboot整合hibernate博客地址：暂无 项目地址：springboot-hiberna">
+<meta property="og:updated_time" content="2017-12-12T13:14:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="人生苦短，我选编程">
-<meta name="twitter:description" content="凡人求佛，圣人问心">
+<meta name="twitter:title" content="SpringBoot实战之文章汇总">
+<meta name="twitter:description" content="spingboot实战 配置篇  第一篇：springboot读取配置文件数据 博客地址：springboot之一读取配置文件  项目地址：springboot-config  数据源篇  第二篇：springboot整合jdbc博客地址：暂无 项目地址：springboot-jdbc 第三篇：springboot整合hibernate博客地址：暂无 项目地址：springboot-hiberna">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
@@ -67,7 +71,7 @@
 
 
 
-    <title> 人生苦短，我选编程 </title>
+    <title> SpringBoot实战之文章汇总 · 人生苦短，我选编程 </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -143,153 +147,12 @@
         <div class="content-wrapper">
           <div id="content" class="content">
             
-  <section id="posts" class="posts">
-    
-      
+  
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/11/24/SpringBoot实战之入门/">SpringBoot实战之入门</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年11月24日
-        </span>
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2 id="历史文章"><a href="#历史文章" class="headerlink" title="历史文章"></a>历史文章</h2><p><a href="https://shiyuan2he.github.io/2017/11/20/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E4%B8%80%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank" rel="external">springboot实战之文章汇总</a></p>
-<p><a href="https://shiyuan2he.github.io/2017/11/20/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E4%B8%80%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank" rel="external">springboot实战之读取配置文件</a></p>
-<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><ul>
-<li>3年以上的Java开发，无论是公司的项目或者是自己的项目，肯定经历过大量配置文件的配置，维护，特别是spring3.0之前版本开发的web项目，配置文件多大十几个（spring3.0之后提供了注解替代部分配置文件），费心费脑还容易出错。</li>
-<li>随着功能以及业务逻辑的日益复杂，大量的bean配置到xml或者是注解，徒增配置文件的数量</li>
-<li>spring集成dubbo，redis，rabbit，mail等等第三方都需要新增配置项</li>
-</ul>
-<p>Spring Boot正是在这样的一个背景下被抽象出来的开发框架。</p>
-<ul>
-<li>它本身并不提供Spring框架的核心特性以及扩展功能，只是用于快速、敏捷地开发新一代基于Spring框架的应用程序。</li>
-<li>它不是用来替代Spring的解决方案，而是和Spring框架紧密结合用于提升Spring开发者体验的工具。</li>
-<li>它集成了大量常用的第三方库配置（例如Jackson,JDBC,Mongo,Redis,Mail等等），SpringBoot应用中这些第三方库几乎可以零配置的开箱即用（out-of-the-box），大部分的Spring Boot应用都只需要非常少量的配置代码，开发者能够更加专注于业务逻辑。</li>
-</ul>
-<h2 id="二、特点"><a href="#二、特点" class="headerlink" title="二、特点"></a>二、特点</h2><ul>
-<li>不生成代码，且完全不需要XML配置</li>
-<li>为Spring开发工作提供一个更快、更广泛的入门经验。</li>
-<li>开箱即用，你也可以通过修改默认值来快速满足你的项目的需求。</li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/11/23/spring读取配置文件属性/">spring实战之读取配置文件属性</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年11月23日
-        </span>
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。<br>
-          <div class="read-more">
-            <a href="/2017/11/23/spring读取配置文件属性/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/11/20/springboot实战之一读取配置文件/">springboot实战之读取配置文件</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年11月20日
-        </span>
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>我们聊一聊最近很火的springboot，它可以很快捷，快速的创建一个spring的web项目。说白一点，他是spring+springMVC+持久层框架+数据源连接池+web容器+。。。的脚手架.<br>
-          <div class="read-more">
-            <a href="/2017/11/20/springboot实战之一读取配置文件/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/11/19/SpringBoot实战之文章汇总/">SpringBoot实战之文章汇总</a>
+          SpringBoot实战之文章汇总
         
       </h1>
 
@@ -302,14 +165,17 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#spingboot实战"><span class="toc-text">spingboot实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置篇"><span class="toc-text">配置篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一篇：springboot读取配置文件数据"><span class="toc-text">第一篇：springboot读取配置文件数据 </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据源篇"><span class="toc-text">数据源篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第二篇：springboot整合jdbc"><span class="toc-text">第二篇：springboot整合jdbc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三篇：springboot整合hibernate"><span class="toc-text">第三篇：springboot整合hibernate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第四篇：springboot整合mybatis"><span class="toc-text">第四篇：springboot整合mybatis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第五篇：springboot整合redis"><span class="toc-text">第五篇：springboot整合redis</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存篇"><span class="toc-text">缓存篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第六篇：springboot使用ConcurrentMap作缓存"><span class="toc-text">第六篇：springboot使用ConcurrentMap作缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#暂未完成：springboot使用redis作缓存"><span class="toc-text">暂未完成：springboot使用redis作缓存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定时任务和异步方法篇"><span class="toc-text">定时任务和异步方法篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第七篇：springboot整合定时任务"><span class="toc-text">第七篇：springboot整合定时任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第八篇：springboot整合async"><span class="toc-text">第八篇：springboot整合async</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#restful篇"><span class="toc-text">restful篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第九篇：springboot利用RestTemplate消费rest服务"><span class="toc-text">第九篇：springboot利用RestTemplate消费rest服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第十三篇：springboot利用swager2生成接口文档"><span class="toc-text">第十三篇：springboot利用swager2生成接口文档</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web篇"><span class="toc-text">web篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第十篇：springboot整合表单自动验证"><span class="toc-text">第十篇：springboot整合表单自动验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第十一篇：springboot表单提交"><span class="toc-text">第十一篇：springboot表单提交</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列篇"><span class="toc-text">队列篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第十二篇：springboot整合rabbitmq"><span class="toc-text">第十二篇：springboot整合rabbitmq</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#邮件服务器篇"><span class="toc-text">邮件服务器篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第十四篇：springboot整合邮件服务器"><span class="toc-text">第十四篇：springboot整合邮件服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#未完待续。。。还有很多篇"><span class="toc-text">未完待续。。。还有很多篇</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
 
     <div class="post-content">
       
-        
-        
-
-        
-          <h2 id="spingboot实战"><a href="#spingboot实战" class="headerlink" title="spingboot实战"></a>spingboot实战</h2><ul>
+        <h2 id="spingboot实战"><a href="#spingboot实战" class="headerlink" title="spingboot实战"></a>spingboot实战</h2><ul>
 <li><h3 id="配置篇"><a href="#配置篇" class="headerlink" title="配置篇"></a>配置篇</h3></li>
 </ul>
 <h4 id="第一篇：springboot读取配置文件数据"><a href="#第一篇：springboot读取配置文件数据" class="headerlink" title="第一篇：springboot读取配置文件数据 "></a>第一篇：springboot读取配置文件数据 <br></h4><p>博客地址：<a href="http://blog.csdn.net/u012806787/article/details/78583814" target="_blank" rel="external">springboot之一读取配置文件</a>  <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-config" target="_blank" rel="external">springboot-config</a></p>
@@ -348,280 +214,59 @@
 </ul>
 <h4 id="第十四篇：springboot整合邮件服务器"><a href="#第十四篇：springboot整合邮件服务器" class="headerlink" title="第十四篇：springboot整合邮件服务器"></a>第十四篇：springboot整合邮件服务器</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-jms" target="_blank" rel="external">springboot-jms</a></p>
 <h4 id="未完待续。。。还有很多篇"><a href="#未完待续。。。还有很多篇" class="headerlink" title="未完待续。。。还有很多篇"></a>未完待续。。。还有很多篇</h4>
-        
       
     </div>
 
     
-
-    
-
-  </article>
-
-    
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/08/30/日志管理-3-Commons-logging-log4j日志框架剖析/">(日志管理-3)Commons logging+log4j日志框架剖析</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年8月30日
-        </span>
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
       
-        
-        
 
-        
-          
-        
+
+
       
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/08/22/centos7自学之6-redis-4-0-1单例服务器搭建/">centos7自学之6-redis-4.0.1单例服务器搭建</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年8月22日
-        </span>
-      </div>
-    </header>
-
-    
     
 
-    <div class="post-content">
-      
+    
+      <footer class="post-footer">
         
-        
-          
-        
-
-        
-          <p>摘要: redis作为一种NoSql数据库，其提供了一种高效的缓存方案，本文则主要对其单例，主从模式，sentinel以及集群的配置方式进行说明，对比其优缺点，阐述redis作为一种缓存框架的高可用性。<br>
-          <div class="read-more">
-            <a href="/2017/08/22/centos7自学之6-redis-4-0-1单例服务器搭建/" class="read-more-link">Read more..</a>
+          <div class="post-tags">
+            
+              <a href="/tags/springboot/">springboot</a>
+            
           </div>
         
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
         
-          <a class="post-link" href="/2017/08/13/centos7自学之5-基于solr6-6的solrcloud集群搭建/">centos7自学之5-基于solr6.6的solrcloud集群搭建</a>
         
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年8月13日
-        </span>
-      </div>
-    </header>
-
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/08/30/日志管理-3-Commons-logging-log4j日志框架剖析/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">(日志管理-3)Commons logging+log4j日志框架剖析</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
     
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>SolrCloud(solr集群)是Solr提供的分布式搜索方案。<br>
-          <div class="read-more">
-            <a href="/2017/08/13/centos7自学之5-基于solr6-6的solrcloud集群搭建/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/08/11/centos7自学之4-solr6-6搜索服务器安装及IK分词器配置/">centos7自学之4-solr6.6搜索服务器安装及IK分词器配置</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年8月11日
-        </span>
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>Solr是一个高性能，采用Java5开发，Solr基于Lucene的全文搜索服务器。同时对其进行了扩展，提供了比Lucene更为丰富的查询语言，同时实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面，是一款非常优秀的全文搜索引擎。<br>
-          <div class="read-more">
-            <a href="/2017/08/11/centos7自学之4-solr6-6搜索服务器安装及IK分词器配置/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/08/11/centos7自学之3-tomcat环境配置/">centos7自学之3-tomcat环境配置</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年8月11日
-        </span>
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>centos7配置tomcat服务器<br>
-          <div class="read-more">
-            <a href="/2017/08/11/centos7自学之3-tomcat环境配置/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/08/11/centos7自学之2-jdk配置/">centos7自学之2-jdk配置</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017年8月11日
-        </span>
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>本章讲解在centos服务器上部署java开发环境之jdk安装，分rpm安装和tar.gz安装<br>
-          <div class="read-more">
-            <a href="/2017/08/11/centos7自学之2-jdk配置/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    
-    
-      <a class="next" href="/page/2/">
-        <span class="next-text">Next</span>
+      <a class="next" href="/2017/11/20/springboot实战之一读取配置文件/">
+        <span class="next-text nav-default">springboot实战之读取配置文件</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
     
   </nav>
 
+      </footer>
+    
+
+  </article>
+
 
           </div>
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>  
       </main>
@@ -696,6 +341,11 @@
     </div>
 
     
+  
+  
+  
+
+
 
 
     
