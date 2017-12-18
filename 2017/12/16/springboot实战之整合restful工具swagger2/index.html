@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="springboot实战之整合restful工具swagger2"/>
+
+
+
+
+  <meta name="keywords" content="springboot,restful,swagger2," />
+
+
+
+
+  <link rel="alternate" href="/default" title="远观钱途">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2017/12/16/springboot实战之整合restful工具swagger2/"/>
+
+
+<meta name="description" content="本篇介绍springboot项目中添加在线接口文档">
+<meta name="keywords" content="springboot,restful,swagger2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot实战之整合restful工具swagger2">
+<meta property="og:url" content="http://yoursite.com/2017/12/16/springboot实战之整合restful工具swagger2/index.html">
+<meta property="og:site_name" content="远观钱途">
+<meta property="og:description" content="本篇介绍springboot项目中添加在线接口文档">
+<meta property="og:image" content="http://yoursite.com/uploads/springboot-swagger.png">
+<meta property="og:image" content="http://yoursite.com/uploads/springboot-swagger2.png">
+<meta property="og:updated_time" content="2017-12-16T06:33:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springboot实战之整合restful工具swagger2">
+<meta name="twitter:description" content="本篇介绍springboot项目中添加在线接口文档">
+<meta name="twitter:image" content="http://yoursite.com/uploads/springboot-swagger.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: false,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> springboot实战之整合restful工具swagger2 · 远观钱途 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">远观钱途</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">远观钱途</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          springboot实战之整合restful工具swagger2
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017年12月16日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code实现"><span class="toc-text">code实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加依赖"><span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启用swagger2"><span class="toc-text">启用swagger2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建实体Bean作为查询实体"><span class="toc-text">新建实体Bean作为查询实体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建BookController"><span class="toc-text">新建BookController</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建项目入口SpringBootSwaggerApplication-java"><span class="toc-text">新建项目入口SpringBootSwaggerApplication.java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目结构图"><span class="toc-text">项目结构图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行效果图"><span class="toc-text">运行效果图</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>本篇介绍springboot项目中添加在线接口文档<br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> Swagger 是一款RESTFUL接口的文档在线自动生成+功能测试功能软件。本文简单介绍了在项目中集成swagger的方法和一些常见问题。如果想深入分析项目源码，了解更多内容，见参考资料。</p>
+<p>Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务。总体目标是使客户端和文件系统作为服务器以同样的速度来更新。文件的方法，参数和模型紧密集成到服务器端的代码，允许API来始终保持同步。Swagger 让部署管理和使用功能强大的API从未如此简单。</p>
+<h2 id="code实现"><a href="#code实现" class="headerlink" title="code实现"></a>code实现</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="启用swagger2"><a href="#启用swagger2" class="headerlink" title="启用swagger2"></a>启用swagger2</h3><p>新建SwaggerConfig.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span> <span class="comment">//说明此类是一个配置类</span></div><div class="line"><span class="meta">@EnableSwagger</span>2 <span class="comment">//启用swagger2</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">createRestApi</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</div><div class="line">                .apiInfo(apiInfo())</div><div class="line">                .select()</div><div class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">"com.hsy.springboot.swagger.web"</span>))</div><div class="line">                .paths(PathSelectors.any())</div><div class="line">                .build()</div><div class="line">                ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">apiInfo</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ApiInfoBuilder()</div><div class="line">                .title(<span class="string">"spirngboot利用swagger构建api文档"</span>)</div><div class="line">                .description(<span class="string">"简单优雅的restfun风格，https://github.com/shiyuan2he/springboot"</span>)</div><div class="line">                .termsOfServiceUrl(<span class="string">"https://github.com/shiyuan2he/springboot"</span>)</div><div class="line">                .version(<span class="string">"1.0"</span>)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="新建实体Bean作为查询实体"><a href="#新建实体Bean作为查询实体" class="headerlink" title="新建实体Bean作为查询实体"></a>新建实体Bean作为查询实体</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">long</span> id;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> price;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getPrice</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> price;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(<span class="keyword">double</span> price)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.price = price;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="新建BookController"><a href="#新建BookController" class="headerlink" title="新建BookController"></a>新建BookController</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *</div><div class="line">     Api：修饰整个类，描述Controller的作用</div><div class="line">     ApiOperation：描述一个类的一个方法，或者说一个接口</div><div class="line">     ApiParam：单个参数描述</div><div class="line">     ApiModel：用对象来接收参数</div><div class="line">     ApiProperty：用对象接收参数时，描述对象的一个字段</div><div class="line">     ApiResponse：HTTP响应其中1个描述</div><div class="line">     ApiResponses：HTTP响应整体描述</div><div class="line">     ApiIgnore：使用该注解忽略这个API</div><div class="line">     ApiError ：发生错误返回的信息</div><div class="line">     ApiParamImplicitL：一个请求参数</div><div class="line">     ApiParamsImplicit 多个请求参数</div><div class="line"></div><div class="line"> */</div><div class="line"><span class="meta">@Api</span>(value = <span class="string">"书籍接口"</span>,description = <span class="string">"书籍相关的处理"</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api/books"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookController</span> </span>&#123;</div><div class="line"></div><div class="line">    Map&lt;Long, Book&gt; books = Collections.synchronizedMap(<span class="keyword">new</span> HashMap&lt;Long, Book&gt;());</div><div class="line"></div><div class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"获取图书列表"</span>, notes=<span class="string">"获取图书列表"</span>)</div><div class="line">    <span class="meta">@RequestMapping</span>(value=&#123;<span class="string">""</span>&#125;, method= RequestMethod.GET)</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">getBook</span><span class="params">()</span> </span>&#123;</div><div class="line">        List&lt;Book&gt; book = <span class="keyword">new</span> ArrayList&lt;&gt;(books.values());</div><div class="line">        <span class="keyword">return</span> book;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"创建图书"</span>, notes=<span class="string">"创建图书"</span>)</div><div class="line">    <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"book"</span>, value = <span class="string">"图书详细实体"</span>, required = <span class="keyword">true</span>, dataType = <span class="string">"Book"</span>)</div><div class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">""</span>, method=RequestMethod.POST)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">postBook</span><span class="params">(@RequestBody Book book)</span> </span>&#123;</div><div class="line">        books.put(book.getId(), book);</div><div class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"获图书细信息"</span>, notes=<span class="string">"根据url的id来获取详细信息"</span>)</div><div class="line">    <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"id"</span>, value = <span class="string">"ID"</span>, required = <span class="keyword">true</span>, dataType = <span class="string">"Long"</span>,paramType = <span class="string">"path"</span>)</div><div class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/&#123;id&#125;"</span>, method=RequestMethod.GET)</div><div class="line">    <span class="function"><span class="keyword">public</span> Book <span class="title">getBook</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> books.get(id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"更新信息"</span>, notes=<span class="string">"根据url的id来指定更新图书信息"</span>)</div><div class="line">    <span class="meta">@ApiImplicitParams</span>(&#123;</div><div class="line">            <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"id"</span>, value = <span class="string">"图书ID"</span>, required = <span class="keyword">true</span>, dataType = <span class="string">"Long"</span>,paramType = <span class="string">"path"</span>),</div><div class="line">            <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"book"</span>, value = <span class="string">"图书实体book"</span>, required = <span class="keyword">true</span>, dataType = <span class="string">"Book"</span>)</div><div class="line">    &#125;)</div><div class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/&#123;id&#125;"</span>, method= RequestMethod.PUT)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">putUser</span><span class="params">(@PathVariable Long id, @RequestBody Book book)</span> </span>&#123;</div><div class="line">        Book book1 = books.get(id);</div><div class="line">        book1.setName(book.getName());</div><div class="line">        book1.setPrice(book.getPrice());</div><div class="line">        books.put(id, book1);</div><div class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@ApiOperation</span>(value=<span class="string">"删除图书"</span>, notes=<span class="string">"根据url的id来指定删除图书"</span>)</div><div class="line">    <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"id"</span>, value = <span class="string">"图书ID"</span>, required = <span class="keyword">true</span>, dataType = <span class="string">"Long"</span>,paramType = <span class="string">"path"</span>)</div><div class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/&#123;id&#125;"</span>, method=RequestMethod.DELETE)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">deleteUser</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        books.remove(id);</div><div class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ApiIgnore</span><span class="comment">//使用该注解忽略这个API</span></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/hello"</span>, method = RequestMethod.GET)</div><div class="line">    <span class="function"><span class="keyword">public</span> String  <span class="title">jsonTest</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"world!"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="新建项目入口SpringBootSwaggerApplication-java"><a href="#新建项目入口SpringBootSwaggerApplication-java" class="headerlink" title="新建项目入口SpringBootSwaggerApplication.java"></a>新建项目入口SpringBootSwaggerApplication.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootSwaggerApplication</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(SpringBootSwaggerApplication.class,args) ;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="项目结构图"><a href="#项目结构图" class="headerlink" title="项目结构图"></a>项目结构图</h3><p><img src="/uploads/springboot-swagger.png" alt=""></p>
+<h3 id="运行效果图"><a href="#运行效果图" class="headerlink" title="运行效果图"></a>运行效果图</h3><p><img src="/uploads/springboot-swagger2.png" alt=""></p>
+<p>历史文章</p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78694912" target="_blank" rel="external">SpringBoot实战之入门</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78686998" target="_blank" rel="external">springboot实战之文章汇总</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78583814" target="_blank" rel="external">springboot实战之读取配置文件</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78700999" target="_blank" rel="external">springboot实战之整合jsp模版引擎</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78706156" target="_blank" rel="external">springboot实战之整合freemarker模版引擎</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78710113" target="_blank" rel="external">springboot实战之注册自定义Servlet</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78715725" target="_blank" rel="external">springboot实战之注册filter和listener</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78719429" target="_blank" rel="external">springboot实战之注册interceptor</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78725259" target="_blank" rel="external">springboot实战之整合slf4j日志系统</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78722025" target="_blank" rel="external">springboot实战之整合CommandLineRunner</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>作者: </span>
+      <span>天道悲鸣</span>
+    </p>
+    <p class="copyright-item">
+      <span>来源: </span>
+      <a href="http://yoursite.com">http://yoursite.com</a>
+    </p>
+    <p class="copyright-item">
+      <span>链接: </span>
+      <a href="http://yoursite.com/2017/12/16/springboot实战之整合restful工具swagger2/">http://yoursite.com/2017/12/16/springboot实战之整合restful工具swagger2/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/springboot-restful-swagger2/">springboot,restful,swagger2</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/12/16/springboot实战之整合slf4j日志系统/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">springboot实战之整合slf4j日志系统</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/12/16/springboot实战之整合jdbc进行crud操作/">
+        <span class="next-text nav-default">springboot实战之整合jdbc进行crud操作</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:shiyuan4work@sina.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/shiyuan2he" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">天道悲鸣</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  
+
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

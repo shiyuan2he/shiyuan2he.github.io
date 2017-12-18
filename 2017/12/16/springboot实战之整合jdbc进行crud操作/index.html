@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="springboot实战之整合jdbc进行crud操作"/>
+
+
+
+
+  <meta name="keywords" content="springboot,jdbc,crud," />
+
+
+
+
+  <link rel="alternate" href="/default" title="远观钱途">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2017/12/16/springboot实战之整合jdbc进行crud操作/"/>
+
+
+<meta name="description" content="springboot项目整合jdbc，实现crud操作">
+<meta name="keywords" content="springboot,jdbc,crud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot实战之整合jdbc进行crud操作">
+<meta property="og:url" content="http://yoursite.com/2017/12/16/springboot实战之整合jdbc进行crud操作/index.html">
+<meta property="og:site_name" content="远观钱途">
+<meta property="og:description" content="springboot项目整合jdbc，实现crud操作">
+<meta property="og:image" content="http://yoursite.com/uploads/springboot-jdbc.png">
+<meta property="og:image" content="http://yoursite.com/uploads/springboot-jdbc2.png">
+<meta property="og:updated_time" content="2017-12-16T06:39:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springboot实战之整合jdbc进行crud操作">
+<meta name="twitter:description" content="springboot项目整合jdbc，实现crud操作">
+<meta name="twitter:image" content="http://yoursite.com/uploads/springboot-jdbc.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: false,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> springboot实战之整合jdbc进行crud操作 · 远观钱途 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">远观钱途</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">远观钱途</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          springboot实战之整合jdbc进行crud操作
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017年12月16日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code实现"><span class="toc-text">code实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导包"><span class="toc-text">导包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建数据模型实体类"><span class="toc-text">新建数据模型实体类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dao层简要实现"><span class="toc-text">dao层简要实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#service层简要实现"><span class="toc-text">service层简要实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#controller层简要实现"><span class="toc-text">controller层简要实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序入口"><span class="toc-text">程序入口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#swagger接口文档"><span class="toc-text">swagger接口文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用postman测试接口"><span class="toc-text">用postman测试接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#源码"><span class="toc-text">源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#历史文章"><span class="toc-text">历史文章</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>springboot项目整合jdbc，实现crud操作<br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>springboot整合数据源之jdbc，web项目操作数据库是常有之事。本篇介绍springboot如何用jdbc连接mariadb数据库。</p>
+<h2 id="code实现"><a href="#code实现" class="headerlink" title="code实现"></a>code实现</h2><h3 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mariadb.jdbc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mariadb-java-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hsy.springboot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springboot-rpc-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hsy.java<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>java-exception<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hsy.java<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>java-util<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="新建数据模型实体类"><a href="#新建数据模型实体类" class="headerlink" title="新建数据模型实体类"></a>新建数据模型实体类</h3><p>Exercise.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TExerciseZone</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Long id;</div><div class="line">    <span class="keyword">private</span> Integer code;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> Long parentId;</div><div class="line">    <span class="keyword">private</span> Integer sortId;</div><div class="line">    <span class="keyword">private</span> String remark;</div><div class="line"></div><div class="line">    <span class="comment">//省略setter，getter等方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="dao层简要实现"><a href="#dao层简要实现" class="headerlink" title="dao层简要实现"></a>dao层简要实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Repository</span>(<span class="string">"exerciseDao"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TExerciseZoneDaoImpl</span> <span class="keyword">implements</span> <span class="title">ITExerciseZoneDao</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger _logger = LoggerFactory.getLogger(TExerciseZoneDaoImpl.class) ;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(TExerciseZone exerciseZone)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">return</span> jdbcTemplate.update(insertSql,</div><div class="line">                    exerciseZone.getCode(),exerciseZone.getName(),exerciseZone.getParentId(), exerciseZone.getSortId(),exerciseZone.getRemark());</div><div class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">            _logger.error(<span class="string">"出错信息:&#123;&#125;"</span>,e);</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> DBHandleException(DBEnum.DB_INSERT_RESULT_ERROR,e) ;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] batchInsert(List&lt;Object[]&gt; batchArgs) &#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">return</span> jdbcTemplate.batchUpdate(insertSql,batchArgs);</div><div class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> DBHandleException(DBEnum.DB_INSERT_RESULT_ERROR,e) ;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(Long id)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">return</span> jdbcTemplate.update(deleteSql,id);</div><div class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> DBHandleException(DBEnum.DB_DELETE_RESULT_ERROR,e) ;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] batchDelete(List&lt;Long[]&gt; ids) &#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            List&lt;Object[]&gt; oids = <span class="keyword">null</span> ;</div><div class="line">            ids.forEach(id -&gt; &#123;</div><div class="line">                Object[] oid = <span class="keyword">null</span> ;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;id.length;i++)&#123;</div><div class="line">                    oid[i] = id[i] ;</div><div class="line">                &#125;</div><div class="line">                oids.add(oid) ;</div><div class="line">            &#125;);</div><div class="line">            <span class="keyword">return</span> jdbcTemplate.batchUpdate(deleteSql,oids) ;</div><div class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">update</span><span class="params">(TExerciseZone exerciseZone)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">return</span> jdbcTemplate.update(updateSql,exerciseZone.getCode(),exerciseZone.getName(),exerciseZone.getParentId(),</div><div class="line">                    exerciseZone.getSortId(),exerciseZone.getRemark(),exerciseZone.getId());</div><div class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> DBHandleException(DBEnum.DB_UPDATE_RESULT_ERROR,e) ;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] batchUpdate(List&lt;Object[]&gt; batchArgs) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">return</span> jdbcTemplate.batchUpdate(updateSql,batchArgs);</div><div class="line">        &#125; <span class="keyword">catch</span> (DataAccessException e) &#123;</div><div class="line">            _logger.error(<span class="string">"反生异常：&#123;&#125;"</span>,e);</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> DBHandleException(DBEnum.DB_UPDATE_RESULT_ERROR,e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TExerciseZone <span class="title">select</span><span class="params">(Long id)</span> </span>&#123;</div><div class="line">        TExerciseZone queryExerciseZone = jdbcTemplate.queryForObject(selectSql,<span class="keyword">new</span> Object[]&#123;id&#125;,<span class="keyword">new</span> BeanPropertyRowMapper&lt;&gt;(TExerciseZone.class)) ;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">null</span>!=queryExerciseZone)&#123;</div><div class="line">            <span class="keyword">return</span> queryExerciseZone;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TExerciseZone() ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;TExerciseZone&gt; <span class="title">selectAll</span><span class="params">(Integer offset, Integer limit)</span> </span>&#123;</div><div class="line">        List&lt;TExerciseZone&gt; list = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">null</span>!=offset&amp;&amp;<span class="keyword">null</span>!=limit)&#123;</div><div class="line">                list = jdbcTemplate.query(selectAllSql + <span class="string">"limit ?,?"</span>,<span class="keyword">new</span> Object[]&#123;offset,limit&#125;,<span class="keyword">new</span> BeanPropertyRowMapper&lt;&gt;(TExerciseZone.class));</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                list = jdbcTemplate.query(selectAllSql,<span class="keyword">new</span> Object[]&#123;&#125;,<span class="keyword">new</span> BeanPropertyRowMapper&lt;&gt;(TExerciseZone.class));</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (DataAccessException e) &#123;</div><div class="line">            _logger.error(<span class="string">"捕获异常："</span>,e);</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> DBHandleException(DBEnum.DB_SELECT_IS_NULL,e);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">null</span>!=list&amp;&amp;list.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> list ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="service层简要实现"><a href="#service层简要实现" class="headerlink" title="service层简要实现"></a>service层简要实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span>(value=<span class="string">"exerciseZoneService"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TExerciseZoneServiceImpl</span> <span class="keyword">implements</span> <span class="title">ITExerciseZoneService</span></span>&#123;</div><div class="line">    <span class="meta">@Autowired</span> <span class="keyword">private</span> ITExerciseZoneDao exerciseDao ;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">createTExerciseZone</span><span class="params">(Integer code, String name, Long parentId, Integer sortId, String remark)</span> </span>&#123;</div><div class="line">        TExerciseZone exerciseZone = <span class="keyword">new</span> TExerciseZone() ;</div><div class="line">        exerciseZone.setCode(code);</div><div class="line">        exerciseZone.setName(name);</div><div class="line">        exerciseZone.setParentId(parentId);</div><div class="line">        exerciseZone.setSortId(sortId);</div><div class="line">        exerciseZone.setRemark(remark);</div><div class="line">        <span class="keyword">int</span> insertCount = exerciseDao.insert(exerciseZone) ;</div><div class="line">        <span class="keyword">if</span>(insertCount&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">bachtCreateTExcrciseZone</span><span class="params">(List&lt;TExerciseZone&gt; list)</span> </span>&#123;</div><div class="line">        List&lt;Object[]&gt; objArgs = <span class="keyword">new</span> ArrayList&lt;&gt;() ;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;list.size();i++)&#123;</div><div class="line">            Object[] objs = <span class="keyword">new</span> Object[]&#123;&#125; ;</div><div class="line">            objs[<span class="number">0</span>] = list.get(i).getCode();</div><div class="line">            objs[<span class="number">1</span>] = list.get(i).getName();</div><div class="line">            objs[<span class="number">2</span>] = list.get(i).getParentId() ;</div><div class="line">            objs[<span class="number">3</span>] = list.get(i).getRemark() ;</div><div class="line">            objs[<span class="number">4</span>] = list.get(i).getSortId() ;</div><div class="line">            objArgs.add(objs) ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(exerciseDao.batchInsert(objArgs).length&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">deleteTExerciseZone</span><span class="params">(Long id)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(exerciseDao.delete(id)&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">batchDeleteTExerciseZone</span><span class="params">(List&lt;Long&gt; ids)</span> </span>&#123;</div><div class="line">        List&lt;Long[]&gt; objArgs = <span class="keyword">new</span> ArrayList&lt;&gt;() ;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ids.size(); i++) &#123;</div><div class="line">            Long[] objs = <span class="keyword">new</span> Long[]&#123;&#125; ;</div><div class="line">            objs[<span class="number">0</span>] = ids.get(i);</div><div class="line">            objArgs.add(objs);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(exerciseDao.batchDelete(objArgs).length&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">updateTExerciseZone</span><span class="params">(TExerciseZone exerciseZone)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (exerciseDao.update(exerciseZone)&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">batchUpdateTEerciseZone</span><span class="params">(List&lt;TExerciseZone&gt; list)</span> </span>&#123;</div><div class="line">        List&lt;Object[]&gt; objArgs = <span class="keyword">new</span> ArrayList&lt;&gt;() ;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</div><div class="line">            Object[] objs = <span class="keyword">new</span> Object[]&#123;&#125; ;</div><div class="line">            objs[<span class="number">0</span>] = list.get(i).getCode();</div><div class="line">            objs[<span class="number">1</span>] = list.get(i).getName();</div><div class="line">            objs[<span class="number">2</span>] = list.get(i).getParentId() ;</div><div class="line">            objs[<span class="number">3</span>] = list.get(i).getRemark() ;</div><div class="line">            objs[<span class="number">4</span>] = list.get(i).getSortId() ;</div><div class="line">            objs[<span class="number">5</span>] = list.get(i).getId() ;</div><div class="line">            objArgs.add(objs) ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(exerciseDao.batchUpdate(objArgs).length&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TExerciseZone <span class="title">getOne</span><span class="params">(Long id)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> exerciseDao.select(id) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;TExerciseZone&gt; <span class="title">getList</span><span class="params">(Integer offset, Integer limit)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> exerciseDao.selectAll(offset,limit);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="controller层简要实现"><a href="#controller层简要实现" class="headerlink" title="controller层简要实现"></a>controller层简要实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Api</span>(value = <span class="string">"省市区接口服务"</span>,description = <span class="string">"省市区crud操作"</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api/rest"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestfulController</span> <span class="keyword">extends</span> <span class="title">BaseController</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span> <span class="keyword">private</span> ITExerciseZoneService exerciseZoneService ;</div><div class="line"></div><div class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"用户注册接口"</span>,tags = <span class="string">"对外提供用户注册接口"</span>)</div><div class="line">    <span class="meta">@PostMapping</span>(value = <span class="string">"/v1/reg"</span>,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">    <span class="function"><span class="keyword">public</span> ResponseBodyBean&lt;Boolean&gt; <span class="title">reg</span><span class="params">(@RequestParam(value = <span class="string">"code"</span>)</span> Integer code, @RequestParam String name,</span></div><div class="line">                                      @RequestParam Long parentId, @<span class="title">RequestParam</span><span class="params">(required = <span class="keyword">false</span>)</span> Integer sortId, String remark)&#123;</div><div class="line">        <span class="keyword">return</span> success(exerciseZoneService.createTExerciseZone(code, name, parentId, sortId, remark));</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"批量注册"</span>,tags = <span class="string">"对外提供批量注册接口"</span>)</div><div class="line">    <span class="meta">@PostMapping</span>(value = <span class="string">"/v1/reg/batch"</span>,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">    <span class="function"><span class="keyword">public</span> ResponseBodyBean&lt;Boolean&gt; <span class="title">batchReg</span><span class="params">(@RequestParam String json)</span></span>&#123;</div><div class="line"></div><div class="line">        JsonToBeanUtil.responseJsonToBeanEnhance(json, TExerciseZone.class) ;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"指定id删除书籍"</span>,tags = <span class="string">"对外提供根据id单个删除书籍"</span>)</div><div class="line">    <span class="comment">//paramType 说明在路径当中</span></div><div class="line">    <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"id"</span>,value = <span class="string">"book主键ID"</span>,required = <span class="keyword">true</span>,dataType = <span class="string">"Long"</span>,paramType = <span class="string">"path"</span>)</div><div class="line">    <span class="meta">@DeleteMapping</span>(value = <span class="string">"/v1/delete/&#123;id&#125;"</span>,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">    <span class="function"><span class="keyword">public</span> ResponseBodyBean&lt;Boolean&gt; <span class="title">delete</span><span class="params">(@PathVariable Long id)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> success(exerciseZoneService.deleteTExerciseZone(id)) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"批量删除"</span>,tags = <span class="string">"批量删除服务"</span>)</div><div class="line">    <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"ids"</span>,value = <span class="string">"主键IDlist集合"</span>,required = <span class="keyword">true</span>,dataType = <span class="string">"List&lt;Long&gt;"</span>,example = <span class="string">"&#123;1,2,3,4&#125;"</span>)</div><div class="line">    <span class="meta">@DeleteMapping</span>(value = <span class="string">"/v1/delete/batch"</span>,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">    <span class="function"><span class="keyword">public</span> ResponseBodyBean&lt;Boolean&gt; <span class="title">batchDelete</span><span class="params">(List&lt;Long&gt; ids)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> success(exerciseZoneService.batchDeleteTExerciseZone(ids));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"指定id更新书籍"</span>,tags = <span class="string">"对外提供根据id单个更新书籍"</span>)</div><div class="line">    <span class="comment">//paramType 说明在路径当中</span></div><div class="line">    <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"id"</span>,value = <span class="string">"book主键ID"</span>,required = <span class="keyword">true</span>,dataType = <span class="string">"Long"</span>,paramType = <span class="string">"path"</span>)</div><div class="line">    <span class="meta">@PutMapping</span>(value = <span class="string">"/v1/update/&#123;id&#125;"</span>,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">    <span class="function"><span class="keyword">public</span> ResponseBodyBean&lt;Boolean&gt; <span class="title">update</span><span class="params">(TExerciseZone exerciseZone)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> success(exerciseZoneService.updateTExerciseZone(exerciseZone));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"批量更新"</span>,tags = <span class="string">"批量更新服务"</span>)</div><div class="line">    <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"list"</span>,value = <span class="string">"实体TExerciseZone list集合"</span>,required = <span class="keyword">true</span>,dataType = <span class="string">"List&lt;TExerciseZone&gt;"</span>)</div><div class="line">    <span class="meta">@PutMapping</span>(value = <span class="string">"/v1/update/batch"</span>,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">    <span class="function"><span class="keyword">public</span> ResponseBodyBean&lt;Boolean&gt; <span class="title">batchUpdate</span><span class="params">(List&lt;TExerciseZone&gt; list)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> success(exerciseZoneService.batchUpdateTEerciseZone(list));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"单个查询"</span>,tags = <span class="string">"查询单个书籍"</span>)</div><div class="line">    <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"id"</span>,value = <span class="string">"book主键ID"</span>,required = <span class="keyword">true</span>,dataType = <span class="string">"Long"</span>,paramType = <span class="string">"path"</span>)</div><div class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/v1/zone/&#123;id&#125;"</span>,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</div><div class="line">    <span class="function"><span class="keyword">public</span> ResponseBodyBean&lt;TExerciseZone&gt; <span class="title">getZone</span><span class="params">(@PathVariable Long id)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> success(exerciseZoneService.getOne(id)) ;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"批量查询"</span>,tags = <span class="string">"批量查询服务"</span>)</div><div class="line">    <span class="meta">@ApiImplicitParams</span>(&#123;</div><div class="line">        <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"offset"</span>,value = <span class="string">"从第几个开始查询"</span>,dataType = <span class="string">"Integer"</span>),</div><div class="line">        <span class="meta">@ApiImplicitParam</span>(name = <span class="string">"limit"</span>,value = <span class="string">"每页显示几个"</span>,dataType = <span class="string">"Integer"</span>)</div><div class="line">    &#125;)</div><div class="line">    <span class="meta">@GetMapping</span>(value = &#123;<span class="string">"/v1/zones"</span>,<span class="string">"/v1/zones/&#123;offset&#125;/&#123;limit&#125;"</span>&#125;)</div><div class="line">    <span class="keyword">public</span> ResponseBodyBean&lt;List&lt;TExerciseZone&gt;&gt; getZones(<span class="meta">@PathVariable</span>(required = <span class="keyword">false</span>) Integer offset,<span class="meta">@PathVariable</span>(required = <span class="keyword">false</span>) Integer limit)&#123;</div><div class="line">        <span class="keyword">return</span> success(exerciseZoneService.getList(offset,limit));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>aplication.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">spring.datasource.driver-class-name=org.mariadb.jdbc.Driver</div><div class="line">spring.datasource.url=jdbc:mariadb://192.168.216.129:3306/exercise?useUnicode=true&amp;characterEncoding=UTF-8</div><div class="line">spring.datasource.username=root</div><div class="line">spring.datasource.password=root@mariadb</div></pre></td></tr></table></figure></p>
+<h3 id="程序入口"><a href="#程序入口" class="headerlink" title="程序入口"></a>程序入口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="meta">@ComponentScan</span>(basePackages = <span class="string">"com.hsy.springboot.jdbc"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootJdbcApplication</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        SpringApplication.run(SpringBootJdbcApplication.class,args) ;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="swagger接口文档"><a href="#swagger接口文档" class="headerlink" title="swagger接口文档"></a>swagger接口文档</h2><p>用了swagger生成在线接口文档，不懂swagger的可以看我历史文章</p>
+<p>效果图如下</p>
+<p><img src="/uploads/springboot-jdbc.png" alt=""></p>
+<h2 id="用postman测试接口"><a href="#用postman测试接口" class="headerlink" title="用postman测试接口"></a>用postman测试接口</h2><p>测试增删改差等接口如下图</p>
+<p><img src="/uploads/springboot-jdbc2.png" alt=""></p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>由于不便详尽展现整个项目，再次附上源代码</p>
+<p><a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-jdbc" target="_blank" rel="external">springboot-jdbc</a></p>
+<h2 id="历史文章"><a href="#历史文章" class="headerlink" title="历史文章"></a>历史文章</h2><p><a href="http://blog.csdn.net/u012806787/article/details/78694912" target="_blank" rel="external">SpringBoot实战之入门</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78686998" target="_blank" rel="external">springboot实战之文章汇总</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78583814" target="_blank" rel="external">springboot实战之读取配置文件</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78700999" target="_blank" rel="external">springboot实战之整合jsp模版引擎</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78706156" target="_blank" rel="external">springboot实战之整合freemarker模版引擎</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78710113" target="_blank" rel="external">springboot实战之注册自定义Servlet</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78715725" target="_blank" rel="external">springboot实战之注册filter和listener</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78719429" target="_blank" rel="external">springboot实战之注册interceptor</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78725259" target="_blank" rel="external">springboot实战之整合slf4j日志系统</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78722025" target="_blank" rel="external">springboot实战之整合CommandLineRunner</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78725676" target="_blank" rel="external">springboot实战之整合restful工具swagger2</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>作者: </span>
+      <span>天道悲鸣</span>
+    </p>
+    <p class="copyright-item">
+      <span>来源: </span>
+      <a href="http://yoursite.com">http://yoursite.com</a>
+    </p>
+    <p class="copyright-item">
+      <span>链接: </span>
+      <a href="http://yoursite.com/2017/12/16/springboot实战之整合jdbc进行crud操作/">http://yoursite.com/2017/12/16/springboot实战之整合jdbc进行crud操作/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/springboot-jdbc-crud/">springboot,jdbc,crud</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/12/16/springboot实战之整合restful工具swagger2/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">springboot实战之整合restful工具swagger2</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/12/16/SpringBoot实战之整合mybatis/">
+        <span class="next-text nav-default">SpringBoot实战之整合mybatis</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:shiyuan4work@sina.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/shiyuan2he" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">天道悲鸣</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  
+
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="springcloud实战之技术选型：dubbo还是springcloud"/>
+
+
+
+
+  <meta name="keywords" content="springcloud,dubbo," />
+
+
+
+
+  <link rel="alternate" href="/default" title="远观钱途">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2017/12/16/springcloud实战之技术选型：dubbo还是springcloud/"/>
+
+
+<meta name="description" content="微服务技术选型：dubbo还是springcloud">
+<meta name="keywords" content="springcloud,dubbo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springcloud实战之技术选型：dubbo还是springcloud">
+<meta property="og:url" content="http://yoursite.com/2017/12/16/springcloud实战之技术选型：dubbo还是springcloud/index.html">
+<meta property="og:site_name" content="远观钱途">
+<meta property="og:description" content="微服务技术选型：dubbo还是springcloud">
+<meta property="og:image" content="http://yoursite.com/uploads/技术选型.png">
+<meta property="og:updated_time" content="2017-12-16T07:25:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springcloud实战之技术选型：dubbo还是springcloud">
+<meta name="twitter:description" content="微服务技术选型：dubbo还是springcloud">
+<meta name="twitter:image" content="http://yoursite.com/uploads/技术选型.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: false,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> springcloud实战之技术选型：dubbo还是springcloud · 远观钱途 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">远观钱途</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">远观钱途</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          springcloud实战之技术选型：dubbo还是springcloud
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017年12月16日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-1-背景"><span class="toc-text">Part 1 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-2-源码维护力度"><span class="toc-text">Part 2 源码维护力度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-3-架构完整度"><span class="toc-text">Part 3 架构完整度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-4-文档质量"><span class="toc-text">Part 4 文档质量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-5-总结"><span class="toc-text">Part 5 总结</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>微服务技术选型：dubbo还是springcloud</p>
+<a id="more"></a>
+<p>微服务自从出现之后好像全世界都在谈论微服务，16年我刚听说“微服务”，我没有太上心，无非是将业务拆分部署，然后用http调用。但17年我实践dubbo和cloud之后发现服务调用不是http协议，dubbo和cloud各自有各自的服务监控，服务注册等等功能，异常丰富。仿佛一个全新的世界，我刚踏进去一只脚，对我的冲击，震撼可以想象出来。</p>
+<p>目前，应用springcloud 的公司还不普遍，求职面试对springcloud也没有硬性要求。然而不少阿里系出来的人才在各公司开始应用dubbo，这也导致在国内dubbo的普及更广。</p>
+<p>那么，当我们实施微服务架构，到底是应该用dubbo还是springcloud呢？</p>
+<p>以下内容纯属个人见解，本人知识面有限，不对之处，多多包涵。</p>
+<h2 id="Part-1-背景"><a href="#Part-1-背景" class="headerlink" title="Part 1 背景"></a>Part 1 背景</h2><p>Dubbo，是阿里巴巴服务化治理的核心框架，并被广泛应用于阿里巴巴集团的各成员站点。阿里巴巴近几年对开源社区的贡献不论在国内还是国外都是引人注目的，RocketMq捐赠给apache并成为顶级项目，成为中国捐赠给apache（两百多个项目）的第四个开源项目，Druid连接池被誉为效率最高的数据库连接池框架等等，为国人挣足了面子。使阿里巴巴从一家电商公司上升为一家科技公司。</p>
+<p>Springcloud拥有更强大的背景，spring社区更是Java企业界最有影响力的组织。</p>
+<h2 id="Part-2-源码维护力度"><a href="#Part-2-源码维护力度" class="headerlink" title="Part 2 源码维护力度"></a>Part 2 源码维护力度</h2><p>Dubbo曾一度停止维护，2017年再度开始更新。</p>
+<p>Springcloud更新力度大，处于高速迭代的阶段。</p>
+<h2 id="Part-3-架构完整度"><a href="#Part-3-架构完整度" class="headerlink" title="Part 3 架构完整度"></a>Part 3 架构完整度</h2><p>根据微服务架构在各方面的要素，看看Spring Cloud和Dubbo都提供了哪些支持。</p>
+<p><img src="/uploads/技术选型.png" alt="image"></p>
+<h2 id="Part-4-文档质量"><a href="#Part-4-文档质量" class="headerlink" title="Part 4 文档质量"></a>Part 4 文档质量</h2><p>Dubbo的文档可以说在国内开源框架中算是一流的，非常全，并且讲解的也非常深入，由于版本已经稳定不再更新，所以也不太会出现不一致的情况，另外提供了中文与英文两种版本，对于国内开发者来说，阅读起来更加容易上手，这也是dubbo在国内更火一些的原因吧。</p>
+<p>Spring Cloud由于整合了大量组件，文档在体量上自然要比dubbo多很多，文档内容上还算简洁清楚，但是更多的是偏向整合，更深入的使用方法还是需要查看其整合组件的详细文档。另外由于Spring Cloud基于Spring Boot，很多例子相较于传统Spring应用要简单很多（因为自动化配置，很多内容都成了约定的默认配置），这对于刚接触的开发者可能会有些不适应，比较建议了解和学习Spring Boot之后再使用Spring Cloud，不然可能会出现很多一知半解的情况。</p>
+<p>小结：虽然Spring Cloud的文档量大，但是如果使用Dubbo去整合其他第三方组件，实际也是要去阅读大量第三方组件文档的，所以在文档量上，我觉得区别不大。对于文档质量，由于Spring Cloud的迭代很快，难免会出现不一致的情况，所以在质量上我认为Dubbo更好一些。而对于文档语言上，Dubbo自然对国内开发团队来说更有优势。</p>
+<h2 id="Part-5-总结"><a href="#Part-5-总结" class="headerlink" title="Part 5 总结"></a>Part 5 总结</h2><p>不恰当的比喻：使用Dubbo构建的微服务架构就像组装电脑，各环节我们的选择自由度很高，但是最终结果很有可能因为一条内存质量不行就点不亮了，总是让人不怎么放心，但是如果你是一名高手，那这些都不是问题；而Spring Cloud就像品牌机，在Spring Source的整合下，做了大量的兼容性测试，保证了机器拥有更高的稳定性，但是如果要在使用非原装组件外的东西，就需要对其基础有足够的了解。</p>
+<p>从目前Spring Cloud的被关注度和活跃度上来看，很有可能将来会成为微服务架构的标准框架。所以，Spring Cloud的系列文章，我会继续写下去。也欢迎各位朋友一起交流，共同进步。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>作者: </span>
+      <span>天道悲鸣</span>
+    </p>
+    <p class="copyright-item">
+      <span>来源: </span>
+      <a href="http://yoursite.com">http://yoursite.com</a>
+    </p>
+    <p class="copyright-item">
+      <span>链接: </span>
+      <a href="http://yoursite.com/2017/12/16/springcloud实战之技术选型：dubbo还是springcloud/">http://yoursite.com/2017/12/16/springcloud实战之技术选型：dubbo还是springcloud/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/springcloud-dubbo/">springcloud,dubbo</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/12/16/springcloud实战之服务注册与发现（eureka实现）/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">springcloud实战之服务注册与发现（eureka实现）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/12/16/springcloud实战之高可用服务注册中心（eureka集群）/">
+        <span class="next-text nav-default">springcloud实战之高可用服务注册中心（eureka集群）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:shiyuan4work@sina.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/shiyuan2he" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">天道悲鸣</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  
+
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>
