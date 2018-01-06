@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="SpringBoot实战之13 整合redis"/>
+
+
+
+
+  <meta name="keywords" content="redis,springboot," />
+
+
+
+
+  <link rel="alternate" href="/default" title="远观钱途">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/01/06/SpringBoot实战之13 整合redis/"/>
+
+
+<meta name="description" content="redis是被各大小公司经常使用的中间件，因此学会并熟练使用redis能够为自己的职场发展加加分。">
+<meta name="keywords" content="redis,springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot实战之13 整合redis">
+<meta property="og:url" content="http://yoursite.com/2018/01/06/SpringBoot实战之13 整合redis/index.html">
+<meta property="og:site_name" content="远观钱途">
+<meta property="og:description" content="redis是被各大小公司经常使用的中间件，因此学会并熟练使用redis能够为自己的职场发展加加分。">
+<meta property="og:updated_time" content="2018-01-06T11:23:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot实战之13 整合redis">
+<meta name="twitter:description" content="redis是被各大小公司经常使用的中间件，因此学会并熟练使用redis能够为自己的职场发展加加分。">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: false,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> SpringBoot实战之13 整合redis · 远观钱途 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">远观钱途</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">远观钱途</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          SpringBoot实战之13 整合redis
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018年1月6日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建springboot-redis项目"><span class="toc-text">创建springboot-redis项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加依赖"><span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建redis配置文件"><span class="toc-text">创建redis配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建入口类"><span class="toc-text">创建入口类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建model文件"><span class="toc-text">创建model文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建dao层数据接口文件"><span class="toc-text">创建dao层数据接口文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建测试类"><span class="toc-text">创建测试类</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>redis是被各大小公司经常使用的中间件，因此学会并熟练使用redis能够为自己的职场发展加加分。<br><a id="more"></a></p>
+<h2 id="创建springboot-redis项目"><a href="#创建springboot-redis项目" class="headerlink" title="创建springboot-redis项目"></a>创建springboot-redis项目</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>添加spring-boot-starter-data-redis jar包；spring-boot-starter-test测试jar包</p>
+<h3 id="创建redis配置文件"><a href="#创建redis配置文件" class="headerlink" title="创建redis配置文件"></a>创建redis配置文件</h3><p>新建RedisConfig.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@EnableAutoConfiguration</span></div><div class="line"><span class="meta">@EnableCaching</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 配置RedisTemplate</div><div class="line">     * 设置添加序列化器</div><div class="line">     * key 使用string序列化器</div><div class="line">     * value 使用Json序列化器</div><div class="line">     * 还有一种简答的设置方式，改变defaultSerializer对象的实现。</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title">redisTemplate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//StringRedisTemplate的构造方法中默认设置了stringSerializer</span></div><div class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</div><div class="line"></div><div class="line">        <span class="comment">// 设置key的序列化方式</span></div><div class="line">        <span class="comment">/*StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();</span></div><div class="line">        template.setKeySerializer(stringRedisSerializer);</div><div class="line">        template.setHashKeySerializer(stringRedisSerializer);*/</div><div class="line"></div><div class="line">        <span class="comment">// 设置value的序列化方式</span></div><div class="line">        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = <span class="keyword">new</span> Jackson2JsonRedisSerializer(Object.class);</div><div class="line">        ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</div><div class="line">        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</div><div class="line">        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</div><div class="line"></div><div class="line">        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);</div><div class="line">        <span class="comment">//set value serializer</span></div><div class="line">        template.setDefaultSerializer(jackson2JsonRedisSerializer);</div><div class="line"></div><div class="line">        template.setConnectionFactory(jedisConnectionFactory());</div><div class="line">        template.afterPropertiesSet();</div><div class="line">        <span class="keyword">return</span> template;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 连接redis的工厂类</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> JedisConnectionFactory <span class="title">jedisConnectionFactory</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//构造方法中注入RedisSentinelConfiguration对象</span></div><div class="line">        JedisConnectionFactory factory = <span class="keyword">new</span> JedisConnectionFactory(jedisPoolConfig());</div><div class="line">        factory.setHostName(<span class="string">"192.168.175.128"</span>);</div><div class="line">        factory.setPort(<span class="number">6379</span>);</div><div class="line">        factory.setTimeout(<span class="number">2000</span>);</div><div class="line">        factory.setDatabase(<span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> factory;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 设置RedisCacheManager</div><div class="line">     * 使用cache注解管理redis缓存</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RedisCacheManager <span class="title">cacheManager</span><span class="params">()</span> </span>&#123;</div><div class="line">        RedisCacheManager redisCacheManager = <span class="keyword">new</span> RedisCacheManager(redisTemplate());</div><div class="line">        <span class="keyword">return</span> redisCacheManager;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> JedisPoolConfig <span class="title">jedisPoolConfig</span><span class="params">()</span></span>&#123;</div><div class="line">        JedisPoolConfig jedisPoolConfig = <span class="keyword">new</span> JedisPoolConfig() ;</div><div class="line">        jedisPoolConfig.setMaxTotal(<span class="number">500</span>); <span class="comment">// 设置最大实例总数</span></div><div class="line">        jedisPoolConfig.setMaxIdle(<span class="number">100</span>);  <span class="comment">// 设置一个pool最多有多少个状态为idle（空闲）的实例</span></div><div class="line">        jedisPoolConfig.setMinIdle(<span class="number">100</span>);  <span class="comment">// 设置一个pool最少有多少个状态为idle（空闲）的实例</span></div><div class="line">        <span class="comment">// 表示当borrow（引入）一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException</span></div><div class="line">        jedisPoolConfig.setMaxWaitMillis(<span class="number">3</span> * <span class="number">1000</span>);</div><div class="line">        <span class="comment">// 再borrow一个redis实例的时候，是否提前进行alidate操作；true：得到的jedis实力均是可用的；</span></div><div class="line">        jedisPoolConfig.setTestOnBorrow(<span class="keyword">true</span>);</div><div class="line">        jedisPoolConfig.setTestOnReturn(<span class="keyword">true</span>);<span class="comment">// 再还给pool时，是否提前进行validate操作。</span></div><div class="line">        jedisPoolConfig.setTestWhileIdle(<span class="keyword">true</span>);</div><div class="line">        jedisPoolConfig.setMinEvictableIdleTimeMillis(<span class="number">500</span>);</div><div class="line">        jedisPoolConfig.setSoftMinEvictableIdleTimeMillis(<span class="number">1000</span>);</div><div class="line">        jedisPoolConfig.setTimeBetweenEvictionRunsMillis(<span class="number">1000</span>) ;</div><div class="line">        jedisPoolConfig.setNumTestsPerEvictionRun(<span class="number">100</span>);</div><div class="line">        <span class="keyword">return</span> jedisPoolConfig ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 自定义生成redis-key</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> KeyGenerator <span class="title">keyGenerator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> KeyGenerator() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">generate</span><span class="params">(Object o, Method method, Object... objects)</span> </span>&#123;</div><div class="line">                StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">                sb.append(o.getClass().getName()).append(<span class="string">"."</span>);</div><div class="line">                sb.append(method.getName()).append(<span class="string">"."</span>);</div><div class="line">                <span class="keyword">for</span> (Object obj : objects) &#123;</div><div class="line">                    sb.append(obj.toString());</div><div class="line">                &#125;</div><div class="line">                System.out.println(<span class="string">"keyGenerator="</span> + sb.toString());</div><div class="line">                <span class="keyword">return</span> sb.toString();</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建入口类"><a href="#创建入口类" class="headerlink" title="创建入口类"></a>创建入口类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootRedisApplication</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(SpringBootRedisApplication.class,args) ;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建model文件"><a href="#创建model文件" class="headerlink" title="创建model文件"></a>创建model文件</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Long id ;</div><div class="line">    <span class="keyword">private</span> String name ;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Long id)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"User&#123;"</span> +</div><div class="line">                <span class="string">"id="</span> + id +</div><div class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</div><div class="line">                <span class="string">'&#125;'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建dao层数据接口文件"><a href="#创建dao层数据接口文件" class="headerlink" title="创建dao层数据接口文件"></a>创建dao层数据接口文件</h3><p>AbstractSpringRedisCacheBase.java文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractSpringRedisCacheBase</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger _logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass()) ;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> RedisTemplate&lt;String,Object&gt; <span class="title">getRedisTemplate</span><span class="params">()</span> </span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteCacheByKey</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.getRedisTemplate().delete(key);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteCacheByKeys</span><span class="params">(String... keys)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(!org.springframework.util.StringUtils.isEmpty(keys) &amp;&amp; keys.length != <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="keyword">if</span>(keys.length == <span class="number">1</span>) &#123;</div><div class="line">                    <span class="keyword">if</span>(org.springframework.util.StringUtils.isEmpty(keys[<span class="number">0</span>])) &#123;</div><div class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key不能为空"</span>);</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">this</span>.getRedisTemplate().delete(keys[<span class="number">0</span>]);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="keyword">this</span>.getRedisTemplate().delete(Arrays.asList(keys));</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> CacheException(CacheEnum.CACHE_HANDLE_SET_EXCEPTION) ;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key不能为空"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteCacheWithPattern</span><span class="params">(String pattern)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(org.springframework.util.StringUtils.isEmpty(pattern)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key不能为空"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            Set&lt;String&gt; keys = <span class="keyword">this</span>.getRedisTemplate().keys(pattern);</div><div class="line">            <span class="keyword">this</span>.getRedisTemplate().delete(keys);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clearCache</span><span class="params">()</span> </span>&#123;</div><div class="line">        deleteCacheWithPattern(<span class="string">"*"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteByPrefix</span><span class="params">(String prex)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(org.springframework.util.StringUtils.isEmpty(prex)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key前缀不能为空"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            Set&lt;String&gt; keys = <span class="keyword">this</span>.getRedisTemplate().keys(prex + <span class="string">"*"</span>);</div><div class="line">            <span class="keyword">this</span>.getRedisTemplate().delete(keys);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteBySuffix</span><span class="params">(String suffix)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(org.springframework.util.StringUtils.isEmpty(suffix)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key后缀不能为空"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            Set&lt;String&gt; keys = <span class="keyword">this</span>.getRedisTemplate().keys(<span class="string">"*"</span> + suffix);</div><div class="line">            <span class="keyword">this</span>.getRedisTemplate().delete(keys);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>AbstractSpringRedisCache.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractSpringRedisCache</span> <span class="keyword">extends</span> <span class="title">AbstractSpringRedisCacheBase</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger _logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass()) ;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> RedisTemplate&lt;String,Object&gt; <span class="title">getRedisTemplate</span><span class="params">()</span> </span>;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">putCache</span><span class="params">(String key, T obj)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isBlank(key))&#123;</div><div class="line">            _logger.error(<span class="string">"key is null"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bkey = key.getBytes() ;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bvalue = SerializerHelper.serialize(obj) ;</div><div class="line">        <span class="comment">// java8 labbda表达式</span></div><div class="line">        <span class="keyword">return</span> getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; redisConnection.setNX(bkey,bvalue)</div><div class="line">        ) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">putCacheWithExpireTime</span><span class="params">(String key, T obj, <span class="keyword">long</span> expireTime)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isBlank(key))&#123;</div><div class="line">            _logger.error(<span class="string">"key is null"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bkey = key.getBytes() ;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bvalue = SerializerHelper.serialize(obj) ;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; &#123;</div><div class="line">                redisConnection.setEx(bkey,expireTime,bvalue);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        ) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">putListCache</span><span class="params">(String key, List&lt;T&gt; objList)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isBlank(key))&#123;</div><div class="line">            _logger.error(<span class="string">"key is null"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bkey = key.getBytes() ;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bvalue = SerializerHelper.serializeList(objList) ;</div><div class="line">        <span class="comment">// java8 labbda表达式</span></div><div class="line">        <span class="keyword">return</span> getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; redisConnection.setNX(bkey,bvalue)</div><div class="line">        ) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">putListCacheWithExpireTime</span><span class="params">(String key, List&lt;T&gt; objList, <span class="keyword">long</span> expireTime)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isBlank(key))&#123;</div><div class="line">            _logger.error(<span class="string">"key is null"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bkey = key.getBytes() ;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bvalue = SerializerHelper.serializeList(objList) ;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; &#123;</div><div class="line">                redisConnection.setEx(bkey,expireTime,bvalue);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        ) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getCache</span><span class="params">(String key, Class&lt;T&gt; targetClass)</span> </span>&#123;</div><div class="line">        <span class="keyword">byte</span>[] result = <span class="keyword">this</span>.getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; redisConnection.get(key.getBytes())</div><div class="line">        );</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == result)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> SerializerHelper.deserialize(result,targetClass);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">getListCache</span><span class="params">(String key, Class&lt;T&gt; targetClass)</span> </span>&#123;</div><div class="line">        <span class="keyword">byte</span>[] result = <span class="keyword">this</span>.getRedisTemplate().execute(</div><div class="line">                (RedisConnection redisConnection) -&gt; redisConnection.get(key.getBytes())</div><div class="line">        );</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == result)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> SerializerHelper.deserializeList(result,targetClass);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>RedisRepository.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Repository</span>(value = <span class="string">"redisRepository"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisRepository</span> <span class="keyword">extends</span> <span class="title">AbstractSpringRedisCacheEnhance</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    RedisTemplate&lt;String, Object&gt; redisTemplate;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title">getRedisTemplate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> redisTemplate;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建测试类"><a href="#创建测试类" class="headerlink" title="创建测试类"></a>创建测试类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">@RunWith(SpringRunner.class)</div><div class="line">@SpringBootTest(classes = SpringBootRedisApplication.class)</div><div class="line">public class RedisDaoTest &#123;</div><div class="line">    private final Logger _logger = LoggerFactory.getLogger(this.getClass()) ;</div><div class="line"></div><div class="line">    @SuppressWarnings(&quot;SpringJavaAutowiringInspection&quot;)</div><div class="line">    @Autowired private RedisRepository redisRepository ;</div><div class="line">    @Test</div><div class="line">    public void putCache() throws Exception &#123;</div><div class="line">        redisRepository.putCache(&quot;test:redis&quot;,&quot;sfasdfasdfsdf&quot;) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void putCacheWithExpireTime() throws Exception &#123;</div><div class="line">        redisRepository.putCacheWithExpireTime(&quot;test:redis2&quot;,&quot;sfasdfasdfsdf&quot;,5) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void delete() throws Exception &#123;</div><div class="line">        redisRepository.deleteCacheByKey(&quot;test:redis&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意：</p>
+<p>本文会介绍StringRedisTemplate、RedisTemplate这两个模板来介绍，其中StringRedisTemplate继承自RedisTemplate，只能操作键值都是String类型的数据。在实际开发中建议使用RedisTemplate<k,v>。</k,v></p>
+<p>其实他们两者之间的区别主要在于他们使用的序列化类。</p>
+<p>RedisTemplate使用的是JdkSerializationRedisSerializer</p>
+<p>StringRedisTemplate使用的是StringRedisSerializer</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>作者: </span>
+      <span>天道悲鸣</span>
+    </p>
+    <p class="copyright-item">
+      <span>来源: </span>
+      <a href="http://yoursite.com">http://yoursite.com</a>
+    </p>
+    <p class="copyright-item">
+      <span>链接: </span>
+      <a href="http://yoursite.com/2018/01/06/SpringBoot实战之13 整合redis/">http://yoursite.com/2018/01/06/SpringBoot实战之13 整合redis/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/redis-springboot/">redis,springboot</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/01/06/SpringBoot实战之0 文章汇总/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">SpringBoot实战之0 文章汇总</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/01/06/springcloud实战之0文章汇总/">
+        <span class="next-text nav-default">springcloud实战之0文章汇总</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:shiyuan4work@sina.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/shiyuan2he" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">天道悲鸣</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  
+
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

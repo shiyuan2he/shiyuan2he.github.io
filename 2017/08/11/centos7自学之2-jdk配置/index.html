@@ -41,13 +41,13 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/index.html">
 <meta property="og:site_name" content="远观钱途">
 <meta property="og:description" content="本章讲解在centos服务器上部署java开发环境之jdk安装，分rpm安装和tar.gz安装">
-<meta property="og:image" content="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/uploads/javaversion.png">
-<meta property="og:image" content="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/uploads/javaversion.png">
-<meta property="og:updated_time" content="2017-08-11T04:29:00.000Z">
+<meta property="og:image" content="http://img.blog.csdn.net/20170811122318682?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjgwNjc4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170826203358873?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjgwNjc4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-01-06T10:27:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7自学之2-jdk配置">
 <meta name="twitter:description" content="本章讲解在centos服务器上部署java开发环境之jdk安装，分rpm安装和tar.gz安装">
-<meta name="twitter:image" content="http://yoursite.com/2017/08/11/centos7自学之2-jdk配置/uploads/javaversion.png">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170811122318682?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjgwNjc4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
@@ -244,7 +244,7 @@
 <h2 id="安装之前"><a href="#安装之前" class="headerlink" title="安装之前"></a>安装之前</h2><h3 id="安装环境检查"><a href="#安装环境检查" class="headerlink" title="安装环境检查"></a>安装环境检查</h3><h4 id="查看当前系统jdk"><a href="#查看当前系统jdk" class="headerlink" title="查看当前系统jdk"></a>查看当前系统jdk</h4><blockquote>
 <p>java -version</p>
 </blockquote>
-<p><img src="uploads/javaversion.png" alt="javaversion"></p>
+<p><img src="http://img.blog.csdn.net/20170811122318682?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjgwNjc4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
 <h4 id="进一步查看jdk信息"><a href="#进一步查看jdk信息" class="headerlink" title="进一步查看jdk信息"></a>进一步查看jdk信息</h4><blockquote>
 <p>rpm -qa | grep java  <br><br>rpm -qa | grep jdk   <br><br>rpm -qa | grep -E ‘^open[jre|jdk]|j[re|dk]</p>
 </blockquote>
@@ -253,14 +253,12 @@
 </blockquote>
 <h2 id="rpm安装"><a href="#rpm安装" class="headerlink" title="rpm安装"></a>rpm安装</h2><h3 id="下载rpm安装文件"><a href="#下载rpm安装文件" class="headerlink" title="下载rpm安装文件"></a>下载rpm安装文件</h3><p>进oracle官网下载适用于自己版本的*.rpm格式的jdk<br>wget方式下载，进入保存下载文件的路径</p>
 <blockquote>
-<p>cd /home/robot/data <br><br>wget <a href="http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm</a><br><br></p>
+<p>cd /home/robot/data <br><br>wget <a href="http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm</a></p>
 </blockquote>
 <p>如果没有wget命令，执行 <br></p>
 <blockquote>
 <p>yun install wget</p>
-</blockquote>
-<h3 id="rpm命令安装"><a href="#rpm命令安装" class="headerlink" title="rpm命令安装"></a>rpm命令安装</h3><blockquote>
-<p>rpm -ivh *.rpm</p>
+<h3 id="rpm命令安装"><a href="#rpm命令安装" class="headerlink" title="rpm命令安装"></a>rpm命令安装</h3><p>rpm -ivh *.rpm</p>
 </blockquote>
 <h3 id="验证安装，终端输入-java-或者-javac-或者-java-version"><a href="#验证安装，终端输入-java-或者-javac-或者-java-version" class="headerlink" title="验证安装，终端输入 java  或者 javac 或者 java -version"></a>验证安装，终端输入 java  或者 javac 或者 java -version</h3><blockquote>
 <p>java</p>
@@ -273,9 +271,17 @@
 <blockquote>
 <p>java -version</p>
 </blockquote>
-<p>出现下图情况即为安装成功  <br><br><img src="uploads/javaversion.png" alt="javaversion"> <br><br>注意：此种安装方式不需要配置环境变量，比较快捷，方便！此方式也是我目前使用的方式</p>
-<h2 id="tar-gz解压安装"><a href="#tar-gz解压安装" class="headerlink" title="tar.gz解压安装"></a>tar.gz解压安装</h2><p>持续更新中…</p>
-<p>下一篇“centos7自学之3tomcat环境配置”正在疯狂编写中，敬请期待</p>
+<p>出现下图情况即为安装成功  <br><br><img src="http://img.blog.csdn.net/20170826203358873?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjgwNjc4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"> <br><br>注意：此种安装方式不需要配置环境变量，比较快捷，方便！此方式也是我目前使用的方式</p>
+<h2 id="tar-gz解压安装"><a href="#tar-gz解压安装" class="headerlink" title="tar.gz解压安装"></a>tar.gz解压安装</h2><p>解压jdk</p>
+<blockquote>
+<p>tar -xzvf  jdk<em>.tar.gz<br>mv jdk</em> /usr/local/</p>
+</blockquote>
+<p>编辑/etc/profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/local/jdk1.8.0_144</div><div class="line">export PATH=$JAVA_HOME/bin:$PATH</div></pre></td></tr></table></figure>
+<p>使更改生效</p>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
 
       
     </div>
@@ -323,9 +329,9 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2017/08/10/jdk8-jdbc-mariadb/">
+      <a class="prev" href="/2017/08/10/中小型开发架构实战之3 jdbc-mariadb/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">商城项目之jdk8+jdbc+mariadb</span>
+        <span class="prev-text nav-default">中小型开发架构实战之3 jdbc-mariadb</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
@@ -412,7 +418,7 @@
      
       2015 - 
     
-    2017
+    2018
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>

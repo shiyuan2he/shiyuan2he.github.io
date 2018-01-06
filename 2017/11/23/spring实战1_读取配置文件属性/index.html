@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="spring实战1 读取配置文件属性"/>
+
+
+
+
+  <meta name="keywords" content="spring,配置文件," />
+
+
+
+
+  <link rel="alternate" href="/default" title="远观钱途">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2017/11/23/spring实战1_读取配置文件属性/"/>
+
+
+<meta name="description" content="在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。">
+<meta name="keywords" content="spring,配置文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring实战1 读取配置文件属性">
+<meta property="og:url" content="http://yoursite.com/2017/11/23/spring实战1_读取配置文件属性/index.html">
+<meta property="og:site_name" content="远观钱途">
+<meta property="og:description" content="在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。">
+<meta property="og:updated_time" content="2018-01-06T09:10:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring实战1 读取配置文件属性">
+<meta name="twitter:description" content="在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: false,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> spring实战1 读取配置文件属性 · 远观钱途 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">远观钱途</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">远观钱途</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          spring实战1 读取配置文件属性
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017年11月23日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置配置文件"><span class="toc-text">设置配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring启动加载配置文件"><span class="toc-text">spring启动加载配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方式一"><span class="toc-text">方式一</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#加载方式"><span class="toc-text">加载方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用方式"><span class="toc-text">应用方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方式二"><span class="toc-text">方式二</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置方式"><span class="toc-text">配置方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用方式"><span class="toc-text">使用方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码应用"><span class="toc-text">代码应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方式三"><span class="toc-text">方式三</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置文件配置数据库信息"><span class="toc-text">配置文件配置数据库信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#spring配置文件配置如下"><span class="toc-text">spring配置文件配置如下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码实现暂不赘述"><span class="toc-text">代码实现暂不赘述</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。<br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。但读取*.properties文件有N多种方式，本文根据我工作中用到的读取properties配置文件的方法小小总结一下，主要叙述的是spring读取配置文件的方法。</p>
+<h2 id="设置配置文件"><a href="#设置配置文件" class="headerlink" title="设置配置文件"></a>设置配置文件</h2><p>例如jdbc连接信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mariadb.config.url=jdbc:mariadb:<span class="comment">//192.168.216.129:3306/config?useUnicode=true?characterEncoding=utf-8</span></div><div class="line">mariadb.config.username=root</div><div class="line">mariadb.config.password=root<span class="meta">@mariadb</span></div><div class="line">mariadb.config.driverClass=org.mariadb.jdbc.Driver</div><div class="line">mariadb.config.env=dev</div><div class="line">mariadb.config.override=<span class="keyword">true</span></div><div class="line">mariadb.config.appId=spring_config</div></pre></td></tr></table></figure>
+<h2 id="spring启动加载配置文件"><a href="#spring启动加载配置文件" class="headerlink" title="spring启动加载配置文件"></a>spring启动加载配置文件</h2><p>配置文件位置  src\main\resources\properties\config.properties</p>
+<ul>
+<li><h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3></li>
+</ul>
+<ol>
+<li><h4 id="加载方式"><a href="#加载方式" class="headerlink" title="加载方式"></a>加载方式</h4></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;!--读取配置文件：方法一 --&gt;</div><div class="line">&lt;!--</div><div class="line">    &lt;context:property-placeholder</div><div class="line">    location=&quot;属性文件，多个之间逗号分隔&quot;</div><div class="line">    file-encoding=&quot;文件编码&quot;</div><div class="line">    ignore-resource-not-found=&quot;是否忽略找不到的属性文件&quot;</div><div class="line">    ignore-unresolvable=&quot;是否忽略解析不到的属性，如果不忽略，找不到将抛出异常&quot;</div><div class="line">    properties-ref=&quot;本地Properties配置&quot;</div><div class="line">    local-override=&quot;是否本地覆盖模式，即如果true，那么properties-ref的属性将覆盖location加载的属性，否则相反&quot;</div><div class="line">    system-properties-mode=&quot;系统属性模式，默认ENVIRONMENT（表示先找ENVIRONMENT，再找properties-ref/location的），NEVER：表示永远不用ENVIRONMENT的，OVERRIDE类似于ENVIRONMENT&quot;</div><div class="line">    order=&quot;顺序&quot;</div><div class="line">    /&gt;</div><div class="line">--&gt;</div><div class="line">&lt;context:property-placeholder location=&quot;classpath:/properties/jdbc.properties&quot; file-encoding=&quot;utf-8&quot; ignore-unresolvable=&quot;true&quot;/&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li><h4 id="应用方式"><a href="#应用方式" class="headerlink" title="应用方式"></a>应用方式</h4></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;</div><div class="line">    &lt;property name=&quot;driverClass&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;</div><div class="line">    &lt;property name=&quot;jdbcUrl&quot; value=&quot;$&#123;url&#125;&quot;/&gt;</div><div class="line">    &lt;property name=&quot;user&quot; value=&quot;$&#123;username&#125;&quot;/&gt;</div><div class="line">    &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;!-- c3p0 私有配置 --&gt;</div><div class="line">    &lt;property name=&quot;maxPoolSize&quot; value=&quot;30&quot;/&gt;</div><div class="line">    &lt;property name=&quot;minPoolSize&quot; value=&quot;10&quot;/&gt;</div><div class="line">    &lt;!-- 关闭连接不自动提交 --&gt;</div><div class="line">    &lt;property name=&quot;autoCommitOnClose&quot; value=&quot;false&quot;/&gt;</div><div class="line">    &lt;!--获取连接超时时间--&gt;</div><div class="line">    &lt;property name=&quot;checkoutTimeout&quot; value=&quot;1000&quot;/&gt;</div><div class="line">    &lt;!--当获取连接失败，重试次数--&gt;</div><div class="line">    &lt;property name=&quot;acquireIncrement&quot; value=&quot;2&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3></li>
+</ul>
+<ol>
+<li><h4 id="配置方式"><a href="#配置方式" class="headerlink" title="配置方式"></a>配置方式</h4></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;!--java中获取配置文件属性  配套使用 ConfigBean.java--&gt;</div><div class="line">&lt;bean id=&quot;config&quot; class=&quot;org.springframework.beans.factory.config.PropertiesFactoryBean&quot;&gt;</div><div class="line">    &lt;property name=&quot;locations&quot;&gt;</div><div class="line">        &lt;array&gt;</div><div class="line">            &lt;value&gt;classpath:/properties/config.properties&lt;/value&gt;</div><div class="line">        &lt;/array&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li><h4 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h4></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigBean</span> </span>&#123;</div><div class="line">    <span class="meta">@Value</span>(<span class="string">"#&#123;config.name&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String name ;</div><div class="line">    <span class="meta">@Value</span>(<span class="string">"#&#123;config.age&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> Integer age ;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@PostConstruct</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"ConfigBean======================"</span>+name+age) ;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><h4 id="代码应用"><a href="#代码应用" class="headerlink" title="代码应用"></a>代码应用</h4></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Autowired</span></div><div class="line"><span class="keyword">private</span> ConfigBean configBean ;</div></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h3></li>
+</ul>
+<p>只提供一种思路。<br><br>随着项目越来越大，有些配置项越来越多，管理起来很不方便，这时候将配置文件放置再数据库就是一种很好的解决办法。当服务启动时去数据库读取加载在内存中，供服务运行期间使用。而项目只放数据库连接信息。</p>
+<p>实现大致思路。</p>
+<ol>
+<li><h4 id="配置文件配置数据库信息"><a href="#配置文件配置数据库信息" class="headerlink" title="配置文件配置数据库信息"></a>配置文件配置数据库信息</h4></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mariadb.config.url=jdbc:mariadb://192.168.216.129:3306/config?useUnicode=true?characterEncoding=utf-8</div><div class="line">mariadb.config.username=root</div><div class="line">mariadb.config.password=root@mariadb</div><div class="line">mariadb.config.driverClass=org.mariadb.jdbc.Driver</div><div class="line">mariadb.config.env=dev</div><div class="line">mariadb.config.override=true</div><div class="line">mariadb.config.appId=spring_config</div></pre></td></tr></table></figure>
+<ol>
+<li><h4 id="spring配置文件配置如下"><a href="#spring配置文件配置如下" class="headerlink" title="spring配置文件配置如下"></a>spring配置文件配置如下</h4></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;propertyConfigurer&quot; class=&quot;com.hsy.java.util.jdbc.PropertyConfig&quot;&gt;</div><div class="line">    &lt;property name=&quot;locations&quot;&gt;</div><div class="line">        &lt;list&gt;</div><div class="line">            &lt;value&gt;classpath*:/properties/config.properties&lt;/value&gt;</div><div class="line">        &lt;/list&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!-- 是否加载插件。当为false或者没有配置configList都视为不加载插件读取配置--&gt;</div><div class="line">    &lt;property name=&quot;loadPlugin&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;property name=&quot;configList&quot;&gt;</div><div class="line">        &lt;list&gt;</div><div class="line">            &lt;ref bean=&quot;jdbcConfigHelper&quot;/&gt;</div><div class="line">        &lt;/list&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property name=&quot;ignoreUnresolvablePlaceholders&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;property name=&quot;ignoreResourceNotFound&quot; value=&quot;true&quot;/&gt;</div><div class="line">    &lt;property name=&quot;fileEncoding&quot; value=&quot;utf-8&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;bean id=&quot;jdbcConfigHelper&quot; class=&quot;com.hsy.java.util.jdbc.JdbcConfigHelper&quot;&gt;</div><div class="line">    &lt;!-- 排除的key，这些key自己加载 --&gt;</div><div class="line">    &lt;property name=&quot;excludeKeys&quot;&gt;</div><div class="line">        &lt;set&gt;</div><div class="line">            &lt;value&gt;name&lt;/value&gt;</div><div class="line">            &lt;value&gt;age&lt;/value&gt;</div><div class="line">        &lt;/set&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li><h4 id="代码实现暂不赘述"><a href="#代码实现暂不赘述" class="headerlink" title="代码实现暂不赘述"></a>代码实现暂不赘述</h4></li>
+</ol>
+<p>有需要代码的可以去我的github上去clone<br><a href="https://github.com/shiyuan2he/spring/tree/master/spring-config" target="_blank" rel="external">github源码地址</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>作者: </span>
+      <span>天道悲鸣</span>
+    </p>
+    <p class="copyright-item">
+      <span>来源: </span>
+      <a href="http://yoursite.com">http://yoursite.com</a>
+    </p>
+    <p class="copyright-item">
+      <span>链接: </span>
+      <a href="http://yoursite.com/2017/11/23/spring实战1_读取配置文件属性/">http://yoursite.com/2017/11/23/spring实战1_读取配置文件属性/</a>
+    </p>
+
+    <p class="copyright-item lincese">
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/spring-配置文件/">spring,配置文件</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/11/20/SpringBoot实战之2 读取配置文件/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">SpringBoot实战之2 读取配置文件</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/11/24/SpringBoot实战之1 入门/">
+        <span class="next-text nav-default">SpringBoot实战之1 入门</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:shiyuan4work@sina.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/shiyuan2he" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">天道悲鸣</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+  
+
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

@@ -3,6 +3,384 @@
   
     
     <entry>
+      <title><![CDATA[springcloud实战之0文章汇总]]></title>
+      <url>/2018/01/06/springcloud%E5%AE%9E%E6%88%98%E4%B9%8B0%E6%96%87%E7%AB%A0%E6%B1%87%E6%80%BB/</url>
+      <content type="html"><![CDATA[<p>springcloud系列文章汇总<br><a id="more"></a></p>
+<h3 id="文章汇总"><a href="#文章汇总" class="headerlink" title="文章汇总"></a>文章汇总</h3><p><a href="http://blog.csdn.net/u012806787/article/details/78789312" target="_blank" rel="external">springcloud实战之1技术选型：dubbo还是springcloud</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78790958" target="_blank" rel="external">springcloud实战之2 服务注册与发现（eureka实现）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78793639" target="_blank" rel="external">springcloud实战之3 高可用服务注册中心（eureka集群）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78796605" target="_blank" rel="external">springcloud实战之5 服务消费者（ribbon）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78798951" target="_blank" rel="external">springcloud实战之6 服务消费者（Feign）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78801119" target="_blank" rel="external">springcloud实战之7 断路器（Hystrix）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78843576" target="_blank" rel="external">springcloud实战之8 断路器-仪表盘-单例监控（Hystrix）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78862637" target="_blank" rel="external">springcloud实战之9断路器-集群监控（turbine）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78803198" target="_blank" rel="external">springcloud实战之10 分布式配置中心（config）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78863867" target="_blank" rel="external">springcloud实战之11路由网关（zuul）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78864281" target="_blank" rel="external">springcloud实战之12 路由网关拦截器</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78864867" target="_blank" rel="external">springcloud实战之13 rabbitmq消息总线（bus）</a></p>
+<p><a href="http://blog.csdn.net/u012806787/article/details/78865414" target="_blank" rel="external">springcloud实战之14动态刷新分布式配置中心属性配置（config）</a></p>
+<h3 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/shiyuan2he/springcloud.git</div><div class="line">cd springcloud</div></pre></td></tr></table></figure>
+<h3 id="启动Eureka-Server"><a href="#启动Eureka-Server" class="headerlink" title="启动Eureka Server"></a>启动Eureka Server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd springcloud-server-eureka</div><div class="line">mvn clean package -Dmaven.test.skip=true</div><div class="line">java -jar target/springcloud-eureka-server-1.0-SNAPSHOT.jar --spring.profiles.active=peer1</div><div class="line">java -jar target/springcloud-eureka-server-1.0-SNAPSHOT.jar --spring.profiles.active=peer2</div></pre></td></tr></table></figure>
+<p><a href="http://peer1:8080" target="_blank" rel="external">http://peer1:8080</a></p>
+<p><img src="http://note.youdao.com/favicon.ico" alt="image"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> springcloud实战 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> springcloud </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringBoot实战之13 整合redis]]></title>
+      <url>/2018/01/06/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B13%20%E6%95%B4%E5%90%88redis/</url>
+      <content type="html"><![CDATA[<p>redis是被各大小公司经常使用的中间件，因此学会并熟练使用redis能够为自己的职场发展加加分。<br><a id="more"></a></p>
+<h2 id="创建springboot-redis项目"><a href="#创建springboot-redis项目" class="headerlink" title="创建springboot-redis项目"></a>创建springboot-redis项目</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>添加spring-boot-starter-data-redis jar包；spring-boot-starter-test测试jar包</p>
+<h3 id="创建redis配置文件"><a href="#创建redis配置文件" class="headerlink" title="创建redis配置文件"></a>创建redis配置文件</h3><p>新建RedisConfig.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@EnableAutoConfiguration</span></div><div class="line"><span class="meta">@EnableCaching</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 配置RedisTemplate</div><div class="line">     * 设置添加序列化器</div><div class="line">     * key 使用string序列化器</div><div class="line">     * value 使用Json序列化器</div><div class="line">     * 还有一种简答的设置方式，改变defaultSerializer对象的实现。</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title">redisTemplate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//StringRedisTemplate的构造方法中默认设置了stringSerializer</span></div><div class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</div><div class="line"></div><div class="line">        <span class="comment">// 设置key的序列化方式</span></div><div class="line">        <span class="comment">/*StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();</span></div><div class="line">        template.setKeySerializer(stringRedisSerializer);</div><div class="line">        template.setHashKeySerializer(stringRedisSerializer);*/</div><div class="line"></div><div class="line">        <span class="comment">// 设置value的序列化方式</span></div><div class="line">        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = <span class="keyword">new</span> Jackson2JsonRedisSerializer(Object.class);</div><div class="line">        ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</div><div class="line">        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</div><div class="line">        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</div><div class="line"></div><div class="line">        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);</div><div class="line">        <span class="comment">//set value serializer</span></div><div class="line">        template.setDefaultSerializer(jackson2JsonRedisSerializer);</div><div class="line"></div><div class="line">        template.setConnectionFactory(jedisConnectionFactory());</div><div class="line">        template.afterPropertiesSet();</div><div class="line">        <span class="keyword">return</span> template;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 连接redis的工厂类</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> JedisConnectionFactory <span class="title">jedisConnectionFactory</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//构造方法中注入RedisSentinelConfiguration对象</span></div><div class="line">        JedisConnectionFactory factory = <span class="keyword">new</span> JedisConnectionFactory(jedisPoolConfig());</div><div class="line">        factory.setHostName(<span class="string">"192.168.175.128"</span>);</div><div class="line">        factory.setPort(<span class="number">6379</span>);</div><div class="line">        factory.setTimeout(<span class="number">2000</span>);</div><div class="line">        factory.setDatabase(<span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> factory;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 设置RedisCacheManager</div><div class="line">     * 使用cache注解管理redis缓存</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RedisCacheManager <span class="title">cacheManager</span><span class="params">()</span> </span>&#123;</div><div class="line">        RedisCacheManager redisCacheManager = <span class="keyword">new</span> RedisCacheManager(redisTemplate());</div><div class="line">        <span class="keyword">return</span> redisCacheManager;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> JedisPoolConfig <span class="title">jedisPoolConfig</span><span class="params">()</span></span>&#123;</div><div class="line">        JedisPoolConfig jedisPoolConfig = <span class="keyword">new</span> JedisPoolConfig() ;</div><div class="line">        jedisPoolConfig.setMaxTotal(<span class="number">500</span>); <span class="comment">// 设置最大实例总数</span></div><div class="line">        jedisPoolConfig.setMaxIdle(<span class="number">100</span>);  <span class="comment">// 设置一个pool最多有多少个状态为idle（空闲）的实例</span></div><div class="line">        jedisPoolConfig.setMinIdle(<span class="number">100</span>);  <span class="comment">// 设置一个pool最少有多少个状态为idle（空闲）的实例</span></div><div class="line">        <span class="comment">// 表示当borrow（引入）一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException</span></div><div class="line">        jedisPoolConfig.setMaxWaitMillis(<span class="number">3</span> * <span class="number">1000</span>);</div><div class="line">        <span class="comment">// 再borrow一个redis实例的时候，是否提前进行alidate操作；true：得到的jedis实力均是可用的；</span></div><div class="line">        jedisPoolConfig.setTestOnBorrow(<span class="keyword">true</span>);</div><div class="line">        jedisPoolConfig.setTestOnReturn(<span class="keyword">true</span>);<span class="comment">// 再还给pool时，是否提前进行validate操作。</span></div><div class="line">        jedisPoolConfig.setTestWhileIdle(<span class="keyword">true</span>);</div><div class="line">        jedisPoolConfig.setMinEvictableIdleTimeMillis(<span class="number">500</span>);</div><div class="line">        jedisPoolConfig.setSoftMinEvictableIdleTimeMillis(<span class="number">1000</span>);</div><div class="line">        jedisPoolConfig.setTimeBetweenEvictionRunsMillis(<span class="number">1000</span>) ;</div><div class="line">        jedisPoolConfig.setNumTestsPerEvictionRun(<span class="number">100</span>);</div><div class="line">        <span class="keyword">return</span> jedisPoolConfig ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 自定义生成redis-key</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> KeyGenerator <span class="title">keyGenerator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> KeyGenerator() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">generate</span><span class="params">(Object o, Method method, Object... objects)</span> </span>&#123;</div><div class="line">                StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">                sb.append(o.getClass().getName()).append(<span class="string">"."</span>);</div><div class="line">                sb.append(method.getName()).append(<span class="string">"."</span>);</div><div class="line">                <span class="keyword">for</span> (Object obj : objects) &#123;</div><div class="line">                    sb.append(obj.toString());</div><div class="line">                &#125;</div><div class="line">                System.out.println(<span class="string">"keyGenerator="</span> + sb.toString());</div><div class="line">                <span class="keyword">return</span> sb.toString();</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建入口类"><a href="#创建入口类" class="headerlink" title="创建入口类"></a>创建入口类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootRedisApplication</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(SpringBootRedisApplication.class,args) ;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建model文件"><a href="#创建model文件" class="headerlink" title="创建model文件"></a>创建model文件</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Long id ;</div><div class="line">    <span class="keyword">private</span> String name ;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Long id)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"User&#123;"</span> +</div><div class="line">                <span class="string">"id="</span> + id +</div><div class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</div><div class="line">                <span class="string">'&#125;'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建dao层数据接口文件"><a href="#创建dao层数据接口文件" class="headerlink" title="创建dao层数据接口文件"></a>创建dao层数据接口文件</h3><p>AbstractSpringRedisCacheBase.java文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractSpringRedisCacheBase</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger _logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass()) ;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> RedisTemplate&lt;String,Object&gt; <span class="title">getRedisTemplate</span><span class="params">()</span> </span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteCacheByKey</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.getRedisTemplate().delete(key);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteCacheByKeys</span><span class="params">(String... keys)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(!org.springframework.util.StringUtils.isEmpty(keys) &amp;&amp; keys.length != <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="keyword">if</span>(keys.length == <span class="number">1</span>) &#123;</div><div class="line">                    <span class="keyword">if</span>(org.springframework.util.StringUtils.isEmpty(keys[<span class="number">0</span>])) &#123;</div><div class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key不能为空"</span>);</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">this</span>.getRedisTemplate().delete(keys[<span class="number">0</span>]);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="keyword">this</span>.getRedisTemplate().delete(Arrays.asList(keys));</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> CacheException(CacheEnum.CACHE_HANDLE_SET_EXCEPTION) ;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key不能为空"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteCacheWithPattern</span><span class="params">(String pattern)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(org.springframework.util.StringUtils.isEmpty(pattern)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key不能为空"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            Set&lt;String&gt; keys = <span class="keyword">this</span>.getRedisTemplate().keys(pattern);</div><div class="line">            <span class="keyword">this</span>.getRedisTemplate().delete(keys);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clearCache</span><span class="params">()</span> </span>&#123;</div><div class="line">        deleteCacheWithPattern(<span class="string">"*"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteByPrefix</span><span class="params">(String prex)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(org.springframework.util.StringUtils.isEmpty(prex)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key前缀不能为空"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            Set&lt;String&gt; keys = <span class="keyword">this</span>.getRedisTemplate().keys(prex + <span class="string">"*"</span>);</div><div class="line">            <span class="keyword">this</span>.getRedisTemplate().delete(keys);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteBySuffix</span><span class="params">(String suffix)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(org.springframework.util.StringUtils.isEmpty(suffix)) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"指定删除的key后缀不能为空"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            Set&lt;String&gt; keys = <span class="keyword">this</span>.getRedisTemplate().keys(<span class="string">"*"</span> + suffix);</div><div class="line">            <span class="keyword">this</span>.getRedisTemplate().delete(keys);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>AbstractSpringRedisCache.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractSpringRedisCache</span> <span class="keyword">extends</span> <span class="title">AbstractSpringRedisCacheBase</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger _logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass()) ;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> RedisTemplate&lt;String,Object&gt; <span class="title">getRedisTemplate</span><span class="params">()</span> </span>;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">putCache</span><span class="params">(String key, T obj)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isBlank(key))&#123;</div><div class="line">            _logger.error(<span class="string">"key is null"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bkey = key.getBytes() ;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bvalue = SerializerHelper.serialize(obj) ;</div><div class="line">        <span class="comment">// java8 labbda表达式</span></div><div class="line">        <span class="keyword">return</span> getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; redisConnection.setNX(bkey,bvalue)</div><div class="line">        ) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">putCacheWithExpireTime</span><span class="params">(String key, T obj, <span class="keyword">long</span> expireTime)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isBlank(key))&#123;</div><div class="line">            _logger.error(<span class="string">"key is null"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bkey = key.getBytes() ;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bvalue = SerializerHelper.serialize(obj) ;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; &#123;</div><div class="line">                redisConnection.setEx(bkey,expireTime,bvalue);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        ) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">putListCache</span><span class="params">(String key, List&lt;T&gt; objList)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isBlank(key))&#123;</div><div class="line">            _logger.error(<span class="string">"key is null"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bkey = key.getBytes() ;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bvalue = SerializerHelper.serializeList(objList) ;</div><div class="line">        <span class="comment">// java8 labbda表达式</span></div><div class="line">        <span class="keyword">return</span> getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; redisConnection.setNX(bkey,bvalue)</div><div class="line">        ) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">putListCacheWithExpireTime</span><span class="params">(String key, List&lt;T&gt; objList, <span class="keyword">long</span> expireTime)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isBlank(key))&#123;</div><div class="line">            _logger.error(<span class="string">"key is null"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bkey = key.getBytes() ;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] bvalue = SerializerHelper.serializeList(objList) ;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; &#123;</div><div class="line">                redisConnection.setEx(bkey,expireTime,bvalue);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        ) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getCache</span><span class="params">(String key, Class&lt;T&gt; targetClass)</span> </span>&#123;</div><div class="line">        <span class="keyword">byte</span>[] result = <span class="keyword">this</span>.getRedisTemplate().execute(</div><div class="line">            (RedisConnection redisConnection) -&gt; redisConnection.get(key.getBytes())</div><div class="line">        );</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == result)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> SerializerHelper.deserialize(result,targetClass);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">getListCache</span><span class="params">(String key, Class&lt;T&gt; targetClass)</span> </span>&#123;</div><div class="line">        <span class="keyword">byte</span>[] result = <span class="keyword">this</span>.getRedisTemplate().execute(</div><div class="line">                (RedisConnection redisConnection) -&gt; redisConnection.get(key.getBytes())</div><div class="line">        );</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == result)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span> ;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> SerializerHelper.deserializeList(result,targetClass);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>RedisRepository.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Repository</span>(value = <span class="string">"redisRepository"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisRepository</span> <span class="keyword">extends</span> <span class="title">AbstractSpringRedisCacheEnhance</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    RedisTemplate&lt;String, Object&gt; redisTemplate;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title">getRedisTemplate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> redisTemplate;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建测试类"><a href="#创建测试类" class="headerlink" title="创建测试类"></a>创建测试类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">@RunWith(SpringRunner.class)</div><div class="line">@SpringBootTest(classes = SpringBootRedisApplication.class)</div><div class="line">public class RedisDaoTest &#123;</div><div class="line">    private final Logger _logger = LoggerFactory.getLogger(this.getClass()) ;</div><div class="line"></div><div class="line">    @SuppressWarnings(&quot;SpringJavaAutowiringInspection&quot;)</div><div class="line">    @Autowired private RedisRepository redisRepository ;</div><div class="line">    @Test</div><div class="line">    public void putCache() throws Exception &#123;</div><div class="line">        redisRepository.putCache(&quot;test:redis&quot;,&quot;sfasdfasdfsdf&quot;) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void putCacheWithExpireTime() throws Exception &#123;</div><div class="line">        redisRepository.putCacheWithExpireTime(&quot;test:redis2&quot;,&quot;sfasdfasdfsdf&quot;,5) ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void delete() throws Exception &#123;</div><div class="line">        redisRepository.deleteCacheByKey(&quot;test:redis&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意：</p>
+<p>本文会介绍StringRedisTemplate、RedisTemplate这两个模板来介绍，其中StringRedisTemplate继承自RedisTemplate，只能操作键值都是String类型的数据。在实际开发中建议使用RedisTemplate<k,v>。</k,v></p>
+<p>其实他们两者之间的区别主要在于他们使用的序列化类。</p>
+<p>RedisTemplate使用的是JdkSerializationRedisSerializer</p>
+<p>StringRedisTemplate使用的是StringRedisSerializer</p>
+]]></content>
+      
+        <categories>
+            
+            <category> SpringBoot实战 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> redis,springboot </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringBoot实战之0 文章汇总]]></title>
+      <url>/2018/01/06/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B0%20%E6%96%87%E7%AB%A0%E6%B1%87%E6%80%BB/</url>
+      <content type="html"><![CDATA[<p>spirngboot系列文章汇总<br><a id="more"></a></p>
+<h2 id="spingboot实战"><a href="#spingboot实战" class="headerlink" title="spingboot实战"></a>spingboot实战</h2><ul>
+<li><h3 id="配置篇"><a href="#配置篇" class="headerlink" title="配置篇"></a>配置篇</h3></li>
+</ul>
+<h4 id="第一篇：springboot读取配置文件数据"><a href="#第一篇：springboot读取配置文件数据" class="headerlink" title="第一篇：springboot读取配置文件数据 "></a>第一篇：springboot读取配置文件数据 <br></h4><p>博客地址：<a href="http://blog.csdn.net/u012806787/article/details/78583814" target="_blank" rel="external">springboot之一读取配置文件</a>  <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-config" target="_blank" rel="external">springboot-config</a></p>
+<ul>
+<li><h3 id="数据源篇"><a href="#数据源篇" class="headerlink" title="数据源篇"></a>数据源篇</h3></li>
+</ul>
+<h4 id="第二篇：springboot整合jdbc"><a href="#第二篇：springboot整合jdbc" class="headerlink" title="第二篇：springboot整合jdbc"></a>第二篇：springboot整合jdbc</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-jdbc" target="_blank" rel="external">springboot-jdbc</a></p>
+<h4 id="第三篇：springboot整合hibernate"><a href="#第三篇：springboot整合hibernate" class="headerlink" title="第三篇：springboot整合hibernate"></a>第三篇：springboot整合hibernate</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-hibernate" target="_blank" rel="external">springboot-hibernate</a></p>
+<h4 id="第四篇：springboot整合mybatis"><a href="#第四篇：springboot整合mybatis" class="headerlink" title="第四篇：springboot整合mybatis"></a>第四篇：springboot整合mybatis</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-mybatis" target="_blank" rel="external">springboot-mybatis</a></p>
+<h4 id="第五篇：springboot整合redis"><a href="#第五篇：springboot整合redis" class="headerlink" title="第五篇：springboot整合redis"></a>第五篇：springboot整合redis</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-redis" target="_blank" rel="external">springboot-redis</a></p>
+<ul>
+<li><h3 id="缓存篇"><a href="#缓存篇" class="headerlink" title="缓存篇"></a>缓存篇</h3></li>
+</ul>
+<h4 id="第六篇：springboot使用ConcurrentMap作缓存"><a href="#第六篇：springboot使用ConcurrentMap作缓存" class="headerlink" title="第六篇：springboot使用ConcurrentMap作缓存"></a>第六篇：springboot使用ConcurrentMap作缓存</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-cache" target="_blank" rel="external">springboot-cache</a></p>
+<h4 id="暂未完成：springboot使用redis作缓存"><a href="#暂未完成：springboot使用redis作缓存" class="headerlink" title="暂未完成：springboot使用redis作缓存"></a>暂未完成：springboot使用redis作缓存</h4><ul>
+<li><h3 id="定时任务和异步方法篇"><a href="#定时任务和异步方法篇" class="headerlink" title="定时任务和异步方法篇"></a>定时任务和异步方法篇</h3></li>
+</ul>
+<h4 id="第七篇：springboot整合定时任务"><a href="#第七篇：springboot整合定时任务" class="headerlink" title="第七篇：springboot整合定时任务"></a>第七篇：springboot整合定时任务</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-scheduled" target="_blank" rel="external">springboot-scheduled</a></p>
+<h4 id="第八篇：springboot整合async"><a href="#第八篇：springboot整合async" class="headerlink" title="第八篇：springboot整合async"></a>第八篇：springboot整合async</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-async" target="_blank" rel="external">springboot-async</a></p>
+<ul>
+<li><h3 id="restful篇"><a href="#restful篇" class="headerlink" title="restful篇"></a>restful篇</h3></li>
+</ul>
+<h4 id="第九篇：springboot利用RestTemplate消费rest服务"><a href="#第九篇：springboot利用RestTemplate消费rest服务" class="headerlink" title="第九篇：springboot利用RestTemplate消费rest服务"></a>第九篇：springboot利用RestTemplate消费rest服务</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-resttemplate" target="_blank" rel="external">springboot-resttemplate</a></p>
+<h4 id="第十三篇：springboot利用swager2生成接口文档"><a href="#第十三篇：springboot利用swager2生成接口文档" class="headerlink" title="第十三篇：springboot利用swager2生成接口文档"></a>第十三篇：springboot利用swager2生成接口文档</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-swagger" target="_blank" rel="external">springboot-swagger</a></p>
+<ul>
+<li><h3 id="web篇"><a href="#web篇" class="headerlink" title="web篇"></a>web篇</h3></li>
+</ul>
+<h4 id="第十篇：springboot整合表单自动验证"><a href="#第十篇：springboot整合表单自动验证" class="headerlink" title="第十篇：springboot整合表单自动验证"></a>第十篇：springboot整合表单自动验证</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-validate-form" target="_blank" rel="external">springboot-validate-form</a></p>
+<h4 id="第十一篇：springboot表单提交"><a href="#第十一篇：springboot表单提交" class="headerlink" title="第十一篇：springboot表单提交"></a>第十一篇：springboot表单提交</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-submit-form" target="_blank" rel="external">springboot-submit-form</a></p>
+<ul>
+<li><h3 id="队列篇"><a href="#队列篇" class="headerlink" title="队列篇"></a>队列篇</h3></li>
+</ul>
+<h4 id="第十二篇：springboot整合rabbitmq"><a href="#第十二篇：springboot整合rabbitmq" class="headerlink" title="第十二篇：springboot整合rabbitmq"></a>第十二篇：springboot整合rabbitmq</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-rabbitmq" target="_blank" rel="external">springboot-rabbitmq</a></p>
+<ul>
+<li><h3 id="邮件服务器篇"><a href="#邮件服务器篇" class="headerlink" title="邮件服务器篇"></a>邮件服务器篇</h3></li>
+</ul>
+<h4 id="第十四篇：springboot整合邮件服务器"><a href="#第十四篇：springboot整合邮件服务器" class="headerlink" title="第十四篇：springboot整合邮件服务器"></a>第十四篇：springboot整合邮件服务器</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-jms" target="_blank" rel="external">springboot-jms</a></p>
+<h4 id="未完待续。。。还有很多篇"><a href="#未完待续。。。还有很多篇" class="headerlink" title="未完待续。。。还有很多篇"></a>未完待续。。。还有很多篇</h4>]]></content>
+      
+        <categories>
+            
+            <category> SpringBoot实战 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> springboot </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学之8-rabbitmq的安装与配置]]></title>
+      <url>/2018/01/06/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B8-rabbitmq%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>本篇介绍如何搭建rabbitmq消息队列服务器<br><a id="more"></a></p>
+<h2 id="下载rabbitmq"><a href="#下载rabbitmq" class="headerlink" title="下载rabbitmq"></a>下载rabbitmq</h2><p>去rabbitmq官网仔细搜查其下载链接，找不到可以来<a href="http://www.rabbitmq.com/releases/rabbitmq-server/" target="_blank" rel="external">这里点击下载</a> <br><br>找到自己想要的版本选择rabbitmq-server-generic-unix-*.*.*.tar.xz字样的版本，因为本人尝试过*.rpm版本的安装，并不顺利，本人比较喜欢绿色安装方式</p>
+<h2 id="下载erlang"><a href="#下载erlang" class="headerlink" title="下载erlang"></a>下载erlang</h2><p>由于rabbitmq的运行依赖erlang环境，需要先下载erlang。<br><br>去erlang的官网下载erlang，不想去官网的可以点击 <a href="http://erlang.org/download/otp_src_20.1.tar.gz" target="_blank" rel="external">这里下载</a>下载。</p>
+<h2 id="安装erlang运行环境"><a href="#安装erlang运行环境" class="headerlink" title="安装erlang运行环境"></a>安装erlang运行环境</h2><p>由于erlang运行需要gcc gcc++等环境，需要安装插件，具体不清楚那些插件是必需的，索性一次性安装。</p>
+<p>执行命令：</p>
+<blockquote>
+<p>yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel unixODBC-devel</p>
+</blockquote>
+<p>解压erlang</p>
+<blockquote>
+<p>tar -zxvf otp<em>src</em><em>.</em>.*.tar.gz</p>
+</blockquote>
+<p>配置erlang</p>
+<blockquote>
+<p>./configure –prefix=/usr/local/erlang –with-ssl -enable-threads -enable-smmp-support -enable-kernel-poll –enable-hipe –without-javac</p>
+</blockquote>
+<p>安装erlang</p>
+<blockquote>
+<p>cd otp<em>src</em><em>.</em>.*.tar.gz <br><br>make <br><br>make install</p>
+</blockquote>
+<h2 id="配置erlang环境变量"><a href="#配置erlang环境变量" class="headerlink" title="配置erlang环境变量"></a>配置erlang环境变量</h2><blockquote>
+<p>vim /etc/profile</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ERLANG_HOME=/usr/local/erlang</div><div class="line">PATH=$PATH:$ERLANG_HOME/bin</div></pre></td></tr></table></figure>
+<p>使配置文件生效</p>
+<blockquote>
+<p>source /etc/profile <br><br>echo $PATH</p>
+</blockquote>
+<p>检验erlang</p>
+<blockquote>
+<p>erl</p>
+</blockquote>
+<p>有版本信息输出即成功。</p>
+<h2 id="安装rabbitmq"><a href="#安装rabbitmq" class="headerlink" title="安装rabbitmq"></a>安装rabbitmq</h2><blockquote>
+<p>cd <br><br>xz -d rabbitmq-server-generic-unix-*.*.*.tar.xz <br><br>tar -xvf rabbitmq-server-generic-unix-*.*.*.tar <br><br>cd  cd ./rabbitmq_server-3.6.3/sbin <br></p>
+</blockquote>
+<p>启用web管理界面</p>
+<blockquote>
+<p>./rabbitmq-plugins enable rabbitmq_management</p>
+</blockquote>
+<p>启动</p>
+<blockquote>
+<p>./rabbitmq-server -detached</p>
+</blockquote>
+<p>添加用户</p>
+<blockquote>
+<p>./rabbitmqctl add_user admin admin</p>
+</blockquote>
+<p>设置权限</p>
+<blockquote>
+<p>./rabbitmqctl set_user_tags admin administrator<br>./rabbitmqctl  set_permissions username  “.*“  “.*“   “.*“<br>./rabbitmqctl  list_user_permissions admin</p>
+</blockquote>
+<p>访问管理页<br>ip:15672</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>至此结束，书写博客是为了防止忘记，后续java操作rabbit会更新到博客。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> linux自学 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> rabbitmq,erlang </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学之4-mariadb数据库的安装]]></title>
+      <url>/2018/01/06/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B4-mariadb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[<p>centos安装mariadb数据库<br><a id="more"></a></p>
+<h2 id="一）全部删除系统自带的MySQL-MariaDB"><a href="#一）全部删除系统自带的MySQL-MariaDB" class="headerlink" title="一）全部删除系统自带的MySQL/MariaDB"></a>一）全部删除系统自带的MySQL/MariaDB</h2><ul>
+<li>MySQL 已经不再包含在 CentOS 7 的源中，而改用了 MariaDB;</li>
+</ul>
+<ol>
+<li>使用rpm -qa | grep mariadb搜索 MariaDB 现有的包。使用rpm -qa | grep mysql 搜索<br> mysql 现有的包：如果存在，使用rpm -e –nodeps mariadb-<em>，rpm -e –nodeps mysql</em>全部删除：</li>
+<li>使用rpm -qa | grep mariadb，rpm -qa | grep mysql再次搜索 MariaDB，mysql<br> 现有的包：如果存在，使用yum remove mysql-<em> | yum remove mariadb-</em>全部删除；</li>
+<li>使用 yum list installed | grep mysql   或者 yum list installed | grep mariadb<br> 如果存在，使用yum remove mysql-<em> | yum remove mariadb-</em>全部删除；</li>
+</ol>
+<h2 id="二）添加MariaDB的yum源"><a href="#二）添加MariaDB的yum源" class="headerlink" title="二）添加MariaDB的yum源"></a>二）添加MariaDB的yum源</h2><ol>
+<li>创建 /etc/yum.repos.d/MariaDB.repo：   <pre><code>vi + /etc/yum.repos.d/MariaDB.repo
+</code></pre></li>
+<li>添加yum源,该文件中添加如图所示内容：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># MariaDB 10.1 CentOS repository list - created 2016-03-03 13:06 UTC</div><div class="line">#http://mariadb.org/mariadb/repositories/</div><div class="line">[mariadb]</div><div class="line">name = MariaDB</div><div class="line">baseurl = http://yum.mariadb.org/10.1/centos7-amd64</div><div class="line">gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</div><div class="line">gpgcheck=1</div></pre></td></tr></table></figure>
+<p>———————————————下载地址<br><a href="https://downloads.mariadb.org/mariadb/repositories/#mirror=opencas&amp;distro=CentOS&amp;distro_release=centos7-amd64--centos7&amp;version=10.1" target="_blank" rel="external">https://downloads.mariadb.org/mariadb/repositories/#mirror=opencas&amp;distro=CentOS&amp;distro_release=centos7-amd64--centos7&amp;version=10.1</a></p>
+<h2 id="三）安装-MariaDB"><a href="#三）安装-MariaDB" class="headerlink" title="三）安装 MariaDB"></a>三）安装 MariaDB</h2><p>运行yum install MariaDB-server MariaDB-client  命令安装 MariaDB<br>或者  sudo yum install MariaDB-server MariaDB-client</p>
+<h2 id="四）启动、配置MariaDB"><a href="#四）启动、配置MariaDB" class="headerlink" title="四）启动、配置MariaDB"></a>四）启动、配置MariaDB</h2><ol>
+<li>使用service mysql start命令启动MariaDB 服务</li>
+<li>接着运行 mysql_secure_installation配置MariaDB：<pre><code>配置选项：y n n n y
+</code></pre></li>
+</ol>
+<h2 id="五）登录-MariaDB-并创建相应的数据库用户与数据库"><a href="#五）登录-MariaDB-并创建相应的数据库用户与数据库" class="headerlink" title="五）登录 MariaDB 并创建相应的数据库用户与数据库"></a>五）登录 MariaDB 并创建相应的数据库用户与数据库</h2><ol>
+<li>使用mysql -u root -p登录，回车之后会提示输入密码。注意密码没有回显；</li>
+<li>创建新用户，CREATE USER ‘paac’@’localhost’ IDENTIFIED BY<br>‘password’;其中password填写自己设置的密码。当然后面也可以修改；</li>
+</ol>
+<h2 id="六）使用新用户连接数据库"><a href="#六）使用新用户连接数据库" class="headerlink" title="六）使用新用户连接数据库"></a>六）使用新用户连接数据库</h2><ol>
+<li>执行mysql -u paac -p 回车之后会提示输入密码，填写之前创建用户设置的密码即可登录</li>
+<li>执行相应命令，设置存储引擎、创建数据库、设置用户权限；<br>创建数据库</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> paac <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8;</div><div class="line">user paac ;</div><div class="line">创建表</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">user</span>(</div><div class="line">	<span class="keyword">id</span> <span class="built_in">int</span>(<span class="number">11</span>) primary <span class="keyword">key</span> ,</div><div class="line">	username <span class="built_in">varchar</span>(<span class="number">12</span>) <span class="keyword">not</span> <span class="literal">null</span>,</div><div class="line">	<span class="keyword">password</span> <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span></div><div class="line">) <span class="keyword">default</span> <span class="keyword">charset</span> = utf8;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> mariadb,centos7 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学外传之2-java开发环境配置]]></title>
+      <url>/2018/01/06/centos7%E8%87%AA%E5%AD%A6%E5%A4%96%E4%BC%A0%E4%B9%8B2-java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>jdk环境变量配置<br><a id="more"></a></p>
+<h2 id="jdk环境变量配置"><a href="#jdk环境变量配置" class="headerlink" title="jdk环境变量配置"></a>jdk环境变量配置</h2><ol>
+<li>查看当前系统jdk    java -version</li>
+<li><p>进一步查看jdk信息     </p>
+<pre><code>rpm -qa | grep java
+rpm -qa | grep jdk
+rpm -qa | grep -E &apos;^open[jre|jdk]|j[re|dk]&apos;
+</code></pre></li>
+<li><p>卸载jdk    </p>
+<pre><code>rpm -e --nodeps + 上面查出来的openjdk相关
+</code></pre></li>
+<li>进oracle官网下载适用于自己版本的<em>.rpm或</em>.tar.gz 格式的jdk</li>
+</ol>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">下载地址</a></p>
+<ol>
+<li><p>rpm安装方式</p>
+<pre><code>rpm -ivh *.rpm
+</code></pre></li>
+<li>验证安装，终端输入 java  或者 javac 或者 java -version</li>
+<li><p>配置环境变量    </p>
+<pre><code>vi | vim /etc/profile
+</code></pre><p> 向文件里面添加以下内容：                    </p>
+<pre><code># jdk 环境变量配置 
+JAVA_HOME=&quot;/usr/java/jdk1.8.0_92&quot;
+JRE_HOME=&quot;/usr/java/jdk1.8.0_92/jre&quot;
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+# CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+export JAVA_HOME JRE_HOME PATH # CLASSPATH
+</code></pre></li>
+<li><p>是修改生效  </p>
+<pre><code>source /etc/profile  或者 reboot
+</code></pre></li>
+<li><p>查看全局环境变量    </p>
+<pre><code>echo $PATH    
+</code></pre></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> linux自学 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> jdk </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7自学外传之1-挂载ntfs]]></title>
+      <url>/2018/01/06/centos7%E8%87%AA%E5%AD%A6%E5%A4%96%E4%BC%A0%E4%B9%8B1-%E6%8C%82%E8%BD%BDntfs/</url>
+      <content type="html"><![CDATA[<p>Centos7 默认不能挂载NTFS文件系统，这里我们就需要一个第三方的工具才能挂载NTFS文件系统，就是ntfs-3g</p>
+<a id="more"></a>
+<ol>
+<li>需要去官网上下载源码安装包或者复制下载链接到终端，使用wget命令下载 wget <a href="https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2016.2.22.tgz" target="_blank" rel="external">https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2016.2.22.tgz</a></li>
+<li>解压安装包 tar -xvf ntfs-*.gtz</li>
+<li><p>进入解压后的ntfs-3g文件夹内，运行./configure &amp;&amp; make &amp;&amp; make install</p>
+<pre><code>如果是初装系统，需要切换root用户安装 gcc源码编译工具
+yum install gcc 
+然后再次以root用户运行
+./configure &amp;&amp; make &amp;&amp; make install。
+本人尝试用robot(一般用户运行失败)
+</code></pre></li>
+<li>插上硬盘运行 fdisk -l  在终端底部出现  Device Boot 行的下面有外界硬盘盘符，本人是 /dev/sdc1==不同人可能不一样</li>
+<li><p>将/dev/sdc1 挂在到/home/robot/Public 下    </p>
+<pre><code>mount -t ntfs-3g /dev/sdc1 /home/robot/Public  
+</code></pre></li>
+<li><p>验证挂载成功与否    </p>
+<pre><code>cd /home/robot/Public
+</code></pre></li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> mount,ntfs </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[spring实战2 spring整合slf4j+logback架构日志框架]]></title>
+      <url>/2018/01/06/spring%E5%AE%9E%E6%88%982_spring%E6%95%B4%E5%90%88slf4j+logback%E6%9E%B6%E6%9E%84%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/</url>
+      <content type="html"><![CDATA[<p>项目未起，日志先行。本篇介绍spring如何整合slf4j+logback日志框架<br><a id="more"></a><br>如果对slf4j有不太了解的，可以参考本人另外一片文章<a href="http://blog.csdn.net/u012806787/article/details/77323615" target="_blank" rel="external">日志框架之2 slf4j+logback实现日志架构</a></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.25<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>在resources下面创建logback.xml配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">"true"</span> <span class="attr">scanPeriod</span>=<span class="string">"1 seconds"</span> <span class="attr">debug</span>=<span class="string">"true"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">timestamp</span> <span class="attr">key</span>=<span class="string">"byDay"</span> <span class="attr">datePattern</span>=<span class="string">"yyyy-MM-dd"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">timestamp</span> <span class="attr">key</span>=<span class="string">"byHour"</span> <span class="attr">datePattern</span>=<span class="string">"yyyyMMdd_HH"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">timestamp</span> <span class="attr">key</span>=<span class="string">"byMinute"</span> <span class="attr">datePattern</span>=<span class="string">"yyyyMMdd'T'HH:mm"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">timestamp</span> <span class="attr">key</span>=<span class="string">"bySecond"</span> <span class="attr">datePattern</span>=<span class="string">"yyyyMMdd'T'HHmmss"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"%d&#123;HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;36&#125; [%file:%line] - %msg%n"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"charsetEncoding"</span> <span class="attr">value</span>=<span class="string">"UTF-8"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--控制台日志--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"console"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.ConsoleAppender"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>$&#123;pattern&#125;<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">charset</span>&gt;</span>$&#123;charsetEncoding&#125;<span class="tag">&lt;/<span class="name">charset</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--滚动文件日志--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"file"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">file</span>&gt;</span>./logback/mylog.log<span class="tag">&lt;/<span class="name">file</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>./logback/mylog.%d&#123;yyyy-MM-dd_HH&#125;.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">totalSizeCap</span>&gt;</span>3GB<span class="tag">&lt;/<span class="name">totalSizeCap</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>$&#123;pattern&#125;<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--设置多个级别的日志--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"debug"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"console"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"file"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>新建TestLogger.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLogger</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger _logger = LoggerFactory.getLogger(TestLogger.class) ;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">            _logger.info(<span class="string">"服务器日志&#123;&#125;"</span>,i);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>运行TestLogger.java文件，效果如图</p>
+<p><img src="/uploads/logback1.png" alt="image"></p>
+<p>项目结构图</p>
+<p><img src="/uploads/logback2.png" alt="image"></p>
+<h2 id="历史文章"><a href="#历史文章" class="headerlink" title="历史文章"></a>历史文章</h2><p><a href="http://blog.csdn.net/u012806787/article/details/78611037" target="_blank" rel="external">spring实战1 读取配置文件属性</a></p>
+<h2 id="官方资料"><a href="#官方资料" class="headerlink" title="官方资料"></a>官方资料</h2><p><a href="https://logback.qos.ch/manual/configuration.html" target="_blank" rel="external">logback 官方资料</a></p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p><a href="https://github.com/shiyuan2he/spring/tree/master/spring-slf4j-logback" target="_blank" rel="external">spring-slf4j-logback</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> spring实战 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> spring,slf4j+logback,logback </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[springcloud实战之分布式配置中心（config）]]></title>
       <url>/2017/12/16/springcloud%E5%AE%9E%E6%88%98%E4%B9%8B%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%EF%BC%88config%EF%BC%89/</url>
       <content type="html"><![CDATA[<p>springcloud微服务实现分布式配置中心<br><a id="more"></a><br>基于为服务群，如果为每个服务读取自己的配置文件，有点重复造轮子。spingcloud提供了一个git远程仓库来创建分布式配置中心。</p>
@@ -325,8 +703,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[idea启动两个端口的相同springboot服务]]></title>
-      <url>/2017/12/16/idea%E5%90%AF%E5%8A%A8%E4%B8%A4%E4%B8%AA%E7%AB%AF%E5%8F%A3%E7%9A%84%E7%9B%B8%E5%90%8Cspringboot%E6%9C%8D%E5%8A%A1/</url>
+      <title><![CDATA[idea使用笔记之1_idea启动两个端口的相同springboot服务]]></title>
+      <url>/2017/12/16/idea%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E4%B9%8B1_idea%E5%90%AF%E5%8A%A8%E4%B8%A4%E4%B8%AA%E7%AB%AF%E5%8F%A3%E7%9A%84%E7%9B%B8%E5%90%8Cspringboot%E6%9C%8D%E5%8A%A1/</url>
       <content type="html"><![CDATA[<p>idea开启两个springboot应用<br><a id="more"></a><br>spingboot做集群服务的时候，同一个入口类需要启动多次，idea默认每次启动都会覆盖之前的服务，修改一下即可使用</p>
 <h3 id="1-打开启动类配置页"><a href="#1-打开启动类配置页" class="headerlink" title="1.打开启动类配置页"></a>1.打开启动类配置页</h3><p>点击图中圈中的地方</p>
 <p><img src="/uploads/idea.png" alt="image"></p>
@@ -349,8 +727,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[SpringBoot实战之整合mybatis]]></title>
-      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%95%B4%E5%90%88mybatis/</url>
+      <title><![CDATA[SpringBoot实战之11 整合mybatis]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B11%20%E6%95%B4%E5%90%88mybatis/</url>
       <content type="html"><![CDATA[<p>本篇介绍springboot整合mybatis<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>引用百度百科：</p>
 <ul>
@@ -386,7 +764,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -400,8 +778,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之整合jdbc进行crud操作]]></title>
-      <url>/2017/12/16/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%95%B4%E5%90%88jdbc%E8%BF%9B%E8%A1%8Ccrud%E6%93%8D%E4%BD%9C/</url>
+      <title><![CDATA[SpringBoot实战之10 整合jdbc进行crud操作]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B10%20%E6%95%B4%E5%90%88jdbc%E8%BF%9B%E8%A1%8Ccrud%E6%93%8D%E4%BD%9C/</url>
       <content type="html"><![CDATA[<p>springboot项目整合jdbc，实现crud操作<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>springboot整合数据源之jdbc，web项目操作数据库是常有之事。本篇介绍springboot如何用jdbc连接mariadb数据库。</p>
 <h2 id="code实现"><a href="#code实现" class="headerlink" title="code实现"></a>code实现</h2><h3 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mariadb.jdbc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mariadb-java-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hsy.springboot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springboot-rpc-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hsy.java<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>java-exception<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hsy.java<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>java-util<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -434,7 +812,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -448,8 +826,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之整合restful工具swagger2]]></title>
-      <url>/2017/12/16/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%95%B4%E5%90%88restful%E5%B7%A5%E5%85%B7swagger2/</url>
+      <title><![CDATA[SpringBoot实战之12 整合restful工具swagger2]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B12%20%E6%95%B4%E5%90%88restful%E5%B7%A5%E5%85%B7swagger2/</url>
       <content type="html"><![CDATA[<p>本篇介绍springboot项目中添加在线接口文档<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> Swagger 是一款RESTFUL接口的文档在线自动生成+功能测试功能软件。本文简单介绍了在项目中集成swagger的方法和一些常见问题。如果想深入分析项目源码，了解更多内容，见参考资料。</p>
 <p>Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务。总体目标是使客户端和文件系统作为服务器以同样的速度来更新。文件的方法，参数和模型紧密集成到服务器端的代码，允许API来始终保持同步。Swagger 让部署管理和使用功能强大的API从未如此简单。</p>
@@ -476,7 +854,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -490,8 +868,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之整合slf4j日志系统]]></title>
-      <url>/2017/12/16/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%95%B4%E5%90%88slf4j%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/</url>
+      <title><![CDATA[SpringBoot实战之3 整合slf4j+logback日志框架]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B3%20%E6%95%B4%E5%90%88slf4j+logback%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/</url>
       <content type="html"><![CDATA[<p>本篇介绍在项目中使用slf4j日志<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>日志系统几乎是每个项目必备的重要组成部分。但logback和log4j二者推荐使用logback，因为logback的效率显著高于log4j，而且logback也是springboot推荐及默认使用的日志系统。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>在Spring Boot 中记录日志只需两步：<br>1、在 src/main/resources 下面创建logback.xml 文件，并按上面讲述的进行配置。<br>或者使用最简单的方法在 application 配置文件中配置。<br>2、在Java代码中创建实例，并在需要输出日志的地方使用。</p>
@@ -519,12 +897,24 @@
 <p><a href="http://blog.csdn.net/u012806787/article/details/78722025" target="_blank" rel="external">springboot实战之整合CommandLineRunner</a></p>
 ]]></content>
       
+        <categories>
+            
+            <category> SpringBoot实战 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> springboot,slf4j,logback </tag>
+            
+        </tags>
         
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之整合CommandLineRunner]]></title>
-      <url>/2017/12/16/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%95%B4%E5%90%88CommandLineRunner/</url>
+      <title><![CDATA[SpringBoot实战之4 整合CommandLineRunner]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B4%20%E6%95%B4%E5%90%88CommandLineRunner/</url>
       <content type="html"><![CDATA[<p>在本篇介绍springboot项目启动调用方法<br><a id="more"></a></p>
 <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>某些情况下需要再服务启动时执行部分代码，有很多实现方式，这里讲解实现CommandLineRunner接口实现。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>自定义类实现CommandLineRunner并且重写run方法。</p>
@@ -552,7 +942,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -566,8 +956,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之注册interceptor]]></title>
-      <url>/2017/12/16/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%B3%A8%E5%86%8Cinterceptor/</url>
+      <title><![CDATA[SpringBoot实战之5 注册interceptor]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B5%20%E6%B3%A8%E5%86%8Cinterceptor/</url>
       <content type="html"><![CDATA[<p>本篇介绍在springboot项目中注册interceptor<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>HandleInterceptor的功能跟Filter类似，但是范围要小一些，只拦截webmvc的接口请求，不拦截静态资源。即request请求之前有拦截方法，request请求之后有拦截方法。</p>
 <h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><p>实现自定义拦截器需要3步：</p>
@@ -594,7 +984,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -608,8 +998,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之注册filter和listener]]></title>
-      <url>/2017/12/16/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%B3%A8%E5%86%8Cfilter%E5%92%8Clistener/</url>
+      <title><![CDATA[SpringBoot实战之6 注册filter和listener]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B6%20%E6%B3%A8%E5%86%8Cfilter%E5%92%8Clistener/</url>
       <content type="html"><![CDATA[<p>springboot项目实现filter及listener的注册<br><a id="more"></a></p>
 <h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>在项目中有些特殊的处理需要用到过滤器及监听器，比如spring框架得字符过滤器CahracterEncodingFilter。</p>
 <h2 id="code实现"><a href="#code实现" class="headerlink" title="code实现"></a>code实现</h2><p>MyFilter.java</p>
@@ -632,7 +1022,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -646,8 +1036,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之注册自定义Servlet]]></title>
-      <url>/2017/12/16/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%B3%A8%E5%86%8C%E8%87%AA%E5%AE%9A%E4%B9%89Servlet/</url>
+      <title><![CDATA[SpringBoot实战之7 注册自定义Servlet]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B7%20%E6%B3%A8%E5%86%8C%E8%87%AA%E5%AE%9A%E4%B9%89Servlet/</url>
       <content type="html"><![CDATA[<p>springboot项目注册自定义的servlet<br><a id="more"></a></p>
 <h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>在以前的web项目，servlet常用与特殊处理，比如验证码的实现，对外暴露http接口等等，重要性不言而喻。</p>
 <p>springboot也有自己的实现servlet的方式。</p>
@@ -680,7 +1070,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -694,8 +1084,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之整合freemarker模版引擎]]></title>
-      <url>/2017/12/16/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%95%B4%E5%90%88freemarker%E6%A8%A1%E7%89%88%E5%BC%95%E6%93%8E/</url>
+      <title><![CDATA[SpringBoot实战之9 整合freemarker模版引擎]]></title>
+      <url>/2017/12/16/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B9%20%E6%95%B4%E5%90%88freemarker%E6%A8%A1%E7%89%88%E5%BC%95%E6%93%8E/</url>
       <content type="html"><![CDATA[<p>本篇介绍springboot如何整合freemarker模版引擎<br><a id="more"></a></p>
 <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>springboot支持多种模版引擎包括：</p>
 <ol>
@@ -720,7 +1110,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -734,8 +1124,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之整合jsp模版引擎]]></title>
-      <url>/2017/12/15/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%95%B4%E5%90%88jsp%E6%A8%A1%E7%89%88%E5%BC%95%E6%93%8E/</url>
+      <title><![CDATA[SpringBoot实战之8 整合jsp模版引擎]]></title>
+      <url>/2017/12/15/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B8%20%E6%95%B4%E5%90%88jsp%E6%A8%A1%E7%89%88%E5%BC%95%E6%93%8E/</url>
       <content type="html"><![CDATA[<p>springboot整合jsp模版引擎<br><a id="more"></a></p>
 <h2 id="历史文章"><a href="#历史文章" class="headerlink" title="历史文章"></a>历史文章</h2><p><a href="http://blog.csdn.net/u012806787/article/details/78694912" target="_blank" rel="external">SpringBoot实战之入门</a></p>
 <p><a href="http://blog.csdn.net/u012806787/article/details/78686998" target="_blank" rel="external">springboot实战之文章汇总</a></p>
@@ -763,7 +1153,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -777,8 +1167,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[SpringBoot实战之入门]]></title>
-      <url>/2017/11/24/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B%E5%85%A5%E9%97%A8/</url>
+      <title><![CDATA[SpringBoot实战之1 入门]]></title>
+      <url>/2017/11/24/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B1%20%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<p>3年以上的Java开发，无论是公司的项目或者是自己的项目，肯定经历过大量配置文件的配置，维护，特别是spring3.0之前版本开发的web项目，配置文件多大十几个（spring3.0之后提供了注解替代部分配置文件），费心费脑还容易出错。<br><a id="more"></a></p>
 <h2 id="历史文章"><a href="#历史文章" class="headerlink" title="历史文章"></a>历史文章</h2><p><a href="https://shiyuan2he.github.io/2017/11/20/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E4%B8%80%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank" rel="external">springboot实战之文章汇总</a></p>
 <p><a href="https://shiyuan2he.github.io/2017/11/20/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E4%B8%80%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank" rel="external">springboot实战之读取配置文件</a></p>
@@ -802,7 +1192,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -816,8 +1206,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[spring实战之读取配置文件属性]]></title>
-      <url>/2017/11/23/spring%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7/</url>
+      <title><![CDATA[spring实战1 读取配置文件属性]]></title>
+      <url>/2017/11/23/spring%E5%AE%9E%E6%88%981_%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7/</url>
       <content type="html"><![CDATA[<p>在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在现实工作中，我们常常需要保存一些系统配置信息，大家一般都会选择配置文件来完成比如jdbc连接信息，邮件服务器信息，接口地址及版本信息等等。但读取*.properties文件有N多种方式，本文根据我工作中用到的读取properties配置文件的方法小小总结一下，主要叙述的是spring读取配置文件的方法。</p>
 <h2 id="设置配置文件"><a href="#设置配置文件" class="headerlink" title="设置配置文件"></a>设置配置文件</h2><p>例如jdbc连接信息：</p>
@@ -884,8 +1274,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[springboot实战之读取配置文件]]></title>
-      <url>/2017/11/20/springboot%E5%AE%9E%E6%88%98%E4%B9%8B%E4%B8%80%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</url>
+      <title><![CDATA[SpringBoot实战之2 读取配置文件]]></title>
+      <url>/2017/11/20/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B2%20%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</url>
       <content type="html"><![CDATA[<p>我们聊一聊最近很火的springboot，它可以很快捷，快速的创建一个spring的web项目。说白一点，他是spring+springMVC+持久层框架+数据源连接池+web容器+。。。的脚手架.<br><a id="more"></a></p>
 <h2 id="大话springboot"><a href="#大话springboot" class="headerlink" title="大话springboot"></a>大话springboot</h2><p>我们聊一聊最近很火的springboot，它可以很快捷，快速的创建一个spring的web项目。说白一点，他是spring+springMVC+持久层框架+数据源连接池+web容器+。。。的脚手架。<br>springboot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。对于很熟练的开发（以我所见，起码是处于开发一线3年以上期间的才算熟练），spingboot的出现无疑是福音。否则，强行去运用springboot反而适得其反，黑盒开发。如果一定要用springboot，那么一定要多动脑，多思考，多去开源社区走走开发前辈趟出来坑。</p>
 <h2 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;parent&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.5.8.RELEASE&lt;/version&gt;</div><div class="line">&lt;/parent&gt;</div><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</div><div class="line">        &lt;scope&gt;test&lt;/scope&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div></pre></td></tr></table></figure>
@@ -914,7 +1304,7 @@
       
         <categories>
             
-            <category> springboot实战 </category>
+            <category> SpringBoot实战 </category>
             
         </categories>
         
@@ -928,75 +1318,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[SpringBoot实战之文章汇总]]></title>
-      <url>/2017/11/19/SpringBoot%E5%AE%9E%E6%88%98%E4%B9%8B%E6%96%87%E7%AB%A0%E6%B1%87%E6%80%BB/</url>
-      <content type="html"><![CDATA[<p>springboot实战系列文章汇总<br><a id="more"></a></p>
-<h2 id="spingboot实战"><a href="#spingboot实战" class="headerlink" title="spingboot实战"></a>spingboot实战</h2><ul>
-<li><h3 id="配置篇"><a href="#配置篇" class="headerlink" title="配置篇"></a>配置篇</h3></li>
-</ul>
-<h4 id="第一篇：springboot读取配置文件数据"><a href="#第一篇：springboot读取配置文件数据" class="headerlink" title="第一篇：springboot读取配置文件数据 "></a>第一篇：springboot读取配置文件数据 <br></h4><p>博客地址：<a href="http://blog.csdn.net/u012806787/article/details/78583814" target="_blank" rel="external">springboot之一读取配置文件</a>  <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-config" target="_blank" rel="external">springboot-config</a></p>
-<ul>
-<li><h3 id="数据源篇"><a href="#数据源篇" class="headerlink" title="数据源篇"></a>数据源篇</h3></li>
-</ul>
-<h4 id="第二篇：springboot整合jdbc"><a href="#第二篇：springboot整合jdbc" class="headerlink" title="第二篇：springboot整合jdbc"></a>第二篇：springboot整合jdbc</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-jdbc" target="_blank" rel="external">springboot-jdbc</a></p>
-<h4 id="第三篇：springboot整合hibernate"><a href="#第三篇：springboot整合hibernate" class="headerlink" title="第三篇：springboot整合hibernate"></a>第三篇：springboot整合hibernate</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-hibernate" target="_blank" rel="external">springboot-hibernate</a></p>
-<h4 id="第四篇：springboot整合mybatis"><a href="#第四篇：springboot整合mybatis" class="headerlink" title="第四篇：springboot整合mybatis"></a>第四篇：springboot整合mybatis</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-mybatis" target="_blank" rel="external">springboot-mybatis</a></p>
-<h4 id="第五篇：springboot整合redis"><a href="#第五篇：springboot整合redis" class="headerlink" title="第五篇：springboot整合redis"></a>第五篇：springboot整合redis</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-redis" target="_blank" rel="external">springboot-redis</a></p>
-<ul>
-<li><h3 id="缓存篇"><a href="#缓存篇" class="headerlink" title="缓存篇"></a>缓存篇</h3></li>
-</ul>
-<h4 id="第六篇：springboot使用ConcurrentMap作缓存"><a href="#第六篇：springboot使用ConcurrentMap作缓存" class="headerlink" title="第六篇：springboot使用ConcurrentMap作缓存"></a>第六篇：springboot使用ConcurrentMap作缓存</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-cache" target="_blank" rel="external">springboot-cache</a></p>
-<h4 id="暂未完成：springboot使用redis作缓存"><a href="#暂未完成：springboot使用redis作缓存" class="headerlink" title="暂未完成：springboot使用redis作缓存"></a>暂未完成：springboot使用redis作缓存</h4><ul>
-<li><h3 id="定时任务和异步方法篇"><a href="#定时任务和异步方法篇" class="headerlink" title="定时任务和异步方法篇"></a>定时任务和异步方法篇</h3></li>
-</ul>
-<h4 id="第七篇：springboot整合定时任务"><a href="#第七篇：springboot整合定时任务" class="headerlink" title="第七篇：springboot整合定时任务"></a>第七篇：springboot整合定时任务</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-scheduled" target="_blank" rel="external">springboot-scheduled</a></p>
-<h4 id="第八篇：springboot整合async"><a href="#第八篇：springboot整合async" class="headerlink" title="第八篇：springboot整合async"></a>第八篇：springboot整合async</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-async" target="_blank" rel="external">springboot-async</a></p>
-<ul>
-<li><h3 id="restful篇"><a href="#restful篇" class="headerlink" title="restful篇"></a>restful篇</h3></li>
-</ul>
-<h4 id="第九篇：springboot利用RestTemplate消费rest服务"><a href="#第九篇：springboot利用RestTemplate消费rest服务" class="headerlink" title="第九篇：springboot利用RestTemplate消费rest服务"></a>第九篇：springboot利用RestTemplate消费rest服务</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-resttemplate" target="_blank" rel="external">springboot-resttemplate</a></p>
-<h4 id="第十三篇：springboot利用swager2生成接口文档"><a href="#第十三篇：springboot利用swager2生成接口文档" class="headerlink" title="第十三篇：springboot利用swager2生成接口文档"></a>第十三篇：springboot利用swager2生成接口文档</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-swagger" target="_blank" rel="external">springboot-swagger</a></p>
-<ul>
-<li><h3 id="web篇"><a href="#web篇" class="headerlink" title="web篇"></a>web篇</h3></li>
-</ul>
-<h4 id="第十篇：springboot整合表单自动验证"><a href="#第十篇：springboot整合表单自动验证" class="headerlink" title="第十篇：springboot整合表单自动验证"></a>第十篇：springboot整合表单自动验证</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-validate-form" target="_blank" rel="external">springboot-validate-form</a></p>
-<h4 id="第十一篇：springboot表单提交"><a href="#第十一篇：springboot表单提交" class="headerlink" title="第十一篇：springboot表单提交"></a>第十一篇：springboot表单提交</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-submit-form" target="_blank" rel="external">springboot-submit-form</a></p>
-<ul>
-<li><h3 id="队列篇"><a href="#队列篇" class="headerlink" title="队列篇"></a>队列篇</h3></li>
-</ul>
-<h4 id="第十二篇：springboot整合rabbitmq"><a href="#第十二篇：springboot整合rabbitmq" class="headerlink" title="第十二篇：springboot整合rabbitmq"></a>第十二篇：springboot整合rabbitmq</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-rabbitmq" target="_blank" rel="external">springboot-rabbitmq</a></p>
-<ul>
-<li><h3 id="邮件服务器篇"><a href="#邮件服务器篇" class="headerlink" title="邮件服务器篇"></a>邮件服务器篇</h3></li>
-</ul>
-<h4 id="第十四篇：springboot整合邮件服务器"><a href="#第十四篇：springboot整合邮件服务器" class="headerlink" title="第十四篇：springboot整合邮件服务器"></a>第十四篇：springboot整合邮件服务器</h4><p>博客地址：暂无 <br><br>项目地址：<a href="https://github.com/shiyuan2he/springboot/tree/master/springboot-jms" target="_blank" rel="external">springboot-jms</a></p>
-<h4 id="未完待续。。。还有很多篇"><a href="#未完待续。。。还有很多篇" class="headerlink" title="未完待续。。。还有很多篇"></a>未完待续。。。还有很多篇</h4>]]></content>
-      
-        <categories>
-            
-            <category> springboot实战 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> springboot </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[(日志管理-3)Commons logging+log4j日志框架剖析]]></title>
-      <url>/2017/08/30/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-3-Commons-logging-log4j%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%89%96%E6%9E%90/</url>
-      <content type="html"></content>
-      
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[centos7自学之6-redis-4.0.1单例服务器搭建]]></title>
-      <url>/2017/08/22/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B6-redis-4-0-1%E5%8D%95%E4%BE%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
+      <title><![CDATA[centos7自学之7-redis-4.0.1单例服务器搭建]]></title>
+      <url>/2017/08/22/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B7-redis-4.0.1%E5%8D%95%E4%BE%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
       <content type="html"><![CDATA[<p>摘要: redis作为一种NoSql数据库，其提供了一种高效的缓存方案，本文则主要对其单例，主从模式，sentinel以及集群的配置方式进行说明，对比其优缺点，阐述redis作为一种缓存框架的高可用性。<br><a id="more"></a></p>
 <h2 id="redis简介"><a href="#redis简介" class="headerlink" title="redis简介"></a>redis简介</h2><p> redis作为一种高效的缓存框架，使用是非常广泛的，在数据存储上，在运行时其将数据存储在内存中，以实现数据的高效读写，并且根据定制的持久化规则不同，其会不定期的将数据持久化到硬盘中。另外相较于其他的NoSql数据库，redis提供了非常丰富的数据结构，如dict，sds，linkedlist，ziplist，set，quicklist，geometry。在这些存储结构的基础上，redis为用户提供了非常丰富的操作选择，如通过zskiplist来达到对某种类型的数据的排序目的，而排序在数据库中是一个非常耗时的操作。redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。与memcached一样，为了保证效率，数据都是缓存在内存中。区别的是redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步。</p>
 <h2 id="redis安装"><a href="#redis安装" class="headerlink" title="redis安装"></a>redis安装</h2><p>redis相对于其他的缓存框架安装非常的方便，只需要从<a href="http://download.redis.io/releases/redis-4.0.1.tar.gz" target="_blank" rel="external">https://redis.io/download</a>下载后解压,执行命令启动服务即可完成安装</p>
@@ -1040,16 +1363,22 @@
       
         <categories>
             
-            <category> centos7自学 </category>
+            <category> linux自学 </category>
             
         </categories>
         
         
+        <tags>
+            
+            <tag> redis </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
-      <title><![CDATA[centos7自学之5-基于solr6.6的solrcloud集群搭建]]></title>
-      <url>/2017/08/13/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B5-%E5%9F%BA%E4%BA%8Esolr6-6%E7%9A%84solrcloud%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</url>
+      <title><![CDATA[centos7自学之6-基于solr6.6的solrcloud集群搭建]]></title>
+      <url>/2017/08/13/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B6-%E5%9F%BA%E4%BA%8Esolr6.6%E7%9A%84solrcloud%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</url>
       <content type="html"><![CDATA[<p>SolrCloud(solr集群)是Solr提供的分布式搜索方案。<br><a id="more"></a></p>
 <h2 id="Solrcloud介绍"><a href="#Solrcloud介绍" class="headerlink" title="Solrcloud介绍"></a>Solrcloud介绍</h2><p>SolrCloud(solr集群)是Solr提供的分布式搜索方案。<br>当你需要大规模，容错，分布式索引和检索能力时使用SolrCloud。<br>当索引量很大，搜索请求并发很高时，同样需要使用SolrCloud来满足这些需求。<br>不过当一个系统的索引数据量少的时候是没有必要使用SolrCloud的。<br>SolrCloud是基于Solr和Zookeeper的分布式搜索方案。<br>它的主要思想是使用Zookeeper作为SolrCloud集群的配置信息中心，统一管理solrcloud的配置，比如solrconfig.xml和schema.xml。</p>
 <h2 id="Solrcloud特点"><a href="#Solrcloud特点" class="headerlink" title="Solrcloud特点"></a>Solrcloud特点</h2><p>1.集中式的配置信息 <br><br>2.自动容错<br><br>3.近实时搜索<br><br>4.查询时自动负载均衡<br></p>
@@ -1146,7 +1475,7 @@
       
         <categories>
             
-            <category> centos7自学 </category>
+            <category> linux自学 </category>
             
         </categories>
         
@@ -1160,8 +1489,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[centos7自学之4-solr6.6搜索服务器安装及IK分词器配置]]></title>
-      <url>/2017/08/11/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B4-solr6-6%E6%90%9C%E7%B4%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85%E5%8F%8AIK%E5%88%86%E8%AF%8D%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
+      <title><![CDATA[centos7自学之5-solr6.6搜索服务器安装及IK分词器配置]]></title>
+      <url>/2017/08/11/centos7%E8%87%AA%E5%AD%A6%E4%B9%8B5-solr6.6%E6%90%9C%E7%B4%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85%E5%8F%8AIK%E5%88%86%E8%AF%8D%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
       <content type="html"><![CDATA[<p>Solr是一个高性能，采用Java5开发，Solr基于Lucene的全文搜索服务器。同时对其进行了扩展，提供了比Lucene更为丰富的查询语言，同时实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面，是一款非常优秀的全文搜索引擎。<br><a id="more"></a></p>
 <h2 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h2><p>安装前请确保centos7系统已经安装过jdk8和tomcat8 <br><br>jdk安装请参考<a href="http://blog.csdn.net/u012806787/article/details/77096058" target="_blank" rel="external">http://blog.csdn.net/u012806787/article/details/77096058</a>  <br><br>tomcat安装请参考<a href="http://blog.csdn.net/u012806787/article/details/77096522" target="_blank" rel="external">centos7自学之3-tomcat环境配置</a></p>
 <h2 id="下载solr"><a href="#下载solr" class="headerlink" title="下载solr"></a>下载solr</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /root/data</div><div class="line">wget http:<span class="comment">//apache.fayea.com/lucene/solr/6.6.0/solr-6.6.0.tgz</span></div><div class="line">tar -zxvf solr-<span class="number">6.6</span>.0.tgz</div><div class="line">mv solr-<span class="number">6.6</span>.0 ../solr/</div></pre></td></tr></table></figure>
@@ -1240,7 +1569,7 @@
       
         <categories>
             
-            <category> centos7自学 </category>
+            <category> linux自学 </category>
             
         </categories>
         
@@ -1299,7 +1628,7 @@
       
         <categories>
             
-            <category> centos7自学 </category>
+            <category> linux自学 </category>
             
         </categories>
         
@@ -1319,7 +1648,7 @@
 <h2 id="安装之前"><a href="#安装之前" class="headerlink" title="安装之前"></a>安装之前</h2><h3 id="安装环境检查"><a href="#安装环境检查" class="headerlink" title="安装环境检查"></a>安装环境检查</h3><h4 id="查看当前系统jdk"><a href="#查看当前系统jdk" class="headerlink" title="查看当前系统jdk"></a>查看当前系统jdk</h4><blockquote>
 <p>java -version</p>
 </blockquote>
-<p><img src="uploads/javaversion.png" alt="javaversion"></p>
+<p><img src="http://img.blog.csdn.net/20170811122318682?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjgwNjc4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
 <h4 id="进一步查看jdk信息"><a href="#进一步查看jdk信息" class="headerlink" title="进一步查看jdk信息"></a>进一步查看jdk信息</h4><blockquote>
 <p>rpm -qa | grep java  <br><br>rpm -qa | grep jdk   <br><br>rpm -qa | grep -E ‘^open[jre|jdk]|j[re|dk]</p>
 </blockquote>
@@ -1328,14 +1657,12 @@
 </blockquote>
 <h2 id="rpm安装"><a href="#rpm安装" class="headerlink" title="rpm安装"></a>rpm安装</h2><h3 id="下载rpm安装文件"><a href="#下载rpm安装文件" class="headerlink" title="下载rpm安装文件"></a>下载rpm安装文件</h3><p>进oracle官网下载适用于自己版本的*.rpm格式的jdk<br>wget方式下载，进入保存下载文件的路径</p>
 <blockquote>
-<p>cd /home/robot/data <br><br>wget <a href="http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm</a><br><br></p>
+<p>cd /home/robot/data <br><br>wget <a href="http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm</a></p>
 </blockquote>
 <p>如果没有wget命令，执行 <br></p>
 <blockquote>
 <p>yun install wget</p>
-</blockquote>
-<h3 id="rpm命令安装"><a href="#rpm命令安装" class="headerlink" title="rpm命令安装"></a>rpm命令安装</h3><blockquote>
-<p>rpm -ivh *.rpm</p>
+<h3 id="rpm命令安装"><a href="#rpm命令安装" class="headerlink" title="rpm命令安装"></a>rpm命令安装</h3><p>rpm -ivh *.rpm</p>
 </blockquote>
 <h3 id="验证安装，终端输入-java-或者-javac-或者-java-version"><a href="#验证安装，终端输入-java-或者-javac-或者-java-version" class="headerlink" title="验证安装，终端输入 java  或者 javac 或者 java -version"></a>验证安装，终端输入 java  或者 javac 或者 java -version</h3><blockquote>
 <p>java</p>
@@ -1348,14 +1675,22 @@
 <blockquote>
 <p>java -version</p>
 </blockquote>
-<p>出现下图情况即为安装成功  <br><br><img src="uploads/javaversion.png" alt="javaversion"> <br><br>注意：此种安装方式不需要配置环境变量，比较快捷，方便！此方式也是我目前使用的方式</p>
-<h2 id="tar-gz解压安装"><a href="#tar-gz解压安装" class="headerlink" title="tar.gz解压安装"></a>tar.gz解压安装</h2><p>持续更新中…</p>
-<p>下一篇“centos7自学之3tomcat环境配置”正在疯狂编写中，敬请期待</p>
+<p>出现下图情况即为安装成功  <br><br><img src="http://img.blog.csdn.net/20170826203358873?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjgwNjc4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"> <br><br>注意：此种安装方式不需要配置环境变量，比较快捷，方便！此方式也是我目前使用的方式</p>
+<h2 id="tar-gz解压安装"><a href="#tar-gz解压安装" class="headerlink" title="tar.gz解压安装"></a>tar.gz解压安装</h2><p>解压jdk</p>
+<blockquote>
+<p>tar -xzvf  jdk<em>.tar.gz<br>mv jdk</em> /usr/local/</p>
+</blockquote>
+<p>编辑/etc/profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/local/jdk1.8.0_144</div><div class="line">export PATH=$JAVA_HOME/bin:$PATH</div></pre></td></tr></table></figure>
+<p>使更改生效</p>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
 ]]></content>
       
         <categories>
             
-            <category> centos7自学 </category>
+            <category> linux自学 </category>
             
         </categories>
         
@@ -1369,8 +1704,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[商城项目之jdk8+jdbc+mariadb]]></title>
-      <url>/2017/08/10/jdk8-jdbc-mariadb/</url>
+      <title><![CDATA[中小型开发架构实战之3 jdbc-mariadb]]></title>
+      <url>/2017/08/10/%E4%B8%AD%E5%B0%8F%E5%9E%8B%E5%BC%80%E5%8F%91%E6%9E%B6%E6%9E%84%E5%AE%9E%E6%88%98%E4%B9%8B3%20jdbc-mariadb/</url>
       <content type="html"><![CDATA[<p>jdk8+jdbc连接数据库<br><a id="more"></a></p>
 <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><h4 id="前言-什么是JDBC"><a href="#前言-什么是JDBC" class="headerlink" title="前言 什么是JDBC"></a>前言 什么是JDBC</h4><p>  维基百科的简介：<br>　　Java 数据库连接，（Java Database Connectivity，简称JDBC）是Java语言中用来规范客户端程序如何来访问数据库的应用程序接口，提供了诸如查询和更新数据库中数据的方法。JDBC也是Sun Microsystems的商标。它JDBC是面向关系型数据库的。<br>　　简单地说，就是用于执行SQL语句的一类Java API，通过JDBC使得我们可以直接使用Java编程来对关系数据库进行操作。通过封装，可以使开发人员使用纯Java API完成SQL的执行。</p>
 <h4 id="（一）准备工作"><a href="#（一）准备工作" class="headerlink" title="（一）准备工作"></a>（一）准备工作</h4><h5 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1.创建数据库"></a>1.创建数据库</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">DROP TABLE IF EXISTS `t_goods`;</div><div class="line">CREATE TABLE `t_goods` (</div><div class="line">  `id` bigint(20) NOT NULL COMMENT '主键',</div><div class="line">  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '商品名称',</div><div class="line">  `price` double(10,0) DEFAULT NULL COMMENT '价钱',</div><div class="line">  `number` int(11) DEFAULT NULL COMMENT '数量',</div><div class="line">  PRIMARY KEY (`id`)</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</div><div class="line">DROP TABLE IF EXISTS `t_r_goods_salesperson`;</div><div class="line">CREATE TABLE `t_r_goods_salesperson` (</div><div class="line">  `id` bigint(20) NOT NULL COMMENT '主键',</div><div class="line">  `goods_id` bigint(20) NOT NULL COMMENT '商品表外键',</div><div class="line">  `salesperosn_id` bigint(20) NOT NULL COMMENT '销售员外键',</div><div class="line">  `number` int(10) NOT NULL COMMENT '销售量',</div><div class="line">  `sales_time` datetime NOT NULL COMMENT '商品卖出时间',</div><div class="line">  PRIMARY KEY (`id`)</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</div><div class="line">DROP TABLE IF EXISTS `t_salesperson`;</div><div class="line">CREATE TABLE `t_salesperson` (</div><div class="line">  `id` bigint(20) NOT NULL COMMENT '主键',</div><div class="line">  `name` varchar(4) DEFAULT NULL COMMENT '销售员姓名',</div><div class="line">  `password` varchar(30) DEFAULT NULL COMMENT '销售员密码',</div><div class="line">  PRIMARY KEY (`id`)</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</div><div class="line">```	</div><div class="line">#####  2.导包</div><div class="line">![enter description here][1]</div><div class="line">##### 3.实体</div><div class="line">```java</div><div class="line">public class Goods &#123;</div><div class="line">   	private Integer id ;</div><div class="line">   	private String name ;</div><div class="line">   	private Double price ;</div><div class="line">   	private Integer number ;</div><div class="line">   	....</div><div class="line">省略构造器，setter，getter</div><div class="line">&#125;</div><div class="line">public class GoodsSalesperson &#123;</div><div class="line">    private Integer id ;</div><div class="line">    private Integer goodsId ;</div><div class="line">    private Integer salespersonId ;</div><div class="line">    private Integer number ;</div><div class="line">    private Date salesTime ;</div><div class="line">	....</div><div class="line">	省略构造器，setter，getter</div><div class="line">&#125;</div><div class="line">public class Salesperson &#123;</div><div class="line">    private Integer id ;</div><div class="line">    private String name ;</div><div class="line">    private String password ;</div><div class="line">    ....</div><div class="line">	省略构造器，setter，getter</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -1385,7 +1720,7 @@
       
         <categories>
             
-            <category> 开源框架 </category>
+            <category> 中小型开发架构实践 </category>
             
         </categories>
         
@@ -1399,8 +1734,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[谈钱增进感情-人生定位]]></title>
-      <url>/2017/07/28/%E8%B0%88%E9%92%B1%E5%A2%9E%E8%BF%9B%E6%84%9F%E6%83%85-%E4%BA%BA%E7%94%9F%E5%AE%9A%E4%BD%8D/</url>
+      <title><![CDATA[谈钱增进感情之1 人生定位]]></title>
+      <url>/2017/07/28/%E8%B0%88%E9%92%B1%E5%A2%9E%E8%BF%9B%E6%84%9F%E6%83%85%E4%B9%8B1%20%E4%BA%BA%E7%94%9F%E5%AE%9A%E4%BD%8D/</url>
       <content type="html"><![CDATA[<p>  瓜瓜之林，人人之森<br><a id="more"></a></p>
 <h2 id="乏日子"><a href="#乏日子" class="headerlink" title="乏日子"></a>乏日子</h2><p><img src="/uploads/生活.jpeg" alt="生活"><br>今年自换工作以来生活浑浑噩噩，其实也不知道为什么会换工作，没有以前累但充满能量的状态，<br>14年15年买了1000块钱的书，送人的送人，丢的丢绝大部分没有看过，纸质书没翻几本，it技术没有多少研究，当时心血来潮搞起来的立志一周写一篇文章的订阅号也没有更新文章。工作中做好本职工作，得空看一看关心的动漫，按照加班的点儿准时下班，到家洗洗打会游戏或看看lol比赛，睡觉，日复一日，如果不是每月按时领工资，真的感觉时间像静止了一样感觉不到流逝。想法没有实现，投资没有赚钱，生活没有改变，整个北京城就像那锅温水，而我是一只蛙。</p>
 <h2 id="泛工作"><a href="#泛工作" class="headerlink" title="泛工作"></a>泛工作</h2><p><img src="/uploads/工作.jpg" alt="工作"><br>在恒天，其实还算稳定，我所在的技术部比较轻松，每天边熟悉业务边做一些小需求，时常跟恒生的人扯扯淡，业务不明白的问一问老人，产品能够搞定。一般技术问题能够自己搞定，二般技术问题网上搜索能够搞定，三般技术问题问架构师能够搞定，日常写邮件，发周报，写月度绩效，季度考核。搞好同事关系，不二不犯大错，职场就那么回事。</p>
@@ -1422,15 +1757,15 @@
         
         <tags>
             
-            <tag> 定位 </tag>
+            <tag> 投资,理财 </tag>
             
         </tags>
         
     </entry>
     
     <entry>
-      <title><![CDATA[谈钱增进感情-执行力很差劲！我不只说我自己，我说的是朋友圈的各位。]]></title>
-      <url>/2017/05/26/%E8%B0%88%E9%92%B1%E5%A2%9E%E6%84%9F%E6%83%85-%E6%89%A7%E8%A1%8C%E5%8A%9B%E5%BE%88%E5%B7%AE%E5%8A%B2%EF%BC%81%E6%88%91%E4%B8%8D%E5%8F%AA%E8%AF%B4%E6%88%91%E8%87%AA%E5%B7%B1%EF%BC%8C%E6%88%91%E8%AF%B4%E7%9A%84%E6%98%AF%E6%9C%8B%E5%8F%8B%E5%9C%88%E7%9A%84%E5%90%84%E4%BD%8D!/</url>
+      <title><![CDATA[谈钱增进感情之2 执行力很差劲！我不只说我自己，我说的是朋友圈的各位]]></title>
+      <url>/2017/05/26/%E8%B0%88%E9%92%B1%E5%A2%9E%E8%BF%9B%E6%84%9F%E6%83%85%E4%B9%8B2%20%E6%89%A7%E8%A1%8C%E5%8A%9B%E5%BE%88%E5%B7%AE%E5%8A%B2%EF%BC%81%E6%88%91%E4%B8%8D%E5%8F%AA%E8%AF%B4%E6%88%91%E8%87%AA%E5%B7%B1%EF%BC%8C%E6%88%91%E8%AF%B4%E7%9A%84%E6%98%AF%E6%9C%8B%E5%8F%8B%E5%9C%88%E7%9A%84%E5%90%84%E4%BD%8D/</url>
       <content type="html"><![CDATA[<p>   人生时间有限，应该把更多的时间利用在自己喜欢的工作娱乐上，将精力投入到更有意义的项目上。<br>   <a id="more"></a><br>   高中大学看过8年玄幻小说最后也没写下一篇读后感或者半本小说。<br>   2014～2015买过一千多块钱的it书籍，几乎没有一本能从头看到结尾。<br>   知乎，csdn，open-open，github，微博，各种论坛常出没也没有成为大v。<br>   。。。<br>   执行力太差劲。确实对自己太失望了，对不起向偶像学习的人，更对不起”向我学习的人“。<br>   人生时间有限，应该把更多的时间利用在自己喜欢的工作娱乐上，将精力投入到更有意义的项目上。<br>   百度百科对执行力的描述当中的一句话是<br>   “执行力就是在既定的战略和愿景的前提下 ，组织对内外部可利用的资源进行综合协调<br>     制定出可行性的战略，并通过有效的执行措施从而最终实现组织目标、达成组织愿景的一种力量。”<br>   因为我们都不是咸鱼，所以我们每个人都有梦想。但是绝大多数的人都是空有梦想不去实现！为什么不去做y，<br>我想到的答案是没有成就感。大梦想有大成就感，小目标有小成就感。挣一个亿的成就感与挣一万块的成就感在<br>精神层面的差距绝对没有在数量层面的差距大。<br>   因此，提出以下解决办法：<br>   1.树立明确的梦想<br>   是挣一亿人民币还是当官。挣钱是为了自己，家人还是为了社会。。当官是为了名声还是为了挣钱或者二者都有。<br>   明确的梦想：40岁的时候，我是身价过一亿的富豪。30岁的时候我是一名500强公司的高管，年薪100万。。。<br>   不明确的梦想：40岁的时候我要财务自由，30岁的时候我的工资够还银行贷款。。。<br>   2.量化梦想<br>   梦想本身是主观性的，只有经过拆解，量化才能成为客观的。<br>   40岁挣一个亿，假如还有十年时间，平均每年挣一千万，考虑到挣钱能力随着时间成几何增长，第一年30万，<br>第二年50万，第三年100万，第四年200万，，，第十年挣够一亿。<br>   3.寻找方法<br>   第一年挣30万。<br>   a.包装自己，靠脸或者靠技术找一份月薪1万的稳定工作。<br>   b.整理手头上的流动资金，买p2p,定投基金，选择一只熟悉的上市公司长期持有公司股票。。<br>   c.和朋友一起或者寻找值得跟随的合作伙伴搞一个“鲍师傅糕点”“黄焖鸡米饭”<br>   d.如果自己有其他方面的擅长。字好，画好，吉他好都可以挣点外快。<br>   e.最后还是离三十万有点远，抢银行也是个不错的法子。<br>   4.执行<br>   计划已经订好了，按照步骤执行，鼓足干劲干下去。控制力差的可以公开自己的目标让身边的朋友监督。<br>   定闹钟，每天闹钟响起，“老板，今天要挣1000块钱才能一年挣30万”<br>   每天完成一件事给自己一个鼓励，给自己一个微笑，老婆给自己一个吻。<br>   记住，完成目标，不择“手段”。<br>   5.总结<br>   每个一个月都要对自己的行动做总结，回头看看自己的目标，实现过程，完成度。<br>   如果完成了，优化提升执行力度，没有完成反思方法，重构计划。切莫自欺欺人。</p>
 <p>   篇后感言：<br>   30万确实是很大的挑战，但根据个人情况不一，其数字可以是20.1705万，11.1111万。。</p>
 ]]></content>
@@ -1445,8 +1780,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[架构之路-springboot演进]]></title>
-      <url>/2017/05/24/%E6%9E%B6%E6%9E%84%E4%B9%8B%E8%B7%AF-springboot%E6%BC%94%E8%BF%9B/</url>
+      <title><![CDATA[中小型开发架构实战之1 springboot演进]]></title>
+      <url>/2017/05/24/%E4%B8%AD%E5%B0%8F%E5%9E%8B%E5%BC%80%E5%8F%91%E6%9E%B6%E6%9E%84%E5%AE%9E%E6%88%98%E4%B9%8B1%20springboot%E6%BC%94%E8%BF%9B/</url>
       <content type="html"><![CDATA[<p>springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供<br>一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。<br><a id="more"></a><br>springboot被称为是JavaEE开发颠覆者，一改传统JavaEE web项目开发笨重的缺点，springboot提供<br>一系列的注解能够快速搭建行之有效的web应用，甚至只需要简单的配置就能够速成一个简单的web应用。<br>也正是这些特点，springboot迅速被市场上大小商业公司启用，也就有了我们学习springboot的必要性。<br>    springboot特点：<br>      1.创建独立的spring应用<br>      2.潜入的tomcat，无需部署war文件<br>      3.大大简化maven配置<br>      4.提供准生产型产品，如项目指标，项目健康检查，项目监控，项目部署等工具<br>      5.没有xml文件<br>      6.自动约定配置spring<br>    springboot项目的搭建过程在后续系列补充上，前期先架构一下项目<br>    <a href="/uploads/springboot01.png">jiagou</a></p>
 ]]></content>
       
@@ -1460,37 +1795,40 @@
     </entry>
     
     <entry>
-      <title><![CDATA[java基础-1-java安装及环境变量配置]]></title>
-      <url>/2017/04/27/java%E5%9F%BA%E7%A1%80-1-java%E5%AE%89%E8%A3%85%E5%8F%8A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
-      <content type="html"><![CDATA[<p>Java具有简单性、面向对象、分布式、健壮性、安全性、平台独立与可移植性、多线程、动态性等特点。<br><a id="more"></a><br>    由于没有修改/etc/profile的权限，故此处采用单独用户配置<br>    1.打开terminal或者iterm，输入java -version查看系统是否已经安装过jdk<br>    2.下载jdk mac版<br>    （<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html）</a><br>    3.安装完之后，cd /Library/Java/JavaVirtualMachines/  查看jdk安装情况<br>    4.vim ~/.bash_profile 输入以下代码<br>        AVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home<br>        PATH=$JAVA_HOME/bin:$PATH<br>        export JAVA_HOME<br>        export PATH<br>    5.输入 source ~/.bash_profile 使配置文件生效<br>    6.输入 java -version查看安装是否成功<br>    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 小白入门篇-java </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> java </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[项目管理-1-maven安装及环境变量配置]]></title>
-      <url>/2017/04/27/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86-1-maven%E5%AE%89%E8%A3%85%E5%8F%8A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
+      <title><![CDATA[maven实战之1 maven安装及环境变量配置]]></title>
+      <url>/2017/04/27/maven%E5%AE%9E%E6%88%98%E4%B9%8B1%20maven%E5%AE%89%E8%A3%85%E5%8F%8A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
       <content type="html"><![CDATA[<pre><code>越来越多的公司启用maven管理公司商业项目，所以maven的学习势在必行。
 </code></pre><a id="more"></a>
-<p>Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具.<br>Maven 除了以程序构建能力为特色之外，还提供高级项目管理工具。由于 Maven 的缺省构建规则有较高的<br>可重用性，所以常常用两三行 Maven 构建脚本就可以构建简单的项目。由于 Maven 的面向项目的方法，<br>许多 Apache Jakarta 项目发文时使用 Maven，而且公司项目采用 Maven 的比例在持续增长。<br>    本篇介绍macbookpro下安装及配置maven环境变量。<br>    1.下载maven（<a href="https://maven.apache.org/download.cgi），并解压到某一个目录，" target="_blank" rel="external">https://maven.apache.org/download.cgi），并解压到某一个目录，</a><br>如:/Users/heshiyuan/data/devTools/maven/apache-maven-3.3.9<br>    2.打开iterm或者terminal，输入以下命令：<br>        vim ~/.bash_profile<br>    3.添加以下几行代码，之后保存并推出:wq<br>        MAVEN_HOME=/Users/heshiyuan/data/devTools/maven/apache-maven-3.3.9<br>        PATH=$MAVEN_HOME/bin:$PATH<br>        export MAVEN_HOME<br>        export PATH<br>    4.输入以下命令使.bash_profile生效<br>        source ~/.bash_profile<br>    5.输入mvn -version查看是否成功<br>    6.如果未安装成功，检查是否先设置了java环境变量<br>        JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home<br>        PATH=$JAVA_HOME/bin:$PATH<br>        export JAVA_HOME<br>        export PATH<br>    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+<p>Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具.<br>Maven 除了以程序构建能力为特色之外，还提供高级项目管理工具。由于 Maven 的缺省构建规则有较高的<br>可重用性，所以常常用两三行 Maven 构建脚本就可以构建简单的项目。由于 Maven 的面向项目的方法，<br>许多 Apache Jakarta 项目发文时使用 Maven，而且公司项目采用 Maven 的比例在持续增长。</p>
+<p>本篇介绍macbookpro下安装及配置maven环境变量。</p>
+<ol>
+<li><p>下载maven（<a href="https://maven.apache.org/download.cgi），并解压到某一个目录" target="_blank" rel="external">https://maven.apache.org/download.cgi），并解压到某一个目录</a><br>如:/Users/heshiyuan/data/devTools/maven/apache-maven-3.3.9</p>
+</li>
+<li><p>打开iterm或者terminal，输入以下命令：</p>
+<pre><code>vim ~/.bash_profile
+</code></pre></li>
+<li><p>添加以下几行代码，之后保存并推出:wq</p>
+<pre><code>MAVEN_HOME=/Users/heshiyuan/data/devTools/maven/apache-maven-3.3.9
+PATH=$MAVEN_HOME/bin:$PATH
+export MAVEN_HOME
+export PATH
+</code></pre></li>
+<li>输入以下命令使.bash_profile生效<pre><code>source ~/.bash_profile
+</code></pre></li>
+<li>输入mvn -version查看是否成功</li>
+<li><p>如果未安装成功，检查是否先设置了java环境变量</p>
+<pre><code>JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home
+PATH=$JAVA_HOME/bin:$PATH
+export JAVA_HOME
+export PATH
+</code></pre><p> 如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+</li>
+</ol>
 ]]></content>
       
         <categories>
             
-            <category> 项目管理利器-maven </category>
+            <category> maven实战 </category>
             
         </categories>
         
@@ -1504,9 +1842,27 @@
     </entry>
     
     <entry>
-      <title><![CDATA[(日志管理-3)-slf4j+logback日志框架剖析]]></title>
-      <url>/2017/04/26/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-3-slf4j+logback%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%89%96%E6%9E%90/</url>
+      <title><![CDATA[日志框架之2 slf4j+logback实现日志架构]]></title>
+      <url>/2017/04/26/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B9%8B2%20slf4j+logback%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%9E%B6%E6%9E%84/</url>
       <content type="html"><![CDATA[<p>如何从缤纷复杂的日志系统世界筛选出适合自己的日志框架以及slf4j+logback的组合美妙之处？此文可能有帮助<br><a id="more"></a></p>
+<h2 id="logback介绍"><a href="#logback介绍" class="headerlink" title="logback介绍"></a>logback介绍</h2><p>Logback是由log4j创始人设计的另一个开源日志组件,官方网站： <a href="http://logback.qos.ch。它当前分为下面下个模块：" target="_blank" rel="external">http://logback.qos.ch。它当前分为下面下个模块：</a><br></p>
+<ol>
+<li>logback-core：其它两个模块的基础模块</li>
+<li>logback-classic：它是log4j的一个改良版本，同时它完整实现了slf4j API使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging</li>
+<li>logback-access：访问模块与Servlet容器集成提供通过Http来访问日志的功能</li>
+</ol>
+<h2 id="logback取代log4j的理由"><a href="#logback取代log4j的理由" class="headerlink" title="logback取代log4j的理由"></a>logback取代log4j的理由</h2><ol>
+<li>更快的实现：Logback的内核重写了，在一些关键执行路径上性能提升10倍以上。而且logback不仅性能提升了，初始化内存加载也更小了。</li>
+<li>Logback-classic非常自然实现了SLF4j：Logback-classic实现了SLF4j。在使用SLF4j中，你都感觉不到logback-classic。而且因为logback-classic非常自然地实现了slf4j ， 所 以切换到log4j或者其他，非常容易，只需要提供成另一个jar包就OK，根本不需要去动那些通过SLF4JAPI实现的代码。</li>
+<li>非常充分的文档，官方网站有两百多页的文档。</li>
+<li>自动重新加载配置文件，当配置文件修改了，Logback-classic能自动重新加载配置文件。扫描过程快且安全，它并不需要另外创建一个扫描线程。这个技术充分保证了应用程序能跑得很欢在JEE环境里面。</li>
+<li>谨慎的模式和非常友好的恢复，在谨慎模式下，多个FileAppender实例跑在多个JVM下，能够安全地写到同一个日志文件。<br>RollingFileAppender会有些限制。<br>Logback的FileAppender和它的子类包括RollingFileAppender能够非常友好地从I/O异常中恢复。</li>
+<li>Filters（过滤器）有些时候，需要诊断一个问题，需要打出日志。在log4j，只有降低日志级别，不过这样会打出大量的日志，会影响应用性能。在Logback，你可以继续 保持那个日志级别而除掉某种特殊情况</li>
+<li>SiftingAppender（一个非常多功能的Appender）：它可以用来分割日志文件根据任何一个给定的运行参数。如，SiftingAppender能够区别日志事件跟进用户的Session，然后每个用户会有一个日志文件。</li>
+<li>自动压缩已经打出来的log：RollingFileAppender在产生新文件的时候，会自动压缩已经打出来的日志文件。压缩是个异步过程，所以甚至对于大的日志文件，在压缩过程中应用不会受任何影响。</li>
+<li>堆栈树带有包版本：Logback在打出堆栈树日志时，会带上包的数据。</li>
+<li>自动去除旧的日志文件：通过设置TimeBasedRollingPolicy或者SizeAndTimeBasedFNATP的maxHistory属性，你可以控制已经产生日志文件的最大数量。如果设置maxHistory 12，那些log文件超过12个月的都会被自动移除。</li>
+</ol>
 <h2 id="为什么选择slf4j-logback日志框架"><a href="#为什么选择slf4j-logback日志框架" class="headerlink" title="为什么选择slf4j+logback日志框架"></a>为什么选择slf4j+logback日志框架</h2><p>如果是在一个新的项目中建议使用Slf4j与Logback组合，这样有如下的几个优点。</p>
 <ul>
 <li>Slf4j实现机制决定Slf4j限制较少，使用范围更广。由于Slf4j在编译期间，静态绑定本地的LOG库使得通用性要比Commons logging要好。</li>
@@ -1520,23 +1876,125 @@
 <ul>
 <li>Logback文档免费。Logback的所有文档是全面免费提供的，不象Log4J那样只提供部分免费文档而需要用户去购买付费文档。</li>
 </ul>
-<h2 id="使用slf4j-logback"><a href="#使用slf4j-logback" class="headerlink" title="使用slf4j+logback"></a>使用slf4j+logback</h2><h3 id="选择jar包"><a href="#选择jar包" class="headerlink" title="选择jar包"></a>选择jar包</h3><p><img src="/uploads/slf4j+logback.png" alt=""></p>
-<h3 id="分析jar包"><a href="#分析jar包" class="headerlink" title="分析jar包"></a>分析jar包</h3><p>logback主要由三个部分组成：logback-core、logback-classic、logback-access。</p>
-<ul>
-<li>logback-core是其他模块的基础设施，其他模块基于它构建。</li>
-<li>logback-classic时log4j的一个改进版，它完整实现了SLF4J。</li>
-<li>logback-access主要作为一个与Servlet容器交互的模块，比如tomcat或者jetty，提供一些与HTTP访问相关的功能。</li>
-</ul>
-<h3 id="配置文件解析"><a href="#配置文件解析" class="headerlink" title="配置文件解析"></a>配置文件解析</h3><h4 id="自动重新加载"><a href="#自动重新加载" class="headerlink" title="自动重新加载"></a>自动重新加载</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;configuration scan="true" scanPeriod="10 seconds"&gt;</div><div class="line">	...</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
-<h4 id="appender"><a href="#appender" class="headerlink" title="appender"></a>appender</h4><p>Appender是configuration的子节点，是负责写日志的组件。常用的Appder有三个：ConsoleAppender、FileAppende、RollingFileAppder，它们来自同一个超类OutputStreamAppender。RollingFileAppender需要搭配相应的滚动策略（rolliingPolicy）和触发策略（tripggringPolicy）使用。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;configuration scan="true" scanPeriod="10 seconds"&gt;</div><div class="line">    &lt;!--控制台日志--&gt;</div><div class="line">    &lt;appender name="console" class="ch.qos.logback.core.ConsoleAppender"&gt;</div><div class="line">        &lt;encoder&gt;</div><div class="line">            &lt;pattern&gt;%d&#123;HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;36&#125; - %msg%n&lt;/pattern&gt;</div><div class="line">            &lt;charset&gt;UTF-8&lt;/charset&gt;</div><div class="line">        &lt;/encoder&gt;</div><div class="line">    &lt;/appender&gt;</div><div class="line">    &lt;root level="info"&gt;</div><div class="line">        &lt;appender-ref ref="console"/&gt;</div><div class="line">    &lt;/root&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<h2 id="使用slf4j-logback"><a href="#使用slf4j-logback" class="headerlink" title="使用slf4j+logback"></a>使用slf4j+logback</h2><h3 id="配置文件解析"><a href="#配置文件解析" class="headerlink" title="配置文件解析"></a>配置文件解析</h3><h4 id="根节点configuration"><a href="#根节点configuration" class="headerlink" title="根节点configuration"></a>根节点configuration</h4><p>根节点<configuration>，包含下面三个属性：</configuration></p>
+<ol>
+<li>scan: 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。</li>
+<li>scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。</li>
+<li>debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">"true"</span> <span class="attr">scanPeriod</span>=<span class="string">"10 seconds"</span> <span class="attr">debug</span>=<span class="string">"true"</span>&gt;</span></div><div class="line">	...</div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="子节点contextName"><a href="#子节点contextName" class="headerlink" title="子节点contextName"></a>子节点contextName</h4><p>用来设置上下文名称，每个logger都关联到logger上下文，默认上下文名称为default。但可以使用<contextname>设置成其他名字，用于区分不同应用程序的记录。一旦设置，不能修改。</contextname></p>
+<p>例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">"true"</span> <span class="attr">scanPeriod</span>=<span class="string">"60 seconds"</span> <span class="attr">debug</span>=<span class="string">"false"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">contextName</span>&gt;</span>myAppName<span class="tag">&lt;/<span class="name">contextName</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--其他配置省略--&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="子节点property"><a href="#子节点property" class="headerlink" title="子节点property"></a>子节点property</h4><p>子节点property：用来定义变量值，它有两个属性name和value，通过<property>定义的值会被插入到logger上下文中，可以使“${}”来使用变量。</property></p>
+<ol>
+<li>name: 变量的名称</li>
+<li>value: 的值时变量定义的值</li>
+</ol>
+<p>例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">"true"</span> <span class="attr">scanPeriod</span>=<span class="string">"60 seconds"</span> <span class="attr">debug</span>=<span class="string">"false"</span>&gt;</span></div><div class="line">　　<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"APP_Name"</span> <span class="attr">value</span>=<span class="string">"myAppName"</span> /&gt;</span></div><div class="line">　　<span class="tag">&lt;<span class="name">contextName</span>&gt;</span>$&#123;APP_Name&#125;<span class="tag">&lt;/<span class="name">contextName</span>&gt;</span></div><div class="line">　　<span class="comment">&lt;!--其他配置省略--&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="子节点timestamp"><a href="#子节点timestamp" class="headerlink" title="子节点timestamp"></a>子节点timestamp</h4><p>子节点<timestamp>：获取时间戳字符串，他有两个属性key和datePattern</timestamp></p>
+<ol>
+<li>key: 标识此<timestamp> 的名字；</timestamp></li>
+<li>datePattern: 设置将当前时间（解析配置文件的时间）转换为字符串的模式，遵循java.txt.SimpleDateFormat的格式。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">"true"</span> <span class="attr">scanPeriod</span>=<span class="string">"60 seconds"</span> <span class="attr">debug</span>=<span class="string">"false"</span>&gt;</span></div><div class="line">　<span class="tag">&lt;<span class="name">timestamp</span> <span class="attr">key</span>=<span class="string">"bySecond"</span> <span class="attr">datePattern</span>=<span class="string">"yyyyMMdd'T'HHmmss"</span>/&gt;</span></div><div class="line">　<span class="tag">&lt;<span class="name">contextName</span>&gt;</span>$&#123;bySecond&#125;<span class="tag">&lt;/<span class="name">contextName</span>&gt;</span></div><div class="line">　<span class="comment">&lt;!-- 其他配置省略--&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="子节点appender"><a href="#子节点appender" class="headerlink" title="子节点appender"></a>子节点appender</h4><p>子节点<appender>：负责写日志的组件，r主要用于指定日志输出的目的地，目的地可以是控制台、文件、远程套接字服务器、 MySQL、PostreSQL、 Oracle和其他数据库、 JMS和远程UNIX Syslog守护进程等。它有两个必要属性name和class。</appender></p>
+<ol>
+<li>name指定appender名称</li>
+<li>class指定appender的全限定名</li>
+</ol>
+<p>常用的Appder有三个，它们来自同一个超类OutputStreamAppender。需要搭配相应的滚动策略（rolliingPolicy）和触发策略（tripggringPolicy）使用。</p>
+<ol>
+<li>ConsoleAppender</li>
+<li>FileAppende</li>
+<li>RollingFileAppderRollingFileAppender</li>
+</ol>
+<h5 id="ConsoleAppender"><a href="#ConsoleAppender" class="headerlink" title="ConsoleAppender"></a>ConsoleAppender</h5><p>ConsoleAppender 把日志输出到控制台，有以下子节点：</p>
+<ol>
+<li><encoder>：对日志进行格式化。</encoder></li>
+<li><target>：字符串System.out(默认)或者System.err（区别不多说了）</target></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">　&lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;</div><div class="line">    　&lt;encoder&gt;</div><div class="line">    　　&lt;pattern&gt;%-4relative [%thread] %-5level %logger&#123;35&#125; - %msg %n&lt;/pattern&gt;</div><div class="line">    　&lt;/encoder&gt;</div><div class="line">  &lt;/appender&gt;</div><div class="line"></div><div class="line">　&lt;root level=&quot;DEBUG&quot;&gt;</div><div class="line">　    &lt;appender-ref ref=&quot;STDOUT&quot; /&gt;</div><div class="line">　&lt;/root&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<p>上述配置表示把&gt;=DEBUG级别的日志都输出到控制台</p>
+<h5 id="FileAppender"><a href="#FileAppender" class="headerlink" title="FileAppender"></a>FileAppender</h5><ol>
+<li><file>：被写入的文件名，可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值。</file></li>
+<li><append>：如果是 true，日志被追加到文件结尾，如果是 false，清空现存文件，默认是true。</append></li>
+<li><encoder>：对记录事件进行格式化。</encoder></li>
+<li><prudent>：如果是 true，日志会被安全的写入文件，即使其他的FileAppender也在向此文件做写入操作，效率低，默认是 false。</prudent></li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">　  <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"file"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.FileAppender"</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">file</span>&gt;</span>/home/log/log.log<span class="tag">&lt;/<span class="name">file</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">append</span>&gt;</span>true<span class="tag">&lt;/<span class="name">append</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">encoder</span>&gt;</span></div><div class="line">　　　　　　<span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%-4relative [%thread] %-5level %logger&#123;35&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">　　<span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line">　　<span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>&gt;</span></div><div class="line">　　　  <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"file"</span> /&gt;</span></div><div class="line">　　<span class="tag">&lt;/<span class="name">root</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上述配置表示把&gt;=DEBUG级别的日志都输出到/home/log/log.log</p>
+<h5 id="RollingFileAppender"><a href="#RollingFileAppender" class="headerlink" title="RollingFileAppender"></a>RollingFileAppender</h5><p>滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。有以下子节点：</p>
+<ol>
+<li><file>：被写入的文件名，可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值。</file></li>
+<li><append>：如果是 true，日志被追加到文件结尾，如果是 false，清空现存文件，默认是true。</append></li>
+<li><rollingpolicy>:当发生滚动时，决定RollingFileAppender的行为，涉及文件移动和重命名。</rollingpolicy></li>
+</ol>
+<h6 id="TimeBasedRollingPolicy"><a href="#TimeBasedRollingPolicy" class="headerlink" title="TimeBasedRollingPolicy"></a>TimeBasedRollingPolicy</h6><p>属性class定义具体的滚动策略类class=”ch.qos.logback.core.rolling.TimeBasedRollingPolicy”： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动。有以下子节点：
+　　　　　　　　</p>
+<ol>
+<li><filenamepattern>：必要节点，包含文件名及“%d”转换符，“%d”可以包含一个java.text.SimpleDateFormat指定的时间格式，如：%d{yyyy-MM}。<br>如果直接使用 %d，默认格式是 yyyy-MM-dd。</filenamepattern></li>
+</ol>
+<p>RollingFileAppender的file字节点可有可无，通过设置file，可以为活动文件和归档文件指定不同位置，当前日志总是记录到file指定的文件（活动文件），活动文件的名字不会改变；</p>
+<p>如果没设置file，活动文件的名字会根据fileNamePattern 的值，每隔一段时间改变一次。“/”或者“\”会被当做目录分隔符。</p>
+<ol>
+<li><maxhistory>: 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件。</maxhistory></li>
+</ol>
+<p>假设设置每个月滚动，且<maxhistory>是6，则只保存最近6个月的文件，删除之前的旧文件。注意，删除旧文件是那些为了归档而创建的目录也会被删除。</maxhistory></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">　  <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"file"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></div><div class="line">　      <span class="tag">&lt;<span class="name">file</span>&gt;</span>/home/log/log.log.zip<span class="tag">&lt;/<span class="name">file</span>&gt;</span></div><div class="line">　      </div><div class="line">　　    <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></div><div class="line">　　　　　　<span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>logFile.%d&#123;yyyy-MM-dd&#125;.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></div><div class="line">　　　　　  <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">encoder</span>&gt;</span></div><div class="line">　　　　　　<span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%-4relative [%thread] %-5level %logger&#123;35&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">　 <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line">　 <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"file"</span> /&gt;</span></div><div class="line">　 <span class="tag">&lt;/<span class="name">root</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上述配置表示每天生成一个日志文件，保存30天的日志文件。</p>
+<h6 id="SizeBasedTriggeringPolicy"><a href="#SizeBasedTriggeringPolicy" class="headerlink" title="SizeBasedTriggeringPolicy"></a>SizeBasedTriggeringPolicy</h6><p>class=”ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy”： 查看当前活动文件的大小，如果超过指定大小会告知RollingFileAppender 触发当前活动文件滚动。有以下子节点:</p>
+<ol>
+<li><maxfilesize>:这是活动文件的大小，默认值是10MB。</maxfilesize></li>
+<li><prudent>：当为true时，不支持FixedWindowRollingPolicy。支持TimeBasedRollingPolicy，但是有两个限制，</prudent></li>
+</ol>
+<p>1不支持也不允许文件压缩<br><br>2不能设置file属性，必须留空。</p>
+<ol>
+<li><triggeringpolicy>: 告知 RollingFileAppender 合适激活滚动。</triggeringpolicy></li>
+</ol>
+<h6 id="FixedWindowRollingPolicy"><a href="#FixedWindowRollingPolicy" class="headerlink" title="FixedWindowRollingPolicy"></a>FixedWindowRollingPolicy</h6><p>class=”ch.qos.logback.core.rolling.FixedWindowRollingPolicy” 根据固定窗口算法重命名文件的滚动策略。有以下子节点：</p>
+<ol>
+<li><minindex>:窗口索引最小值</minindex></li>
+<li><maxindex>:窗口索引最大值，当用户指定的窗口过大时，会自动将窗口设置为12。</maxindex></li>
+<li><filenamepattern>:必须包含“%i”例如，假设最小值和最大值分别为1和2，命名模式为 mylog%i.log,会产生归档文件mylog1.log和mylog2.log。还可以指定文件压缩选项，例如，mylog%i.log.gz 或者 没有log%i.log.zip<br>　　　　　　例如：</filenamepattern></li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">　  <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"file"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></div><div class="line">　　    <span class="tag">&lt;<span class="name">file</span>&gt;</span>/home/log/log.log<span class="tag">&lt;/<span class="name">file</span>&gt;</span></div><div class="line"></div><div class="line">　      <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.FixedWindowRollingPolicy"</span>&gt;</span></div><div class="line">　　　　    <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>tests.%i.log.zip<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">minIndex</span>&gt;</span>1<span class="tag">&lt;/<span class="name">minIndex</span>&gt;</span></div><div class="line">　　　　    <span class="tag">&lt;<span class="name">maxIndex</span>&gt;</span>3<span class="tag">&lt;/<span class="name">maxIndex</span>&gt;</span></div><div class="line">　      <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></div><div class="line"></div><div class="line">　      <span class="tag">&lt;<span class="name">triggeringPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"</span>&gt;</span></div><div class="line">　　　      <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>5MB<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></div><div class="line">　　    <span class="tag">&lt;/<span class="name">triggeringPolicy</span>&gt;</span></div><div class="line">　      <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></div><div class="line">　　　      <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%-4relative [%thread] %-5level %logger&#123;35&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></div><div class="line">　　    <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">　  <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line">　  <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"FILE"</span> /&gt;</span></div><div class="line">　  <span class="tag">&lt;/<span class="name">root</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上述配置表示按照固定窗口模式生成日志文件，当文件大于20MB时，生成新的日志文件。窗口大小是1到3，当保存了3个归档文件后，将覆盖最早的日志。
+　　　　　　</p>
+<h6 id="其他appender"><a href="#其他appender" class="headerlink" title="其他appender"></a>其他appender</h6><p>还有SocketAppender、SMTPAppender、DBAppender、SyslogAppender、SiftingAppender，并不常用，这里就不详解了。</p>
+<p>大家可以参考<a href="http://logback.qos.ch/documentation.html" target="_blank" rel="external">官方文档</a>，还可以编写自己的Appender。 </p>
+<h5 id="子节点"><a href="#子节点" class="headerlink" title="子节点"></a>子节点<logger></logger></h5><p>用来设置某一个包或具体的某一个类的日志打印级别、以及指定<appender>。<logger>仅有一个name属性，一个可选的level和一个可选的addtivity属性。<br>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个logger
+　　　　　　　　</appender-ref></logger></appender></p>
+<ol>
+<li>name: 用来指定受此loger约束的某一个包或者具体的某一个类。</li>
+<li>level: 用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL和OFF，还有一个特俗值INHERITED或者同义词NULL，代表强制执行上级的级别。 如果未设置此属性，那么当前loger将会继承上级的级别。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.springframework.web"</span> <span class="attr">level</span>=<span class="string">"debug"</span>/&gt;</span></div><div class="line"><span class="comment">&lt;!-- show parameters for hibernate sql 专为 Hibernate 定制 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.type.descriptor.sql.BasicBinder"</span> <span class="attr">level</span>=<span class="string">"TRACE"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.type.descriptor.sql.BasicExtractor"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.SQL"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.engine.QueryParameters"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.engine.query.HQLQueryPlan"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span> /&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--myibatis log configure--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"com.apache.ibatis"</span> <span class="attr">level</span>=<span class="string">"TRACE"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"java.sql.Connection"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"java.sql.Statement"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"java.sql.PreparedStatement"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>以上是常用的自定义logger配置，方便输出接口请求信息和数据库sql信息等等。</p>
+<h5 id="子节点-1"><a href="#子节点-1" class="headerlink" title="子节点"></a>子节点<root></root></h5><p>它也是<logger>元素，但是它是根logger,是所有<logger>的上级。只有一个level属性，因为name已经被命名为”root”,且已经是最上级了。</logger></logger></p>
+<ol>
+<li>level: 用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL和OFF，不能设置为INHERITED或者同义词NULL。 默认是DEBUG。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"console"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"dailyRollingFileAppender"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"file"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="输出级别"><a href="#输出级别" class="headerlink" title="输出级别"></a>输出级别</h4><p>Logger可以被分配级别。级别包括：TRACE、DEBUG、INFO、WARN 和 ERROR，定义于ch.qos.logback.classic.Level类。如果 logger没有被分配级别，那么它将从有被分配级别的最近的祖先那里继承级别。root logger 默认级别是 DEBUG。</p>
+<p>级别排序为： TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR</p>
+<h4 id="loback默认配置"><a href="#loback默认配置" class="headerlink" title="loback默认配置"></a>loback默认配置</h4><p>如果配置文件 logback-test.xml 和 logback.xml 都不存在，那么 logback 默认地会调用BasicConfigurator ，创建一个最小化配置。最小化配置由一个关联到根 logger 的ConsoleAppender 组成。输出用模式为%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n 的 PatternLayoutEncoder 进行格式化。root logger 默认级别是 DEBUG。</p>
+<p>1、Logback的配置文件</p>
+<p>Logback 配置文件的语法非常灵活。正因为灵活，所以无法用 DTD 或 XML schema 进行定义。尽管如此，可以这样描述配置文件的基本结构：以<configuration>开头，后面有零个或多个<appender>元素，有零个或多个<logger>元素，有最多一个<root>元素。</root></logger></appender></configuration></p>
+<p>2、Logback默认配置的步骤</p>
+<p>(1). 尝试在 classpath下查找文件logback-test.xml；</p>
+<p>(2). 如果文件不存在，则查找文件logback.xml；</p>
+<p>(3). 如果两个文件都不存在，logback用BasicConfigurator自动对自己进行配置，这会导致记录输出到控制台。</p>
+<h3 id="简单的Demo"><a href="#简单的Demo" class="headerlink" title="简单的Demo"></a>简单的Demo</h3><h4 id="选择jar包"><a href="#选择jar包" class="headerlink" title="选择jar包"></a>选择jar包</h4><p><img src="http://img.blog.csdn.net/20170817132845780?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjgwNjc4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="logback-xml"><a href="#logback-xml" class="headerlink" title="logback.xml"></a>logback.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">"true"</span> <span class="attr">scanPeriod</span>=<span class="string">"10 seconds"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- 文件输出格式 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; -%5p $&#123;PID:-&#125; [%15.15t] %-40.40logger&#123;39&#125; : %m%n"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"charsetEncoding"</span> <span class="attr">value</span>=<span class="string">"UTF-8"</span> /&gt;</span></div><div class="line">    <span class="comment">&lt;!--&lt;PatternLayout pattern="%d&#123;HH:mm:ss.SSS&#125; %-5level %class&#123;36&#125; %L %M - %msg%xEx%n"/&gt;--&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--控制台日志--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"console"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.ConsoleAppender"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>$&#123;pattern&#125;<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">charset</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">charset</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"file"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.FileAppender"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">file</span>&gt;</span>/home/hsy/logback/logfile.log<span class="tag">&lt;/<span class="name">file</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">append</span>&gt;</span>true<span class="tag">&lt;/<span class="name">append</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>$&#123;pattern&#125;<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">charset</span>&gt;</span>$&#123;charsetEncoding&#125;<span class="tag">&lt;/<span class="name">charset</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"dailyRollingFileAppender"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">File</span>&gt;</span>/home/hsy/logback/log.log<span class="tag">&lt;/<span class="name">File</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></div><div class="line">            <span class="comment">&lt;!-- daily rollover --&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">FileNamePattern</span>&gt;</span>logback.%d&#123;yyyy-MM-dd&#125;.log<span class="tag">&lt;/<span class="name">FileNamePattern</span>&gt;</span></div><div class="line">            <span class="comment">&lt;!-- keep 30 days' worth of history --&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">Pattern</span>&gt;</span>$&#123;pattern&#125;<span class="tag">&lt;/<span class="name">Pattern</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.springframework.web"</span> <span class="attr">level</span>=<span class="string">"debug"</span>/&gt;</span></div><div class="line">    <span class="comment">&lt;!-- show parameters for hibernate sql 专为 Hibernate 定制 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.type.descriptor.sql.BasicBinder"</span> <span class="attr">level</span>=<span class="string">"TRACE"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.type.descriptor.sql.BasicExtractor"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.SQL"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.engine.QueryParameters"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate.engine.query.HQLQueryPlan"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span> /&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--myibatis log configure--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"com.apache.ibatis"</span> <span class="attr">level</span>=<span class="string">"TRACE"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"java.sql.Connection"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"java.sql.Statement"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"java.sql.PreparedStatement"</span> <span class="attr">level</span>=<span class="string">"DEBUG"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"debug"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"console"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"dailyRollingFileAppender"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"file"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="代码应用测试"><a href="#代码应用测试" class="headerlink" title="代码应用测试"></a>代码应用测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger _logger = LoggerFactory.getLogger(CollectionHelper.class) ;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@description</span> &lt;p&gt;处理的集合元素越多，去重速度更快，10万元素100毫秒，10个元素200毫秒&lt;/p&gt;</div><div class="line"> * <span class="doctag">@param</span> list</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> * <span class="doctag">@returnType</span> List&lt;Object&gt;</div><div class="line"> * <span class="doctag">@author</span> heshiyuan <span class="doctag">@date</span> 2017年3月16日 下午7:37:53</div><div class="line"> * <span class="doctag">@path</span> javase-common/com.javase.util/CollectionHelper.java</div><div class="line"> * <span class="doctag">@date</span> 2017年3月16日 下午7:37:53</div><div class="line"> * <span class="doctag">@price</span> ￥：三毛三</div><div class="line"> * <span class="doctag">@copyright</span> 如有复制粘贴请通知本人或者捐赠，微信号：hewei1109</div><div class="line"> * <span class="doctag">@email</span> heshiyuan@chtwm.com</div><div class="line"> * <span class="doctag">@callnumber</span> 15910868535</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">duplicateRemoval</span><span class="params">(List&lt;Integer&gt; list)</span> </span>&#123;</div><div class="line">    _logger.info(<span class="string">"CollectionHelper.duplicateRemoval工具类去重开始！"</span>);</div><div class="line">    <span class="keyword">long</span> startTime = System.currentTimeMillis() ;</div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        <span class="keyword">if</span>(list == <span class="keyword">null</span>) &#123;</div><div class="line">            _logger.info(<span class="string">"将要去重的list集合是空，请检查参数再行调用！"</span>);</div><div class="line">            <span class="keyword">long</span> endTime = System.currentTimeMillis() ;</div><div class="line">            _logger.info(<span class="string">"调用去重工具类耗时&#123;&#125;毫秒！"</span>,(endTime - startTime));</div><div class="line">            <span class="keyword">return</span> ;</div><div class="line">        &#125;</div><div class="line">        _logger.info(<span class="string">"去重之前的集合是&#123;&#125;"</span>,list.toString());</div><div class="line">        list = list.parallelStream().distinct().collect(Collectors.toList()) ;</div><div class="line">        _logger.info(<span class="string">"去重之后的集合是&#123;&#125;"</span>,list.toString());</div><div class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">        _logger.error(<span class="string">"调用去重工具类CollectionHelper.duplicateRemoval遇到异常，异常信息:&#123;&#125;"</span>,e.getMessage());</div><div class="line">        <span class="keyword">throw</span> e ;</div><div class="line">    &#125;<span class="keyword">finally</span>&#123;</div><div class="line">        <span class="keyword">long</span> endTime = System.currentTimeMillis() ;</div><div class="line">        _logger.info(<span class="string">"调用去重工具类耗时&#123;&#125;毫秒"</span>,(endTime - startTime));</div><div class="line">        _logger.info(<span class="string">"CollectionHelper.duplicateRemoval工具类去重结束！"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>由于logback别的方面本次没有用到，此博客会后续维护。。。</p>
 ]]></content>
       
         <categories>
             
-            <category> 日志管理之美 </category>
+            <category> 项目未起，日志先行 </category>
             
         </categories>
         
@@ -1550,8 +2008,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[(日志管理-1)关于日志的扯淡]]></title>
-      <url>/2017/04/26/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-1-%E5%85%B3%E4%BA%8E%E6%97%A5%E5%BF%97%E7%9A%84%E6%89%AF%E6%B7%A1/</url>
+      <title><![CDATA[日志框架之1 关于日志的扯淡]]></title>
+      <url>/2017/04/26/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E4%B9%8B1_%E5%85%B3%E4%BA%8E%E6%97%A5%E5%BF%97%E7%9A%84%E6%89%AF%E6%B7%A1/</url>
       <content type="html"><![CDATA[<p>日志系统作为一种应用程序服务，对于跟踪调试、程序状态记录、崩溃数据恢复都有着重要的作用。<br><a id="more"></a></p>
 <h2 id="日志简介"><a href="#日志简介" class="headerlink" title="日志简介"></a>日志简介</h2><p>对于一个应用程序来说日志记录是必不可少的一部分。线上问题追踪，基于日志的业务逻辑统计分析等都离不开日志。java领域存在多种日志框架，目前常用的日志框架包括Log4j，Log4j 2，Commons Logging，slf4j，logback，jul。如果不是用心归纳过，相信很多java开发者都会混乱。</p>
 <h2 id="java日志框架门派"><a href="#java日志框架门派" class="headerlink" title="java日志框架门派"></a>java日志框架门派</h2><ul>
@@ -1611,43 +2069,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[(日志管理-2)log4j剖析]]></title>
-      <url>/2017/04/26/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86-2-log4j%E5%89%96%E6%9E%90/</url>
-      <content type="html"><![CDATA[<pre><code>Log4J的配置文件就是用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置
-</code></pre><p>或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。log4j.properties ==&gt; src同级创建并设置log4j.properties<br><a id="more"></a><br>　　log4j.rootLogger = 日志级别，appender1, appender2,…</p>
-<p>　　　　日志级别：ALL &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL &lt; OFF，不区分大小写</p>
-<p>　　　　注意，需在控制台输入，只需将其中一个appender定义为stdout即可<br>　　　　注意，rootLogger默认是对整个工程生效<br>　　　　注意，如果只想对某些包操作，<br>        那么：log4j.logger.hsy.utils = info, stdout，表示该日志对package hsy.util生效<br>　　　　注意，这样做可以区分dev/线上，也可以减小性能影响：if(log.isDebugEnabled()){log.debug();}<br>　　　　———————–</p>
-<p>　　　　log4j.appender.appender1 = org.apache.log4j.日志输出到哪儿<br>　　　　　　ConsoleAppender（控制台）<br>　　　　　　FileAppender（文件）<br>　　　　　　DailyRollingFileAppender（每天产生一个日志文件）<br>　　　　　　RollingFileAppender（文件大小到达指定尺寸时产生一个新的文件）<br>　　　　　　WriteAppender（将日志信息以流格式发送到任意指定的地方）<br>　　　　　　JDBCAppender（将日志信息保存到数据库中）<br>　　　　　　log4j.appender.appender1.File=文件目录及文件<br>　　　　    log4j.appender.appender1.MaxFileSize=最大文件大小<br>　　　　    log4j.appender.appender1.MaxBackupIndex=备份文件个数</p>
-<p>　　　　其中，appender1是在第一行定义过的；<br>　　　　文件目录及文件，例如，/home/admin/logs/jar/debug.log<br>    最大文件大小，例如，100KB<br>　　　　备份文件个数，例如，1</p>
-<p>　　　　—————–<br>　　　　log4j.appender.ServerDailyRollingFile.DatePattern=日志后缀格式<br>　　　　例如，’.’yyyy-MM-dd<br>　　　　　　log4j.appender.appender1.layout=org.apache.log4j.日志布局格式<br>　　　　　　HTMLLayout（以HTML表格形式布局）<br>　　　　　　SimpleLayout（包含日志信息的级别和信息字符串）<br>　　　　　　TTCCLayout（包含日志产生的时间，执行绪，类别等信息）<br>　　　　　　PatternLayout（可以灵活的指定布局格式，常用）<br>　　　　——————<br>　　　　log4j.appender.appender1.layout.ConversionPattern=日志输出格式<br>　　　　打印参数: Log4J采用类似C语言中的printf函数的打印格式格式化日志信息，如下:<br>　　　　例如，%d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n<br>　　　　　　%c 输出日志信息所属的类的全名<br>　　　　　　%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，<br>        比如：%d{yyy-M-dd HH:mm:ss SSS}，输出类似：2002-10-18 22:10:28,673<br>　　　　　　%f 输出日志信息所属的类的类名<br>　　　　　　%l 输出日志事件的发生位置，即输出日志信息的语句处于它所在的类的第几行<br>　　　　　　%m 输出代码中指定的信息，如log(message)中的message<br>　　　　　　%n 输出一个回车换行符，Windows平台为“rn”，Unix平台为“n”<br>　　　　　　%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL。<br>        如果是调用debug()输出的，则为DEBUG，依此类推<br>　　　　　　%r 输出自应用启动到输出该日志信息所耗费的毫秒数<br>　　　　　　%t 输出产生该日志事件的线程名<br>　　　　　　—————–<br>　　　　　　log4j.appender.ServerDailyRollingFile.Append=true<br>　　　　　　不解释，追加往后写便是<br>　　　　　　总结一下：<br>　　　　　　　　Logger类：完成日志记录，设置日志信息级别<br>　　　　　　　　Appender类：决定日志去向，终端、DB、硬盘<br>　　　　　　　　Layout类：决定日志输出的样式，例如包含当前线程、行号、时间<br>　　　　　　　　——————<br>　　　　　　　　在代码中使用log4j，初始化Logger:<br>　　　　　　　　　　1）在程序中调用BasicConfigurator.configure()方法：<br>            给根记录器增加一个ConsoleAppender，<br>            输出格式通过PatternLayout设为”%-4r [%t] %-5p %c %x - %m%n”，<br>            还有根记录器的默认级别是Level.DEBUG.<br>　　　　　　　　　　2）配置放在文件里，通过命令行参数传递文件名字，<br>            通过PropertyConfigurator.configure(args[x])解析并配置；<br>　　　　　　　　　　3）配置放在文件里，通过环境变量传递文件名等信息，<br>            利用log4j默认的初始化过程解析并配置；<br>　　　　　　　　　　4）配置放在文件里，通过应用服务器配置传递文件名等信息，<br>            利用一个特殊的servlet来完成配置。<br>    　　　　————————————————————————–<br>　　　　　　　　3. 为不同的 Appender 设置日志输出级别：<br>　　　　　　　　　　当调试系统时，我们往往注意的只是异常级别的日志输出，<br>            但是通常所有级别的输出都是放在一个文件里的，<br>            如果日志输出的级别是BUG！？那就慢慢去找吧。<br>　　　　　　　　　　这时我们也许会想要是能把异常信息单独输出到一个文件里该多好啊。<br>            当然可以，Log4j已经提供了这样的功能，我们只需要在配置中修改Appender的<br>        Threshold 就能实现,比如下面的例子：<br>　　　　　　　　[配置文件]<br>　　　　　　　　　　### set log levels ###<br>　　　　　　　　　　log4j.rootLogger = debug , stdout , D , E</p>
-<p>　　　　　　　　　　### 输出到控制台 ###<br>　　　　　　　　　　log4j.appender.stdout = org.apache.log4j.ConsoleAppender<br>　　　　　　　　　　log4j.appender.stdout.Target = System.out<br>　　　　　　　　　　log4j.appender.stdout.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.stdout.layout.ConversionPattern =<br>                %d{ABSOLUTE} %5p %c{ 1 }:%L - %m%n</p>
-<p>　　　　　　　　　　### 输出到日志文件 ###<br>　　　　　　　　　　log4j.appender.D = org.apache.log4j.DailyRollingFileAppender<br>　　　　　　　　　　log4j.appender.D.File = logs/log.log<br>　　　　　　　　　　log4j.appender.D.Append = true<br>　　　　　　　　　　log4j.appender.D.Threshold = DEBUG ## 输出DEBUG级别以上的日志<br>　　　　　　　　　　log4j.appender.D.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.D.layout.ConversionPattern =<br>                %-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ] %m%n</p>
-<p>　　　　　　　　　　### 保存异常信息到单独文件 ###<br>　　　　　　　　　　log4j.appender.D = org.apache.log4j.DailyRollingFileAppender<br>　　　　　　　　　　log4j.appender.D.File = logs/error.log ## 异常日志文件名<br>　　　　　　　　　　log4j.appender.D.Append = true<br>　　　　　　　　　　log4j.appender.D.Threshold = ERROR ## 只输出ERROR级别以上的日志!!!<br>　　　　　　　　　　log4j.appender.D.layout = org.apache.log4j.PatternLayout<br>　　　　　　　　　　log4j.appender.D.layout.ConversionPattern =<br>                %-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ] %m%n</p>
-<p>　　　　　　　　　　[代码中使用]<br>　　　　　　　　　　public class TestLog4j {<br>　　　　　　　　　　　　public static void main(String[] args) {<br>　　　　　　　　　　　　　　PropertyConfigurator.configure( “ D:/Code/conf/log4j.properties “ );<br>　　　　　　　　　　　　　　Logger logger = Logger.getLogger(TestLog4j. class );<br>    　　　　　　　　　　logger.debug( “ debug “ );<br>　　　　　　　　　　　　　　logger.error( “ error “ );<br>　　　　　　　　　　　　}<br>　　　　　　　　　　}<br>　　　　　　———————————————————————————–<br>　　　　　　public class Test {<br>　　　　　　　　private static Logger logger = Logger.getLogger(Test.class);<br>　　　　　　　　public static void main(String[] args) {<br>　　　　　　　　　　// System.out.println(“This is println message.”);</p>
-<p>　　　　　　　　　　// 记录debug级别的信息<br>　　　　　　　　　　logger.debug(“This is debug message.”);<br>　　　　　　　　　　// 记录info级别的信息<br>　　　　　　　　　　ogger.info(“This is info message.”);<br>　　　　　　　　　　// 记录error级别的信息<br>　　　　　　　　　　logger.error(“This is error message.”);<br>　　　　　　　　}<br>　　　　　　}<br>　　　　—————————————————————————–<br>　　　　最后粘上本人用的测试log4j的配置文件内容，仅供参考。希望对您有所帮助<br>　　　　　　log4j.rootLogger=INFO, stdout, file</p>
-<p>　　　　　　log4j.appender.stdout=org.apache.log4j.ConsoleAppender<br>　　　　　　log4j.appender.stdout.layout=org.apache.log4j.PatternLayout<br>　　　　　　log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n</p>
-<p>　　　　　　log4j.appender.file=org.apache.log4j.DailyRollingFileAppender<br>　　　　　　log4j.appender.file.Threshold=debug<br>　　　　　　log4j.appender.file.layout=org.apache.log4j.PatternLayout<br>　　　　　　log4j.appender.file.layout.ConversionPattern= %d{yyyy-MM-dd HH:mm:ss SSS} %t %5p %l - %m%n<br>　　　　　　log4j.appender.file.File=D:/others/logs/jar/debug.log<br>　　　　　　#log4j.appender.file.File=/home/test_zzs_dzfp/logs/zzssl/zzssl.log<br>　　　　　　log4j.appender.file.MaxFileSize=200MB<br>　　　　　　log4j.appender.file.MaxBackupIndex=20</p>
-<p>　　　　　　#project defalult level<br>　　　　　　#log4j.logger.hsy.utils=INFO</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 日志管理之美 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> log4j,java,日志,logback </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[jdk8之forEach]]></title>
-      <url>/2016/11/13/jdk8%E4%B9%8BforEach/</url>
+      <title><![CDATA[jdk8自学之1 forEach]]></title>
+      <url>/2016/11/13/jdk8%E8%87%AA%E5%AD%A6%E4%B9%8B1%20forEach/</url>
       <content type="html"><![CDATA[<p>forEach是jdk8的新特性<br><a id="more"></a></p>
 <h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><p>forEach是jdk8的新特性，其源码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Performs the given action for each element of the &#123;<span class="doctag">@code</span> Iterable&#125;</div><div class="line"> * until all elements have been processed or the action throws an</div><div class="line"> * exception.  Unless otherwise specified by the implementing class,</div><div class="line"> * actions are performed in the order of iteration (if an iteration order</div><div class="line"> * is specified).  Exceptions thrown by the action are relayed to the</div><div class="line"> * caller.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@implSpec</span></div><div class="line"> * &lt;p&gt;The default implementation behaves as if:</div><div class="line"> * &lt;pre&gt;&#123;<span class="doctag">@code</span></div><div class="line"> *     for (T t : this)</div><div class="line"> *         action.accept(t);</div><div class="line"> * &#125;&lt;/pre&gt;</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> action The action to be performed for each element</div><div class="line"> * <span class="doctag">@throws</span> NullPointerException if the specified action is null</div><div class="line"> * <span class="doctag">@since</span> 1.8</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</div><div class="line">    Objects.requireNonNull(action);</div><div class="line">    <span class="keyword">for</span> (T t : <span class="keyword">this</span>) &#123;</div><div class="line">        action.accept(t);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -1662,7 +2085,7 @@
       
         <categories>
             
-            <category> java </category>
+            <category> jdk8 </category>
             
         </categories>
         
