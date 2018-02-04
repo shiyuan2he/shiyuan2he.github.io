@@ -22,7 +22,7 @@
 
 
 
-  <link rel="alternate" href="/default" title="远观钱途">
+  <link rel="alternate" href="/atom.xml" title="远观钱途">
 
 
 
@@ -51,6 +51,8 @@
 
 
 
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
 
 
 
@@ -59,7 +61,7 @@
   var CONFIG = {
     search: true,
     searchPath: "/search.xml",
-    fancybox: false,
+    fancybox: true,
     toc: true,
   }
 </script>
@@ -68,6 +70,16 @@
 
 
   
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
 
@@ -133,6 +145,15 @@
         </li>
       </a>
     
+      <a href="/books">
+        <li class="mobile-menu-item">
+          
+          
+            Books
+          
+        </li>
+      </a>
+    
   </ul>
 </nav>
 
@@ -186,6 +207,15 @@
             
             
               About
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/books">
+            
+            
+              Books
             
           </a>
         </li>
@@ -278,15 +308,15 @@
 
   <div class="post-copyright">
     <p class="copyright-item">
-      <span>作者: </span>
+      <span>Author: </span>
       <span>天道悲鸣</span>
     </p>
     <p class="copyright-item">
-      <span>来源: </span>
+      <span>Origin: </span>
       <a href="http://yoursite.com">http://yoursite.com</a>
     </p>
     <p class="copyright-item">
-      <span>链接: </span>
+      <span>Link: </span>
       <a href="http://yoursite.com/2018/01/06/centos7自学之4-mariadb数据库的安装/">http://yoursite.com/2018/01/06/centos7自学之4-mariadb数据库的安装/</a>
     </p>
 
@@ -300,6 +330,24 @@
 
       
       
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">Reward</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/uploads/WechatPay.jpeg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/uploads/AliPay.jpeg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
     
 
     
@@ -382,7 +430,6 @@
     
     
     
-      
       <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     
   </div>
@@ -402,7 +449,7 @@
     
     &copy; 
      
-      2015 - 
+      2017 - 
     
     2018
 
@@ -428,6 +475,8 @@
 
 
     
+  
+
 
 
 
@@ -440,6 +489,8 @@
     <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
   
 
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   
 
 
