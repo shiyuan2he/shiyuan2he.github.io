@@ -12,7 +12,7 @@
 
 
 
-  <meta name="description" content="人工智能之Python02 获得Python并开始Python旅程"/>
+  <meta name="description" content="人工智能之Python03 变量与字符串"/>
 
 
 
@@ -31,26 +31,25 @@
 
 
 
-<link rel="canonical" href="http://yoursite.com/2018/02/05/人工智能之Python02-获得Python并开始Python旅程/"/>
+<link rel="canonical" href="http://yoursite.com/2018/02/06/人工智能之Python03-变量与字符串/"/>
 
 
-<meta name="description" content="上一篇介绍了选择Python的理由，本篇将正式开始学习Python">
+<meta name="description" content="前篇介绍了选择python的必要条件以及怎么去获得并开始使用python，接下来讲解python最基本也是最常用的语法-字符串。">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="人工智能之Python02 获得Python并开始Python旅程">
-<meta property="og:url" content="http://yoursite.com/2018/02/05/人工智能之Python02-获得Python并开始Python旅程/index.html">
+<meta property="og:title" content="人工智能之Python03 变量与字符串">
+<meta property="og:url" content="http://yoursite.com/2018/02/06/人工智能之Python03-变量与字符串/index.html">
 <meta property="og:site_name" content="远观钱途">
-<meta property="og:description" content="上一篇介绍了选择Python的理由，本篇将正式开始学习Python">
-<meta property="og:image" content="http://yoursite.com/uploads/python02_1.png">
-<meta property="og:image" content="http://yoursite.com/uploads/python02_2.png">
-<meta property="og:image" content="http://yoursite.com/uploads/python02_3.png">
-<meta property="og:image" content="http://yoursite.com/uploads/python02_4.png">
-<meta property="og:image" content="http://yoursite.com/uploads/python02_5.png">
-<meta property="og:updated_time" content="2018-02-05T13:14:34.000Z">
+<meta property="og:description" content="前篇介绍了选择python的必要条件以及怎么去获得并开始使用python，接下来讲解python最基本也是最常用的语法-字符串。">
+<meta property="og:image" content="http://yoursite.com/uploads/字符串1.png">
+<meta property="og:image" content="http://yoursite.com/uploads/字符串2.png">
+<meta property="og:image" content="http://yoursite.com/uploads/字符串3.png">
+<meta property="og:image" content="http://yoursite.com/uploads/字符串4.png">
+<meta property="og:updated_time" content="2018-02-06T14:55:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="人工智能之Python02 获得Python并开始Python旅程">
-<meta name="twitter:description" content="上一篇介绍了选择Python的理由，本篇将正式开始学习Python">
-<meta name="twitter:image" content="http://yoursite.com/uploads/python02_1.png">
+<meta name="twitter:title" content="人工智能之Python03 变量与字符串">
+<meta name="twitter:description" content="前篇介绍了选择python的必要条件以及怎么去获得并开始使用python，接下来讲解python最基本也是最常用的语法-字符串。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/字符串1.png">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
@@ -89,7 +88,7 @@
 
 
 
-    <title> 人工智能之Python02 获得Python并开始Python旅程 · 远观钱途 </title>
+    <title> 人工智能之Python03 变量与字符串 · 远观钱途 </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -250,13 +249,13 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          人工智能之Python02 获得Python并开始Python旅程
+          人工智能之Python03 变量与字符串
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018年2月5日
+          2018年2月6日
         </span>
       </div>
     </header>
@@ -266,37 +265,34 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始旅程"><span class="toc-text">开始旅程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尝试点新奇的"><span class="toc-text">尝试点新奇的</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开胃菜"><span class="toc-text">开胃菜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#长字符串"><span class="toc-text">长字符串</span></a></li></ol>
     </div>
   </div>
 
 
     <div class="post-content">
       
-        <p>上一篇介绍了选择Python的理由，本篇将正式开始学习Python<br><a id="more"></a></p>
-<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>官网：<a href="https://www.python.org/" target="_blank" rel="external">https://www.python.org</a></p>
-<p>图示：</p>
-<p><img src="/uploads/python02_1.png" alt="image"></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装非常简单，将下载好的exe可执行文件双击默认安装即可。</p>
-<h2 id="开始旅程"><a href="#开始旅程" class="headerlink" title="开始旅程"></a>开始旅程</h2><p>IDEL是一个Python Shell。shell的意思是“外壳”，从基本上说，就是一个通过输入文本与程序交互的途径。像windows的cmd，linux的terminal，他们都是shell，利用他们就可以给操作系统下达命令。同样的，利用IDEL就可以与Python交互，沟通。</p>
-<p>编写第一个程序</p>
-<p><img src="/uploads/python02_2.png" alt="image"></p>
-<h2 id="尝试点新奇的"><a href="#尝试点新奇的" class="headerlink" title="尝试点新奇的"></a>尝试点新奇的</h2><ol>
-<li>字符串拼接</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">"hello "</span> + <span class="string">"world"</span>)</div></pre></td></tr></table></figure>
-<p><img src="/uploads/python02_3.png" alt="image"></p>
+        <p>前篇介绍了选择python的必要条件以及怎么去获得并开始使用python，接下来讲解python最基本也是最常用的语法-字符串。<br><a id="more"></a></p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>当把一个值赋给一个变量时，它会存在内存中，把这块内存成为变量。在大多数的语言中，都把这种行为称为“给变量赋值”或“把值存储再变量中”。</p>
+<p>不过，python与其他语言稍有不同，它并不把值存储在变量中，而更像是把名字“贴”在值的上边。所以有些Python程序员会说Python没有变量，只有名字。变量就是一个名字，通过这个名字，可以找到我们想要的东西。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">x=<span class="number">1</span></div><div class="line">y=<span class="number">2</span></div><div class="line">z=x+y</div><div class="line">print(z)</div></pre></td></tr></table></figure>
+<p><img src="/uploads/字符串1.png" alt="image"></p>
+<p>变量注意点：</p>
 <ol>
-<li>字符串乘积</li>
+<li>在使用变量之前必须对其先赋值</li>
+<li>变量名可以包涵字母、下划线、数字，但变量名不可以数字开头</li>
+<li>字母可以是大写或者是小写，但大小写是不同的</li>
+<li>等号(=)是赋值的意思，左边是名字，右边是值，不可写反了。</li>
+<li>变量的命名理论上可以取任何合法的名字，但作为一个优秀的程序员，请尽量给变量取一个专业一点儿的名字。</li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">"hello "</span> + <span class="string">"world"</span> * <span class="number">3</span>)</div></pre></td></tr></table></figure>
-<p><img src="/uploads/python02_4.png" alt="image"></p>
-<ol>
-<li>字符串加减</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">"hello "</span> + <span class="string">"world"</span> + <span class="number">3</span>)</div></pre></td></tr></table></figure>
-<p><img src="/uploads/python02_5.png" alt="image"></p>
-<p>为什么会那样呢？</p>
+<h2 id="开胃菜"><a href="#开胃菜" class="headerlink" title="开胃菜"></a>开胃菜</h2><p>试想 print(10+10) 跟 print(‘10’+’10’) 是否一样？为什么？<br><img src="/uploads/字符串2.png" alt="image"></p>
+<p>看一下下面一个神奇的现象：</p>
+<p><img src="/uploads/字符串3.png" alt="image"></p>
+<p>打印的结果并不是我们预期的，原因是反斜杠（\）和后边的（n）结合之后构成了换行符（\n）,但是反斜杠也可以被转义，如下</p>
+<p><img src="/uploads/字符串4.png" alt="image"></p>
+<h2 id="长字符串"><a href="#长字符串" class="headerlink" title="长字符串"></a>长字符串</h2><p>为了方便长字符串的输出，python针对这种场景特别提供了三重引号(“””内容”””)解决这种问题。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">"""</span></div><div class="line">    满江红-岳飞</div><div class="line">    怒发冲冠，凭栏处、潇潇雨歇。</div><div class="line">    抬望眼，仰天长啸，壮怀激烈。</div><div class="line">    三十功名尘与土，八千里路云和月。</div><div class="line">    莫等闲、白了少年头，空悲切！</div><div class="line">    靖康耻，犹未雪。</div><div class="line">    臣子恨，何时灭！</div><div class="line">    驾长车，踏破贺兰山缺。</div><div class="line">    壮志饥餐胡虏肉，笑谈渴饮匈奴血。</div><div class="line">    待从头、收拾旧山河，朝天阙。 </div><div class="line">""")</div><div class="line"><span class="comment"># 此处有掌声</span></div></pre></td></tr></table></figure>
+<p>这样的书写方式好过逐行添加换行符，java暂未提供此情景解决方案</p>
 
       
     </div>
@@ -316,7 +312,7 @@
     </p>
     <p class="copyright-item">
       <span>链接: </span>
-      <a href="http://yoursite.com/2018/02/05/人工智能之Python02-获得Python并开始Python旅程/">http://yoursite.com/2018/02/05/人工智能之Python02-获得Python并开始Python旅程/</a>
+      <a href="http://yoursite.com/2018/02/06/人工智能之Python03-变量与字符串/">http://yoursite.com/2018/02/06/人工智能之Python03-变量与字符串/</a>
     </p>
 
     <p class="copyright-item lincese">
@@ -362,15 +358,15 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/02/05/人工智能之Python01-选择Python/">
+      <a class="prev" href="/2018/02/05/人工智能之Python02-获得Python并开始Python旅程/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">人工智能之Python01 选择Python</span>
+        <span class="prev-text nav-default">人工智能之Python02 获得Python并开始Python旅程</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2018/02/06/人工智能之Python03-变量与字符串/">
-        <span class="next-text nav-default">人工智能之Python03 变量与字符串</span>
+      <a class="next" href="/2018/02/06/人工智能之Python04-if与while/">
+        <span class="next-text nav-default">人工智能之Python04 if与while</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
