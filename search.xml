@@ -3,6 +3,100 @@
   
     
     <entry>
+      <title><![CDATA[人工智能之Python06 list和tuple]]></title>
+      <url>/2018/02/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython06-list%E5%92%8Ctuple/</url>
+      <content type="html"><![CDATA[<p>上篇介绍了python的数据类型，利用那些数据类型能够对数字进行计算，本篇介绍另外的两种数据类型列表list以及元组tuple<br><a id="more"></a></p>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>list是Python内置的一种数据类型；也是一种有序的集合，可以随时添加和删除其中的元素。</p>
+<h3 id="使用list"><a href="#使用list" class="headerlink" title="使用list"></a>使用list</h3><p>eg:扑克牌列表</p>
+<ol>
+<li>初始化list</li>
+<li>输出list长度</li>
+<li>输出list索引出的元素</li>
+<li>输出超出索引的元素–会报错</li>
+<li>输出list最后一个元素</li>
+<li>在list末尾添加一个元素</li>
+<li>在指定索引出插入元素</li>
+<li>删除末尾的元素</li>
+<li>删除指定索引的元素</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">poker=[<span class="string">'♥A'</span>,<span class="string">'♥2'</span>,<span class="string">'♥3'</span>]</div><div class="line">print(poker)</div><div class="line">print(<span class="string">'输出list长度'</span>)</div><div class="line">print(len(poker))</div><div class="line">print(<span class="string">'取第一个元素和第三个元素'</span>)</div><div class="line">print(poker[<span class="number">0</span>])</div><div class="line">print(poker[<span class="number">2</span>])</div><div class="line"><span class="comment"># 此行会有报错</span></div><div class="line"><span class="comment"># print(poker[3])</span></div><div class="line">print(<span class="string">'取倒数第一个元素'</span>)</div><div class="line">print(poker[<span class="number">-1</span>])</div><div class="line">poker.append(<span class="string">'♥K'</span>)</div><div class="line">print(<span class="string">'输出append后的list内容'</span>)</div><div class="line">print(poker)</div><div class="line"></div><div class="line">print(<span class="string">'在指定索引出插入元素'</span>)</div><div class="line">poker.insert(<span class="number">3</span>,<span class="string">'♥Q'</span>)</div><div class="line">print(<span class="string">'输出insert后的list内容'</span>)</div><div class="line">print(poker)</div><div class="line"></div><div class="line">print(<span class="string">'删除list末尾的元素'</span>)</div><div class="line">poker.pop()</div><div class="line">print(<span class="string">'输出pop后的list内容'</span>)</div><div class="line">print(poker)</div><div class="line"></div><div class="line">print(<span class="string">'在指定索引出pop元素'</span>)</div><div class="line">poker.pop(<span class="number">3</span>)</div><div class="line">print(<span class="string">'输出pop(3)后的list内容'</span>)</div><div class="line">print(poker)</div><div class="line"></div><div class="line">print(<span class="string">'在指定索引替换元素'</span>)</div><div class="line">poker[<span class="number">2</span>] = <span class="string">'♥J'</span></div><div class="line">print(<span class="string">'输出替换后的list内容'</span>)</div><div class="line">print(poker)</div></pre></td></tr></table></figure>
+<p>执行结果如下图</p>
+<p><img src="/uploads/listTuple01.png" alt="image"></p>
+<h2 id="tuple"><a href="#tuple" class="headerlink" title="tuple"></a>tuple</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>tuple和list非常类似，也是有序列表，但是tuple一旦初始化就不能修改。</p>
+<p>==不可变的列表比较安全，开发期间如果确定列表不会变化，建议尽量使用tuple==</p>
+<h3 id="使用tuple"><a href="#使用tuple" class="headerlink" title="使用tuple"></a>使用tuple</h3><ol>
+<li>初始化一个元组</li>
+<li>输出这个元组</li>
+<li>单个元素的元组初始化</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">poker=(<span class="string">'♥A'</span>,<span class="string">'♥2'</span>,<span class="string">'♥3'</span>)</div><div class="line">print(poker)</div><div class="line">print(<span class="string">'只有一个元素的tuple，需要添加一个，'</span>)</div><div class="line">tuple01 = (<span class="string">'♥K'</span>,)</div><div class="line">print(tuple01)</div><div class="line">print(<span class="string">'如果不添加逗号会是什么情况'</span>)</div><div class="line">tuple02 = (<span class="string">'♥K'</span>)</div><div class="line">print(tuple02)</div></pre></td></tr></table></figure>
+<p>执行结果如下图</p>
+<p><img src="/uploads/listTuple02.png" alt="image"></p>
+<p>如果单个元素的元组不添加逗号，会当成一个字符串的数据列行处理。此处需要注意</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>list和tuple都是Python内置的有序集合，一个可变，一个不可变。根据需求及业务场景来自由选择使用它们。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python05 数据类型]]></title>
+      <url>/2018/02/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython05-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+      <content type="html"><![CDATA[<p>计算机最初被设计出来就是用来进行数学计算的，因此，计算机程序理所当然地可以处理各种数值。但是，计算机能处理的远不止数值，还可以处理文本、图形、音频、视频、网页等各种各样的数据，不同的数据，需要定义不同的数据类型。在Python中，能够直接处理的数据类型有以下几种：<br><a id="more"></a></p>
+<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2><p>Python可以处理任意大小的整数，当然包括负整数，在程序中的表示方法和数学上的写法一模一样，例如：1，100，-8080，0，等等。</p>
+<p>计算机由于使用二进制，所以，有时候用十六进制表示整数比较方便，十六进制用0x前缀和0-9，a-f表示，例如：0xff00，0xa5b4c3d2，等等。</p>
+<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><p>浮点数也就是小数。浮点数可以用数学写法，如1.23，3.14，-9.01，等等。但是对于很大或很小的浮点数，就必须用科学计数法表示，把10用e替代，1.23x10的9次方就是1.23e9，或者12.3e8，0.000012可以写成1.2e-5等等。</p>
+<p>整数和浮点数在计算机内部存储的方式是不同的，整数运算永远是精确的，而浮点数运算则可能会有四舍五入的误差。</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串是以单引号’或双引号”括起来的任意文本，比如’123’，”abc”等等。请注意，’’或””本身只是一种表示方式，不是字符串的一部分，因此，字符串’abc’只有a，b，c这3个字符。如果’本身也是一个字符，那就可以用””括起来，比如”I’m OK”包含的字符是I，’，m，空格，O，K这6个字符。</p>
+<p>如果字符串内部既包含’又包含”怎么办？可以用转义字符\来标识，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">'I\'m \"OK\"!'</span></div></pre></td></tr></table></figure>
+<p><img src="/uploads/dataType03.png" alt="image"></p>
+<p>==注意：转义字符\可以转义很多字符，比如\n表示换行，\t表示制表符，字符\本身也要转义，所以\表示的字符就是\，可以在Python的交互式命令行用print()打印字符串看看：==</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">print(&apos;\\\n\\&apos;)</div><div class="line">print(&apos;\\\t\\&apos;)</div></pre></td></tr></table></figure>
+<p><img src="/uploads/dataType04.png" alt="image"></p>
+<h2 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h2><p>布尔值和布尔代数的表示完全一致，一个布尔值只有True、False两种值，要么是True，要么是False，在Python中，可以直接用True、False表示布尔值（请注意大小写），也可以通过布尔运算计算出来：</p>
+<p>==布尔值可以用and、or和not运算。==</p>
+<h2 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h2><p>空值是Python里一个特殊的值，用None表示。None不能理解为0，因为0是有意义的，而None是一个特殊的空值。</p>
+<p>==此外，Python还提供了列表、字典等多种数据类型，还允许创建自定义数据类型。==</p>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p>接下来介绍几个跟数据类型紧密相关的函数：int()、float()、str().</p>
+<p>int()的作用是将一个字符串或者一个浮点型转换为一个整数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">a=<span class="string">'520'</span></div><div class="line">b=int(a)</div><div class="line">print(a)</div><div class="line">print(b)</div><div class="line"></div><div class="line">c=<span class="number">5.99</span></div><div class="line">d=int(c)</div><div class="line">print(c)</div><div class="line">print(d)</div><div class="line"></div><div class="line">i=<span class="string">'520'</span></div><div class="line">j=float(i)</div><div class="line">print(i)</div><div class="line">print(j)</div><div class="line"></div><div class="line">k=<span class="number">520</span></div><div class="line">l=float(k)</div><div class="line">print(k)</div><div class="line">print(l)</div><div class="line"></div><div class="line">x=<span class="number">5.99</span></div><div class="line">y=str(x)</div><div class="line">print(x)</div><div class="line">print(y)</div><div class="line"></div><div class="line">z=str(<span class="number">2e12</span>)</div><div class="line">print(z)</div></pre></td></tr></table></figure>
+<p><img src="/uploads/dataType01.png" alt="image"></p>
+<h2 id="获取数据类型信息"><a href="#获取数据类型信息" class="headerlink" title="获取数据类型信息"></a>获取数据类型信息</h2><p>有可能需要确定一个变量的数据类型，但是Python其实提供了一个函数，可以明确的告诉我们变量的类型：type()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">'520:'</span>)</div><div class="line">print(type(<span class="string">'520'</span>))</div><div class="line">print(<span class="string">'5.20:'</span>)</div><div class="line">print(type(<span class="number">5.20</span>))</div><div class="line">print(<span class="number">2e10</span>)</div><div class="line">print(type(<span class="number">2e10</span>))</div><div class="line">print(<span class="string">'True'</span>)</div><div class="line">print(type(<span class="keyword">True</span>))</div></pre></td></tr></table></figure>
+<p><img src="/uploads/dataType02.png" alt="image"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>以上数据类型基本上能够满足日常工作开发，但python支持更多的数据类型，甚至可以自定义数据类型。</p>
+<p>==注意：Python的整数没有大小限制，而某些语言的整数根据其存储长度是有大小限制的，例如Java的byte，short，int，long都是有长度限制的。<br>Python的浮点数也没有大小限制，但是超出一定范围就直接表示为inf（无限大）。==</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[人工智能之Python04 if与while]]></title>
       <url>/2018/02/06/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython04-if%E4%B8%8Ewhile/</url>
       <content type="html"><![CDATA[<p>本篇主要介绍python的if根while分支判断<br><a id="more"></a></p>
