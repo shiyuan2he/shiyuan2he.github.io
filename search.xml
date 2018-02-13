@@ -3,6 +3,590 @@
   
     
     <entry>
+      <title><![CDATA[人工智能之Python00 文章汇总]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython00-%E6%96%87%E7%AB%A0%E6%B1%87%E6%80%BB/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python17 模块]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython17-%E6%A8%A1%E5%9D%97/</url>
+      <content type="html"><![CDATA[<p>模块就是程序，是更高一级的封装<br><a id="more"></a></p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>命名空间（namespace）表示标识符（ideantifier）的可见范围。一个标识符可以在多个命名空间中定义，它在不同命名空间中的含义是互不相干的。</p>
+<p>在python中每个模块都会维护一个独立的命名空间，我们应该将模块名加上，才能够正常使用模块中的函数。</p>
+<h3 id="导入模块"><a href="#导入模块" class="headerlink" title="导入模块"></a>导入模块</h3><h4 id="import-模块名"><a href="#import-模块名" class="headerlink" title="import 模块名"></a>import 模块名</h4><p>直接import，但是在调用模块中的函数的时候，需要加上模块的命名空间。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#f2c.py</div><div class="line">&quot;&quot;&quot;</div><div class="line">    定义一个华氏温度跟摄氏温度相互转换的模块</div><div class="line">&quot;&quot;&quot;</div><div class="line">def c2f(cel):</div><div class="line">    fah = cel * 1.8 + 32</div><div class="line">    return fah</div><div class="line"></div><div class="line">def f2c(fal):</div><div class="line">    cel = (fal - 32) / 1.8</div><div class="line">    return cel</div><div class="line">    </div><div class="line"># module_import.py</div><div class="line">import f_c</div><div class="line"></div><div class="line">print(&quot;32摄氏度 = %.2f华氏度&quot; % f_c.c2f(32))</div><div class="line">print(&quot;100华氏度 = %.2f摄氏度&quot; % f_c.f2c(100))</div><div class="line"></div><div class="line">## 运行结果是</div><div class="line">32摄氏度 = 89.60华氏度</div><div class="line">100华氏度 = 37.78摄氏度</div></pre></td></tr></table></figure></p>
+<h4 id="from-模块名-import-函数名"><a href="#from-模块名-import-函数名" class="headerlink" title="from 模块名 import 函数名"></a>from 模块名 import 函数名</h4><p>这种导入方式会直接将模块的命名空间覆盖进来，所以调用的时候也就不需要再加上命名空间了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#f2c.py</div><div class="line">&quot;&quot;&quot;</div><div class="line">    定义一个华氏温度跟摄氏温度相互转换的模块</div><div class="line">&quot;&quot;&quot;</div><div class="line">def c2f(cel):</div><div class="line">    fah = cel * 1.8 + 32</div><div class="line">    return fah</div><div class="line"></div><div class="line">def f2c(fal):</div><div class="line">    cel = (fal - 32) / 1.8</div><div class="line">    return cel</div><div class="line">    </div><div class="line"># module_import.py</div><div class="line">from f_c import c2f,f2c</div><div class="line"></div><div class="line">print(&quot;32摄氏度 = %.2f华氏度&quot; % c2f(32))</div><div class="line">print(&quot;100华氏度 = %.2f摄氏度&quot; % f2c(100))</div></pre></td></tr></table></figure></p>
+<h4 id="import-模块名-as-新名字"><a href="#import-模块名-as-新名字" class="headerlink" title="import 模块名 as 新名字"></a>import 模块名 as 新名字</h4><p>这种方式给导入的命名空间替换一个新的名字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#f2c.py</div><div class="line">&quot;&quot;&quot;</div><div class="line">    定义一个华氏温度跟摄氏温度相互转换的模块</div><div class="line">&quot;&quot;&quot;</div><div class="line">def c2f(cel):</div><div class="line">    fah = cel * 1.8 + 32</div><div class="line">    return fah</div><div class="line"></div><div class="line">def f2c(fal):</div><div class="line">    cel = (fal - 32) / 1.8</div><div class="line">    return cel</div><div class="line">    </div><div class="line"># module_import.py</div><div class="line">import f_c as fc</div><div class="line">print(&quot;32摄氏度 = %.2f华氏度&quot; % fc.c2f(32))</div><div class="line">print(&quot;100华氏度 = %.2f摄氏度&quot; % fc.f2c(100))</div></pre></td></tr></table></figure></p>
+<h3 id="模块的作用"><a href="#模块的作用" class="headerlink" title="模块的作用"></a>模块的作用</h3><ul>
+<li><p>[x] 封装、组织python的代码。</p>
+<p>  当代码量非常庞大的时候，可以有组织有纪律地根据不同的功能，将代码分割成不同的模块，这样，每个模块之间都是相互独立的。</p>
+</li>
+<li>[x] 实现代码的重用</li>
+</ul>
+<h3 id="模块的搜索路径"><a href="#模块的搜索路径" class="headerlink" title="模块的搜索路径"></a>模块的搜索路径</h3><p>Python模块的导入需要一个路径搜索的过程，而这个路径搜索就是一组目录，可以通过sys模块中的path变量显示出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#f2c.py</div><div class="line">&quot;&quot;&quot;</div><div class="line">    定义一个华氏温度跟摄氏温度相互转换的模块</div><div class="line">&quot;&quot;&quot;</div><div class="line">def c2f(cel):</div><div class="line">    fah = cel * 1.8 + 32</div><div class="line">    return fah</div><div class="line"></div><div class="line">def f2c(fal):</div><div class="line">    cel = (fal - 32) / 1.8</div><div class="line">    return cel</div><div class="line">    </div><div class="line"># module_import.py</div><div class="line">import sys</div><div class="line">import os</div><div class="line">sys.path.append(os.curdir)</div><div class="line">#import f_c</div><div class="line">#from f_c import c2f,f2c</div><div class="line">import f_c as fc</div><div class="line">print(&quot;32摄氏度 = %.2f华氏度&quot; % fc.c2f(32))</div><div class="line">print(&quot;100华氏度 = %.2f摄氏度&quot; % fc.f2c(100))</div></pre></td></tr></table></figure></p>
+<h3 id="模块的包"><a href="#模块的包" class="headerlink" title="模块的包"></a>模块的包</h3><p>在实际的开发中，一个大型的系统有成千上万的Python模块是很正常的事情。单单用模块来定义Python的功能显然不够，如果都放在一起显然不好管理并且有命名冲突的可能，因此，python中也出现了包。</p>
+<p>包：把模块分门别类的存放再不同的文件夹，然后把各个文件夹的位置告诉python</p>
+<h4 id="创建包"><a href="#创建包" class="headerlink" title="创建包"></a>创建包</h4><ol>
+<li>创建一个文件夹，用于存放相关的模块，文件夹的名字即包的名字</li>
+<li>在文件夹中创建一个<strong>init</strong>.py的模块文件，内容可以为空</li>
+<li>将相关的模块放入文件夹中<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#f2c.py</div><div class="line">&quot;&quot;&quot;</div><div class="line">    定义一个华氏温度跟摄氏温度相互转换的模块</div><div class="line">&quot;&quot;&quot;</div><div class="line">def c2f(cel):</div><div class="line">    fah = cel * 1.8 + 32</div><div class="line">    return fah</div><div class="line"></div><div class="line">def f2c(fal):</div><div class="line">    cel = (fal - 32) / 1.8</div><div class="line">    return cel</div><div class="line">    </div><div class="line"># module_import.py</div><div class="line">import sys</div><div class="line">import os</div><div class="line">sys.path.append(os.curdir)</div><div class="line">#import f_c</div><div class="line">#from f_c import c2f,f2c</div><div class="line">import module.f_c as fc</div><div class="line">print(&quot;32摄氏度 = %.2f华氏度&quot; % fc.c2f(32))</div><div class="line">print(&quot;100华氏度 = %.2f摄氏度&quot; % fc.f2c(100))</div></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python16 迭代器和生成器]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython16-%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/</url>
+      <content type="html"><![CDATA[<p>有一个概念我们一直在用，但我们却从来没有认真的去深入剖析它-这个概念就是迭代。<br><a id="more"></a></p>
+<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>迭代的意思类似于循环，每一次重复的过程被称为一次迭代的过程，而每一次迭代得到的结果会被用来作为下一次迭代的初始值。提供迭代方法的容器称为迭代器，通常接触的迭代器有序列、列表、元组、字符串还有字典也是迭代器，都支持迭代的操作。</p>
+<p>Python提供了两个BIF</p>
+<ul>
+<li>iter()</li>
+<li>next()</li>
+</ul>
+<p>对一个容器对象，调用他的iter()就得到他的迭代器，调用next()迭代器就会返回下一个值，知道迭代器没有值了才会返回</p>
+<h3 id="字符串的迭代器"><a href="#字符串的迭代器" class="headerlink" title="字符串的迭代器"></a>字符串的迭代器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> ss <span class="keyword">in</span> <span class="string">"diedaiqi"</span>:</div><div class="line">    print(ss)</div><div class="line"><span class="comment">#输出是</span></div><div class="line">d</div><div class="line">i</div><div class="line">e</div><div class="line">d</div><div class="line">a</div><div class="line">i</div><div class="line">q</div><div class="line">i</div></pre></td></tr></table></figure>
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><p>迭代器和生成器是python这两年来引入的最强大的两个特性。生成器其实是迭代器的一种实现。</p>
+<p>生成器的发明使得Python模仿协同程序的概念得以实现。；所谓协同程序，就是可以运行的独立函数调用，函数可以暂停或者挂起，并在需要的时候从程序离开的地方继续或者重新开始</p>
+<p>Python是通过生成器来实现类似于协同程序的概念：生成器可以暂时挂起函数，并保留函数的局部变量等数据，然后在再次调用它的时候，从上次暂停的位置继续执行下去。</p>
+<p>一个例子形象说明：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">myGen</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">"生成器正在执行"</span>)</div><div class="line">    <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">    <span class="keyword">yield</span> <span class="number">2</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> myGen():</div><div class="line">    print(i)</div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>迭代器和生成器待以后见得多了再行补充</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python15 面向对象编程]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<p>Python无处不对象，然而很多人并不清楚什么是对象，只知道编程的时候面向对象。<br><a id="more"></a></p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>Python中的对象的两个特征</p>
+<ol>
+<li>属性</li>
+<li>方法</li>
+</ol>
+<h3 id="self"><a href="#self" class="headerlink" title="self"></a>self</h3><p>对象的方法都会有一个self参数，如果把类比作图纸，那么由类实例化后的对象才是真正可以住的房子。根据一张图纸就可以设计出成千上万的房子，他们长的都差不多，但他们的主人都不同。每个人都只能会自己的家里，陪伴自己的孩子。。。所以self就相当于每个房子的门牌号，有了self，就可以轻松找到自己的房子<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<h3 id="魔法方法-init"><a href="#魔法方法-init" class="headerlink" title="魔法方法(init)"></a>魔法方法(<strong>init</strong>)</h3><p>Python的对象天生拥有一些神奇的方法，他们是面向对象的Python的一切。他们可以给你的类增加魔力的特殊方法，如果你的对象实现了这些方法中的某一个，那么这个方法就会在特殊的情况下被python所调用，而这一切都是自动发生的。</p>
+<p>Python的这些方法总是被双下划线(__)所包围</p>
+<h4 id="init"><a href="#init" class="headerlink" title="init"></a><strong>init</strong></h4><p>通常把<strong>init</strong>成为构造方法，其魔力在于只要实例化一个对象，这个方法就会在对象被创建时自动调用。</p>
+<p>实例化对象是可以传入参数的，这些参数会自动传入<strong>init</strong>()方法中，可以通过重写这个方法来自定义对象的初始化操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<h3 id="共有和私有"><a href="#共有和私有" class="headerlink" title="共有和私有"></a>共有和私有</h3><p>一般面向对象的编程语言都区分公有和私有的数据类型。</p>
+<p>Python默认对象的属性和方法都是公开的，可以通过点操作符直接访问。</p>
+<p>为了实现类似私有变量的特征，Python内部采用了一种叫name mangling(名字改编)的技术，在Python中定义私有变量只需要在变量名和函数名前加上“__”两个下划线，那么这个函数或者变量就是私有的了；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></div><div class="line">    __name = <span class="string">"private"</span></div><div class="line"></div><div class="line">p = Person()</div><div class="line">p.__name</div><div class="line"><span class="comment"># 输出是  报错</span></div></pre></td></tr></table></figure>
+<p>但是python的私有化是伪私有，通过“_类名__变量名”即可方位双下划线开头的私有变量了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></div><div class="line">    __name = <span class="string">"private"</span></div><div class="line"></div><div class="line">p = Person()</div><div class="line">p._Person__name</div><div class="line"><span class="comment"># 输出是</span></div></pre></td></tr></table></figure></p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>语法：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class 类名(被继承的类)：</div><div class="line">    ...</div><div class="line"># 被继承的类称为父类、基类、超类；继承者称为子类，一个子类可以继承他的父类的任何属性和方法。</div><div class="line">class Parent</div><div class="line">    def hello(self)</div><div class="line">        print("正在调用父类的方法")</div><div class="line">        </div><div class="line">class Children(Parent):</div><div class="line">    pass</div><div class="line">child = Children()</div><div class="line">child.hello()</div></pre></td></tr></table></figure>
+<h3 id="子类构造器"><a href="#子类构造器" class="headerlink" title="子类构造器"></a>子类构造器</h3><ol>
+<li>调用未绑定的父类方法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Children</span><span class="params">(Parent)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        Parent.__init__(self)</div></pre></td></tr></table></figure>
+<ol>
+<li>使用super实现</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Children</span><span class="params">(Parent)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        super().__init__()</div></pre></td></tr></table></figure>
+<h2 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h2><p>python还支持多重继承，就是可以同时删除多个父类的属性和方法</p>
+<p>格式语法：<br>class 类名(父类1,父类2,…):<br>    …</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base01</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo01</span><span class="params">(self)</span>:</span></div><div class="line">        print(<span class="string">"我是Base01中的foo01"</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base02</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo02</span><span class="params">(self)</span>:</span></div><div class="line">        print(<span class="string">"我是Base02中的foo02"</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span><span class="params">(Base01,Base02)</span>:</span></div><div class="line">    <span class="keyword">pass</span></div><div class="line">    </div><div class="line">child = Child()</div><div class="line">child.foo01()</div><div class="line">child.foo02()</div></pre></td></tr></table></figure>
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>Python提供了组合功能。</p>
+<p>下面一个例子帮助我们理解什么是组合。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Turtle</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,x)</span>:</span></div><div class="line">        self.num = x</div><div class="line">        </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fish</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,y)</span>:</span></div><div class="line">        self.num = y</div><div class="line">        </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pool</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,x,y)</span>:</span></div><div class="line">        self.trutle = Turtle(x)</div><div class="line">        self.fish = Fish(y)</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_num</span><span class="params">(self)</span>:</span></div><div class="line">        print(<span class="string">"池塘里一共有%d只鱼，%d只乌龟"</span> % (self.fish.num,self.turtle.num))</div><div class="line">        </div><div class="line">pool = Pool(<span class="number">5</span>,<span class="number">10</span>)</div><div class="line">pool.print_num()</div></pre></td></tr></table></figure>
+<h2 id="类、类对象、实例对象"><a href="#类、类对象、实例对象" class="headerlink" title="类、类对象、实例对象"></a>类、类对象、实例对象</h2><p>下面一段代码帮助我们理解上面的概念</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span><span class="params">()</span>:</span></div><div class="line">    count = <span class="number">0</span></div><div class="line"></div><div class="line">a = Test()</div><div class="line">b = Test()</div><div class="line">c = Test()</div><div class="line"></div><div class="line">print(a.count,b.count,c.count)</div><div class="line">c.count += <span class="number">10</span></div><div class="line">print(a.count,b.count,c.count)</div><div class="line">Test.count += <span class="number">100</span></div><div class="line">print(a.count,b.count,c.count)</div><div class="line"></div><div class="line"><span class="comment"># 输出是</span></div><div class="line"><span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line"><span class="number">0</span> <span class="number">0</span> <span class="number">10</span></div><div class="line"><span class="number">100</span> <span class="number">100</span> <span class="number">10</span></div></pre></td></tr></table></figure>
+<p>分析： 对实例对象进行赋值之后，就相当于覆盖了类对象（Test）的count属性，如果没有覆盖，那么引用的是类对象的count</p>
+<h2 id="对象相关的BIF"><a href="#对象相关的BIF" class="headerlink" title="对象相关的BIF"></a>对象相关的BIF</h2><h3 id="issubclass-class-classinfo"><a href="#issubclass-class-classinfo" class="headerlink" title="issubclass(class,classinfo)"></a>issubclass(class,classinfo)</h3><p>如果第一个参数（class）是第二个参数（classinfo）的一个子类，则返回True，否则返回False</p>
+<ol>
+<li>一个类被认为是其自身的子类</li>
+<li>classinfo可以是对象组成的元组，只要class是其中任何一个候选类的子类，则返回True</li>
+<li>在其他情况下，会抛出一个TypeError异常</li>
+</ol>
+<h3 id="isinstance-object-classinfo"><a href="#isinstance-object-classinfo" class="headerlink" title="isinstance(object,classinfo)"></a>isinstance(object,classinfo)</h3><p>如果第一个参数（object）是第二个参数（classinfo）的实例对象，则返回True，否则返回False</p>
+<ol>
+<li>如果object是classinfo的子类的一个实例，也符合条件</li>
+<li>如果第一个参数不是对象，则永远返回False</li>
+<li>classinfo可以是类对象组成的元组，只要object是其中任何一个候选对象的实例，则返回True</li>
+<li>如果第二个参数不是类或者类对象组成的元组，会抛出要给TypeError异常。</li>
+</ol>
+<h3 id="hasattr-object-name"><a href="#hasattr-object-name" class="headerlink" title="hasattr(object,name)"></a>hasattr(object,name)</h3><p>attr即attribute的缩写，属性的意思。测试一个对象里是否有指定的属性</p>
+<p>第一个参数object是对象，第二个参数name是属性名</p>
+<h3 id="getattr-object-name-default"><a href="#getattr-object-name-default" class="headerlink" title="getattr(object,name[,default])"></a>getattr(object,name[,default])</h3><p>返回指定对象的属性值，如果不存在，则返回default的只；若没有default，则抛出AttributeError异常</p>
+<h3 id="setattr-object-name-value"><a href="#setattr-object-name-value" class="headerlink" title="setattr(object,name,value)"></a>setattr(object,name,value)</h3><p>设置对象中指定属性的值，如果属性不存在，则新建属性</p>
+<h3 id="delattr-object-name"><a href="#delattr-object-name" class="headerlink" title="delattr(object,name)"></a>delattr(object,name)</h3><p>删除指定属性的值，如果属性不存在则抛出AtrributeError异常</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>为了避免对象命名的冲突，请大家遵守一些约定俗成的约定：</p>
+<ul>
+<li>类的定义要“少吃多餐”，不要试图在要给类里边定义出所有能想到的特性和方法，应该利用继承和组合机制来进行扩展</li>
+<li>用不同的词性命名，如属性名用名字、方法名用动词、并使用骆驼命名法</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python14 异常处理]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython14-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</url>
+      <content type="html"><![CDATA[<p>作为一个合格的程序员，在编程的时候一定要意识到一点，就是永远不要相信你的用户，把用户定位成黑客，这样自己写出来的代码才能够更稳定，更健壮。<br><a id="more"></a></p>
+<p>python提供的异常处理机制，当异常出现的时候即使捕获，并从内部自我消化掉。</p>
+<h3 id="常见异常错误"><a href="#常见异常错误" class="headerlink" title="常见异常错误"></a>常见异常错误</h3><ol>
+<li>FileNotFoundError 文件未找到异常</li>
+<li>AssertionError 断言语句失败</li>
+<li>AttributeError 尝试获取位置对象属性</li>
+<li>IndexError 索引超出序列的范围</li>
+<li>等等</li>
+</ol>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>知道了以上出现的集中异常错误不用捉急，可以通过异常捕获来进行处理。</p>
+<p>异常捕获可以使用try语句来实现，任何出现在try语句范围内的异常都会被及时捕获到。try语句有两种实现形式：</p>
+<ol>
+<li>try-except</li>
+<li>try-finally</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">testException</span><span class="params">()</span>:</span></div><div class="line">    file = open(<span class="string">"这是一个不存在的文件.txt"</span>)</div><div class="line">    print(file.read(<span class="number">-1</span>))</div><div class="line">    file.close()</div><div class="line"></div><div class="line">testException()</div><div class="line"><span class="comment"># 会出现 FileNotFoundError: [Errno 2] No such file or directory: '这是一个不存在的文件.txt' 异常</span></div><div class="line"></div><div class="line"><span class="comment"># 异常处理</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">doException</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        file = open(<span class="string">"这是一个不存在的文件.txt"</span>)</div><div class="line">        print(file.read(<span class="number">-1</span>))</div><div class="line">        file.close()</div><div class="line">    <span class="keyword">except</span> FileNotFoundError <span class="keyword">as</span> reason :</div><div class="line">        print(<span class="string">"发生了FileNotFoundError异常"</span>)</div><div class="line">doException()</div><div class="line"></div><div class="line"><span class="comment"># 输出</span></div><div class="line"><span class="comment"># 发生了FileNotFoundError异常</span></div></pre></td></tr></table></figure>
+<p>多异常处理：可以定义多个except来处理不同的异常情况</p>
+<h3 id="对多个异常统一处理"><a href="#对多个异常统一处理" class="headerlink" title="对多个异常统一处理"></a>对多个异常统一处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">doException</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        file = open(<span class="string">"这是一个不存在的文件.txt"</span>)</div><div class="line">        print(file.read(<span class="number">-1</span>))</div><div class="line">        file.close()</div><div class="line">    <span class="keyword">except</span> (FileNotFoundError,TypeError) <span class="keyword">as</span> reason :</div><div class="line">        print(<span class="string">"发生了FileNotFoundError或者TypeError异常"</span>)</div><div class="line">doException()</div><div class="line"></div><div class="line"><span class="comment"># 输出</span></div><div class="line"><span class="comment"># 发生了FileNotFoundError或者TypeError异常</span></div></pre></td></tr></table></figure>
+<h3 id="捕获所有异常"><a href="#捕获所有异常" class="headerlink" title="捕获所有异常"></a>捕获所有异常</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">doException</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        file = open(<span class="string">"这是一个不存在的文件.txt"</span>)</div><div class="line">        print(file.read(<span class="number">-1</span>))</div><div class="line">        file.close()</div><div class="line">    <span class="keyword">except</span> :</div><div class="line">        print(<span class="string">"发生了异常"</span>)</div><div class="line">doException()</div><div class="line"></div><div class="line"><span class="comment"># 输出</span></div><div class="line"><span class="comment"># 发生了异常</span></div></pre></td></tr></table></figure>
+<p>通常不建议这么处理异常，因为他会隐藏所有程序员未想到并且为做好处理准备的错误</p>
+<h3 id="try-except-finally"><a href="#try-except-finally" class="headerlink" title="try-except-finally"></a>try-except-finally</h3><p>为了实现就算发生异常，但也不得不执行的收尾工作，可以使用try-except-finally语法处理。</p>
+<p>eg：上述示例稍加修改<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">doException</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        f = open(<span class="string">"这是一个不存在的文件.txt"</span>)</div><div class="line">        print(f.read())</div><div class="line">        sum = <span class="number">1</span> + <span class="string">'1'</span></div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        print(<span class="string">"发生了异常"</span>)</div><div class="line">    <span class="keyword">finally</span>:</div><div class="line">        f.close()</div><div class="line">doException()</div></pre></td></tr></table></figure></p>
+<h3 id="raise语句"><a href="#raise语句" class="headerlink" title="raise语句"></a>raise语句</h3><p>python也可以自己排除一个异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">raise ZeroDivisionError(&quot;除数不能为零&quot;)</div></pre></td></tr></table></figure></p>
+<h3 id="else语句"><a href="#else语句" class="headerlink" title="else语句"></a>else语句</h3><p>在Python中else语句不仅能跟if搭配，还可以循环语句（for、while），也能够跟异常处理进行搭配</p>
+<ol>
+<li><p>if else搭配</p>
+<p> if 条件:</p>
+<pre><code>条件为真执行
+</code></pre><p> else:</p>
+<pre><code>条件为假执行
+</code></pre></li>
+<li><p>for else、while else</p>
+<p> else可以跟for和while循环语句配合使用，但else语句块只在循环完成之后执行，也就是说，如果循环中间使用break语句跳出循环，那么else里边的内容就不会执行了</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">doForElse</span><span class="params">()</span>:</span></div><div class="line">    num = int(input(<span class="string">"请输入一个数："</span>))</div><div class="line">    count = num // <span class="number">2</span></div><div class="line">    <span class="keyword">while</span> count &gt; <span class="number">1</span>:</div><div class="line">        <span class="keyword">if</span> num % count == <span class="number">0</span>:</div><div class="line">            print(<span class="string">"%d 最大的约数是 %d"</span> % (num,count))</div><div class="line">            <span class="keyword">break</span></div><div class="line">        count -= <span class="number">1</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        print(<span class="string">"%d 是素数"</span> % num)</div><div class="line">doForElse()</div></pre></td></tr></table></figure>
+<p>这个小程序要求用户输入的数的最大约数，如果是素数的话就提醒”某某是素数“<br>要是用地板除法（count = num // 2），否则会出现错误，for语句的用法跟while一样</p>
+<h3 id="try-except-else"><a href="#try-except-else" class="headerlink" title="try-except-else"></a>try-except-else</h3><p>else还能跟try-except进行搭配，实际跟循环语句搭配差不多：只要try语句块里没有出现异常，就会执行else语句块里的内容<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">doTryElse</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        int(<span class="string">'123a'</span>)</div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        print(<span class="string">'出现异常了'</span>)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        print(<span class="string">'没有任何异常'</span>)</div><div class="line">doTryElse()</div><div class="line"><span class="comment"># 输出是 出现异常了</span></div><div class="line"><span class="comment"># 将int('123a') 给成 int('123') 输出是 没有任何异常</span></div></pre></td></tr></table></figure></p>
+<h3 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h3><p>Python提供了一个with语句，利用这个语句抽象出文件操作中频繁使用的try/except/finally相关的细节。对文件使用with可以大大减少代码量，而且不用关心文件IO是否未关闭的问题-with会自动帮助我们关闭</p>
+<p>改写之前的代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">doWith</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        <span class="keyword">with</span> open(<span class="string">"这是一个不存在的文件.txt"</span>) <span class="keyword">as</span> f:</div><div class="line">            <span class="keyword">for</span> each_line <span class="keyword">in</span> f:</div><div class="line">                print(each_line)</div><div class="line">        print(f.read())</div><div class="line">        sum = <span class="number">1</span> + <span class="string">'1'</span></div><div class="line">    <span class="keyword">except</span> OSError <span class="keyword">as</span> reason:</div><div class="line">        print(str(reason))</div><div class="line">doWith()</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python13 文件IO]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython13-%E6%96%87%E4%BB%B6IO/</url>
+      <content type="html"><![CDATA[<p>在你编写代码的时候，操作系统为了更快的做出响应，把所有当前的数据都放在内存中，因为内存和cpu数据传输的速度要比在硬盘和cpu之间传输的速度快很多，但不足时一旦机器断点，所有的数据就会丢失，所以此时需要文件存储<br><a id="more"></a></p>
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><h3 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h3><p>Python使用open()方法来打开并返回文件对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open(file, mode=&apos;r&apos;, buffering=None, encoding=None, errors=None, newline=None, closefd=True)</div></pre></td></tr></table></figure></p>
+<ol>
+<li>file: 传入的文件名,如果只有文件名，不带路径的话，那么Python会在当前文件夹中去找到该文件并打开</li>
+<li><p>mode: 指定文件打开模式</p>
+<p> 打开模式 | 执行操作<br> —|—<br> r | 以只读方式打开文件（默认）<br> w | 以写入的方式打开文件<br> x | 如果文件已存在，是用这种方式打开会出现异常<br> a | 以写入模式打开文件，如果文件已存在，则在文件默认追加写入<br> b | 以二进制模式打开文件<br> t | 以文本模式打开</p>
+<ul>
+<li>| 可读写模式<br>U | 通用换行符支持</li>
+</ul>
+</li>
+</ol>
+<p>使用open()方法成功打开一个文件之后就得到一个文件对象，拿到这个对象就可以读取或者修改这个文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open(<span class="string">"__init__.py"</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="操作文件"><a href="#操作文件" class="headerlink" title="操作文件"></a>操作文件</h3><p>打开文件并取得文件对象之后，就可以利用文件对象的一些方法对文件进行读取或者修改等操作</p>
+<pre><code>文件对象的方法 | 执行操作
+---|---
+close() | 关闭文件
+read(size=-1) | 从文件读取size个字符，当未指定size或给定负值的时候，&lt;br/&gt;读取剩余的所有字符串然后作为字符串返回
+readline | 从文件中读取一整行字符串
+write(str) | 将字符串str写入文件
+writelines(seq) | 向文件写入字符串序列seq，seq应该是一个返回字符串的可迭代对象
+seek(offset,from) | 在文件中移动文件指针，从from&lt;br/&gt;(0代表文件起始位置，1代表当前位置，2代表文件末尾)偏移offset个字节
+tell() | 返回当前在文件中的位置
+</code></pre><p>文件的操作不做细分处理，有上面的api足够使用，遇到问题请自行查找官方api接口使用手册</p>
+<h3 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h3><p>close()方法用于关闭文件。</p>
+<p>Python拥有垃圾回收机制，会在文件对象的引用计数降至零的时候自动关闭文件，所以在python变成里，如果忘记关闭文件并不会造成内存泄漏，但还是尽量在完成写入之后关闭文件</p>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>Python对于文件系统的访问，是通过OS（Operate System-操作系统）来实现的。目前市面上的操作系统主要有Windows、Mac OS、Unix、Linux等。</p>
+<p>这些系统对于文件系统的访问原理是不一样的，因此你可能就要针对不同的系统来考虑使用哪些文件系统模块，这就导致程序运行环境发生变化，就要去修改大量的代码去解决。所以Python提供OS模块来解决这种情景，开发者可以不需要关心什么<br>操作系统下使用什么模块，OS会帮助我们选择合适的模块</p>
+<pre><code>函数名称 | 使用方法
+--- | ---
+getcwd() | 返回当前工作目录
+chdir(path) | 改变工作目录
+listdir(path=&apos;.&apos;) | 列举制定目录中的文件名(&apos;.&apos;：表示当前目录，&apos;..&apos;:表示上一级目录)
+mkdir(path) | 创建单层目录，如果目录已存在则抛出异常
+mkdirs(path) | 递归创建多层目录，如果该目录已存在则抛出异常
+remove(path) | 删除文件
+rmdir(path) | 删除单层目录，如果该目录非空，则抛出异常
+removedirs(path) | 递归删除目录，从子目录到父目录逐层尝试删除，遇到目录非空则抛出异常
+rename(old,new) | 将文件old重命名未new
+system(command) | 运行系统的shell命令
+os.curdir | 当前目录（&quot;.&quot;）
+os.pardir | 上一级目录
+os.sep  | 输出操作系统指定的路径分隔符（windows为&apos;\\&apos;,Linux为&apos;/&apos;）
+os.linesep | 当前系统使用的行终止符（Window下为&apos;\r\n&apos;,Linux下为&apos;\n&apos;）
+os.name | 当前使用的操作系统（posix、nt、mac等等）
+</code></pre><p>不多做介绍，重点介绍几个特别的方法</p>
+<h3 id="system"><a href="#system" class="headerlink" title="system"></a>system</h3><p>几乎每个操作系统都会提供一些小工具，system()函数用于使用这些小工具</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line">os.system(<span class="string">'calc'</span>) <span class="comment"># 获取系统自带的计算器</span></div></pre></td></tr></table></figure>
+<h3 id="walk-top"><a href="#walk-top" class="headerlink" title="walk(top)"></a>walk(top)</h3><p>walk是一个很有用的函数，它的作用是遍历top参数指定目录下的所有子目录，并将结果返回一个三元组（路径,[包含目录],[包含文件]）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="comment"># 输出当前文件所在路径的上一级目录所包含的文件夹和文件</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">os_walk</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> os.walk(os.pardir) :</div><div class="line">        print(i)</div><div class="line">os_walk()</div></pre></td></tr></table></figure>
+<h3 id="os-path模块"><a href="#os-path模块" class="headerlink" title="os.path模块"></a>os.path模块</h3><p>另一个强大的模块是os.path模块，它可以完成一些针对路径名的操作。</p>
+<pre><code>函数名 | 使用方法
+---|---
+basename(path) | 去掉目录路径，单独返回文件名
+dirname | 去掉文件名，单独返回目录路径
+join(path[,path2[,path3]]) | 将path、path2、path3各部分组合成一个路径名
+split(path) | 分割文件名与路径，返回(f_path,f_name)元组
+splitext(path) | 分离文件名与扩展名，返回(f_name,f_extension)元组
+getsize(file) | 返回指定文件的尺寸，单位是字节
+getatime(file) | 返回指定文件最近的访问时间（浮点型秒数，可用time模块的gmtime()或者localtime()函数换算）
+getctime(file) | 返回指定文件的创建时间
+getmtime(file) | 返回指定文件最新的修改时间
+exists(path) | 判断指定路径或文件是否存在
+isabs(path) | 判断指定路径是否为绝对路径
+isdir(path) | 判断指定路径是否是文件夹
+isfile(path) | 判断指定路径是否是文件
+islink(path) | 判断指定路径是否存在是一个符号链接
+ismount(path) | 判断指定路径是否存在且是否是一个挂载点
+samefile(path1,path2) | 判断path1和path2两个路径是否指向同一个文件
+</code></pre><h2 id="pickle"><a href="#pickle" class="headerlink" title="pickle"></a>pickle</h2><p>之前的文件保存一直操作的是字符串，读写很简单。但是当我们操作更复杂一点的数据对象：列表，字典，类的实例等时普通的文本操作就会变得不知所措。<br>如果将其转化成字符串再保存进文件，可当读取的时候也是字符串，不是list，字典或者类的实例，因此，Python提供了一个标准模块，使用这个模块就可以很容易的把这些<br>列表，字典等复杂数据类型写进文件。这个模块就是pickle(泡菜)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pickle</div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="comment">## 写入my_list.pkl文件</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_pickle</span><span class="params">()</span>:</span></div><div class="line">    list01 = [<span class="number">1</span>, <span class="number">2</span>, <span class="string">'test'</span>, <span class="string">'我爱你'</span>]</div><div class="line">    pickle_file = open(os.curdir + <span class="string">"my_list.pkl"</span>, <span class="string">"wb"</span>)</div><div class="line">    pickle.dump(list01, pickle_file)</div><div class="line">    pickle_file.close()</div><div class="line"></div><div class="line">test_pickle()</div></pre></td></tr></table></figure>
+<p>执行完之后会在当前路径生成my_list.pkl文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pickle</div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="comment">## 读取</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_pickle02</span><span class="params">()</span>:</span></div><div class="line">    pickle_file = open(os.curdir + <span class="string">"my_list.pkl"</span>, <span class="string">"rb"</span>)</div><div class="line">    my_list = pickle.load(pickle_file)</div><div class="line">    print(my_list)</div><div class="line"></div><div class="line">test_pickle02()</div><div class="line"><span class="comment">## 输出是</span></div><div class="line"></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="string">'test'</span>, <span class="string">'我爱你'</span>]</div></pre></td></tr></table></figure>
+<p>执行完之后会在当前路径生成my_list.pkl文件</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python12 递归]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython12-%E9%80%92%E5%BD%92/</url>
+      <content type="html"><![CDATA[<p>俗语：普通的程序员用迭代，天才的程序员用递归。<br><a id="more"></a></p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>从原理上讲，就是函数调用自身这么一个行为。</p>
+<p>如果递归使用不当会很容易出现“死循环”-一种无法结束的函数，直至耗尽所有内存资源。不过Python3处于“善意的保护”，对递归的深度默认限制是100层，所以循环100次后一定会停止。</p>
+<p>不过如果些爬虫，想要爬取更深层次的话可以手动修改递归深度，如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line">sys.setrecursionlimit(<span class="number">100000000</span>) <span class="comment">## 将递归的限制设置成一亿次</span></div></pre></td></tr></table></figure>
+<h3 id="阶乘函数"><a href="#阶乘函数" class="headerlink" title="阶乘函数"></a>阶乘函数</h3><p>正整数的阶乘是指从1乘以2乘以3乘以4一直乘到所要求的数。例如1*2*3*4*5=120，所以120是5的阶乘</p>
+<p>普通实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span><span class="params">(x)</span> :</span></div><div class="line">	result = <span class="number">0</span></div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>,x):</div><div class="line">		result *= x</div><div class="line">	<span class="keyword">return</span> result * x</div><div class="line"></div><div class="line">number = int(input(<span class="string">'请输入一个整数：'</span>))</div><div class="line">print(<span class="string">'%d 的阶乘是：%d'</span> % (number,factorial(number)))</div></pre></td></tr></table></figure></p>
+<p>递归实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span><span class="params">(x)</span> :</span></div><div class="line">	<span class="keyword">if</span> x == <span class="number">1</span>:</div><div class="line">		<span class="keyword">return</span> <span class="number">1</span></div><div class="line">	<span class="keyword">else</span> :</div><div class="line">		<span class="keyword">return</span> x * factorial(x - <span class="number">1</span>)</div><div class="line"></div><div class="line">number = int(input(<span class="string">'请输入一个整数：'</span>))</div><div class="line">print(<span class="string">'%d 的阶乘是：%d'</span> % (number,factorial(number)))</div></pre></td></tr></table></figure></p>
+<h3 id="兔子生兔子"><a href="#兔子生兔子" class="headerlink" title="兔子生兔子"></a>兔子生兔子</h3><p>学每一种编程语言基本上都会实现“兔生兔”算法。</p>
+<p>兔子在出生两个月之后，就有繁殖能力，在拥有繁殖能力之后，这对兔子每个月能生出一对小兔子。假设兔子都不死去，能够一直繁殖下去，那么一年之后可以繁殖多少只兔子。</p>
+<p>递归实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 递归实现</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rabbit</span><span class="params">(n)</span>:</span></div><div class="line">	<span class="keyword">if</span> n &lt; <span class="number">0</span>:</div><div class="line">		print(<span class="string">"输入错误"</span>)</div><div class="line">		<span class="keyword">return</span> <span class="number">-1</span></div><div class="line">	<span class="keyword">if</span> n == <span class="number">1</span> <span class="keyword">or</span> n == <span class="number">2</span>:</div><div class="line">		<span class="keyword">return</span> <span class="number">1</span></div><div class="line">	<span class="keyword">else</span> :</div><div class="line">		<span class="keyword">return</span> rabbit(n<span class="number">-1</span>) + rabbit(n<span class="number">-2</span>)</div><div class="line"></div><div class="line">print(<span class="string">"一年后总共有%d 对兔子"</span> % rabbit(<span class="number">12</span>))</div></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果递归忘记了返回或者错误的设置了返回条件，那么执行这样的递归代码就会变成一个黑洞：只进不出！所以再写递归代码的时候一定要注意返回。<br>递归有缺陷，但既然存在于各种编程语言中，必有其存在的价值。递归用在妙处，自然代码简介、所以说“天才的程序员用递归”</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python11 filter和sorted]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython11-filter%E5%92%8Csorted/</url>
+      <content type="html"><![CDATA[<p>介绍一下Python使用的两个内置函数：filter、sorted<br><a id="more"></a></p>
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>filter是一个过滤器。我们每天都会接触到大量的数据，过滤器的作用就显得非常重要了，通过过滤器，就可以保留你所关注的信息，把其他不感兴趣的东西直接丢掉。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">help(filter)</div><div class="line"></div><div class="line">Help on class filter in module builtins:</div><div class="line"></div><div class="line">class filter(object)</div><div class="line"> |  filter(function or None, iterable) --&gt; filter object</div><div class="line"> |  </div><div class="line"> |  Return an iterator yielding those items of iterable for which function(item)</div><div class="line"> |  is true. If function is None, return the items that are true.</div><div class="line"> |  </div><div class="line"> |  Methods defined here:</div><div class="line"> |  </div><div class="line"> |  __getattribute__(self, name, /)</div><div class="line"> |      Return getattr(self, name).</div><div class="line"> |  </div><div class="line"> |  __iter__(self, /)</div><div class="line"> |      Implement iter(self).</div><div class="line"> |  </div><div class="line"> |  __new__(*args, **kwargs) from builtins.type</div><div class="line"> |      Create and return a new object.  See help(type) for accurate signature.</div><div class="line"> |  </div><div class="line"> |  __next__(self, /)</div><div class="line"> |      Implement next(self).</div><div class="line"> |  </div><div class="line"> |  __reduce__(...)</div><div class="line"> |      Return state information for pickling.</div></pre></td></tr></table></figure>
+<p>可以看出filter函数需要两个参数，第一个参数是一个函数或者时None，第二个参数是一个迭代器。</p>
+<p>意思是迭代器里的每个元素都可以作为第一个函数的入参进行函数的计算，把返回True的值筛选出来；如果第一个参数为None，则直接将第二个参数中为True的值筛选出来</p>
+<p>eg：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">temp = filter(<span class="keyword">None</span>,[<span class="number">1</span>,<span class="number">0</span>,<span class="keyword">True</span>,<span class="keyword">False</span>])</div><div class="line">print(list(temp))</div><div class="line"><span class="comment">## 输出</span></div><div class="line">[<span class="number">1</span>,<span class="keyword">True</span>]</div><div class="line"><span class="comment">## 1计算机理解为True，0:False</span></div><div class="line"></div><div class="line"><span class="comment">## 过滤奇数的过滤器</span></div><div class="line">print(list(filter(<span class="keyword">lambda</span> x : x % <span class="number">2</span> == <span class="number">0</span>,range(<span class="number">100</span>))))</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python10 map和reduce]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython10-map%E5%92%8Creduce/</url>
+      <content type="html"><![CDATA[<p>Google发表过大数据的三大论文之一<a href="http://note.youdao.com/" target="_blank" rel="external">MapReduce: Simplified Data Processing on Large Clusters</a>，python也提供了map、reduce方法用来处理业务。<br><a id="more"></a></p>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Python内建函数map，其接受两个参数：一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>例如将一个整数组成的list装换成字符串组成的list</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ll = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]</div><div class="line">print(list(map(str,ll)))</div><div class="line"></div><div class="line"><span class="comment">#输出是</span></div><div class="line">[<span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'5'</span>, <span class="string">'6'</span>, <span class="string">'7'</span>, <span class="string">'8'</span>, <span class="string">'9'</span>]</div></pre></td></tr></table></figure>
+<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>再看reduce的用法。reduce把一个函数作用在一个序列[x1, x2, x3, …]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)</div></pre></td></tr></table></figure>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>打个简单的比方，计算1，2，3，4，5之和</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span> :</span></div><div class="line">    <span class="keyword">return</span> x + y</div><div class="line">print(reduce(add,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]))</div><div class="line"></div><div class="line"><span class="comment"># 输出是</span></div><div class="line"><span class="number">15</span></div></pre></td></tr></table></figure>
+<h2 id="map-reduce组合拳"><a href="#map-reduce组合拳" class="headerlink" title="map/reduce组合拳"></a>map/reduce组合拳</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fn</span><span class="params">(x, y)</span>:</span></div><div class="line">    <span class="keyword">return</span> x * <span class="number">10</span> + y</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">char2num</span><span class="params">(s)</span>:</span></div><div class="line">    digits = &#123;<span class="string">'0'</span>: <span class="number">0</span>, <span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: <span class="number">3</span>, <span class="string">'4'</span>: <span class="number">4</span>, <span class="string">'5'</span>: <span class="number">5</span>, <span class="string">'6'</span>: <span class="number">6</span>, <span class="string">'7'</span>: <span class="number">7</span>, <span class="string">'8'</span>: <span class="number">8</span>, <span class="string">'9'</span>: <span class="number">9</span>&#125;</div><div class="line">    <span class="keyword">return</span> digits[s]</div><div class="line"></div><div class="line">print(reduce(fn, map(char2num, <span class="string">'13579'</span>)))</div><div class="line"></div><div class="line"><span class="comment">#输出是</span></div><div class="line"><span class="number">13579</span></div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>关于map和reduce，以后会强加练习，熟练使用</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python09 函数]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython09-%E5%87%BD%E6%95%B0/</url>
+      <content type="html"><![CDATA[<p>python中的函数就像乐高中的小积木一样，通过组合可以形成各种功能的产品，千里之行，起于函数。<br>函数就是把代码打包成不同形状的乐高积木，以便可以发挥想象力进行随意拼装和反复使用。<br><a id="more"></a></p>
+<h2 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h2><p>在python中，定义一个函数要使用def语句，依次写出函数名、括号、括号中的参数和冒号：，然后，在缩进块中编写函数体，返回值用return表示。</p>
+<p>简单来说，一个程序可以按照不同功能的实现，分割成许许多多的代码块，每一个代码块就可以封装成一个函数。</p>
+<p>eg:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">(a,b)</span>:</span></div><div class="line">    <span class="keyword">return</span> a + b</div><div class="line"></div><div class="line">print(sum(<span class="number">1</span>,<span class="number">2</span>))</div><div class="line"></div><div class="line"><span class="comment"># 输出是</span></div><div class="line"><span class="number">3</span></div></pre></td></tr></table></figure>
+<h2 id="空函数"><a href="#空函数" class="headerlink" title="空函数"></a>空函数</h2><p>如果想定义一个什么事也不做的空函数，可以用pass语句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">empty</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">pass</span></div><div class="line">print(empty())</div></pre></td></tr></table></figure>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>函数被设计之初是没有参数的，很快就带来很多麻烦，为了每次调用函数可以有不同的实现，加入了参数的概念。多个参数使用逗号隔开</p>
+<h3 id="形参和实参"><a href="#形参和实参" class="headerlink" title="形参和实参"></a>形参和实参</h3><p>参数从调用的角度来说，可以分为形式参数和实际参数。</p>
+<ul>
+<li>[x] 形参：函数创建和定义过程中小括号里的参数</li>
+<li>[x] 实参：函数在被调用的过程中传递进来的参数</li>
+</ul>
+<h3 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h3><p>有时候并不清楚这个函数需要多少个参数，这时候可以定义成可变参数，在参数前面加上星号（* param</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(* params)</span>:</span></div><div class="line">    print(<span class="string">"可变参数的长度："</span>,len(params))</div><div class="line">    print(<span class="string">"可变参数："</span>,params)</div></pre></td></tr></table></figure>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><h3 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h3><p>python的单行注释使用#</p>
+<p>eg：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这里是python的单行注释</span></div></pre></td></tr></table></figure></p>
+<h3 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h3><p>使用”””注释内容”””表示多行注释；</p>
+<p>给函数写文档是为了让别人可以更好的理解自己的函数，所以这是一个好习惯。充足的文档注释即方便了自己复查代码，也方便别人理解自己的代码。因为中大型项目往往需要多人团队配合才能够完成，只有充足的文档注释才能够更利于大家代码的衔接。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>有些场景需要知道我们调用函数之后的结果如何，因此函数有了返回值，可以使用return 返回我们需要的数据；</p>
+<h3 id="多返回值"><a href="#多返回值" class="headerlink" title="多返回值"></a>多返回值</h3><p>python支持返回多个值</p>
+<p>eg:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="number">5</span>,<span class="string">'test'</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> [<span class="number">5</span>,<span class="string">'test'</span>]</div></pre></td></tr></table></figure>
+<p>如果没有指定返回的数据类型，默认是元组</p>
+<h2 id="global关键字"><a href="#global关键字" class="headerlink" title="global关键字"></a>global关键字</h2><p>全局变量的作用域是整个模块，也就是代码段内所有的函数内部都可以访问到全局变量。</p>
+<p>但是需要注意：在函数内部仅仅去访问全局变量就好，不要试图去修改它。因为Python会使用屏蔽的方式”保护“全局变量：一旦函数内部视图修改全局变量，Python就会在函数内部自动创建一个跟全局变量一模一样名字的局部变量，这样修改的结果只会修改到局部变量，而不会影响到全局变量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">count = <span class="number">10</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></div><div class="line">    count = <span class="number">20</span></div><div class="line">    print(count)</div><div class="line"></div><div class="line">test()</div><div class="line">print(count)</div></pre></td></tr></table></figure></p>
+<p>但如果确实想在函数内部修改全局变量，可以使用global实现；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">count = <span class="number">10</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">global</span> count = <span class="number">20</span></div><div class="line">    print(count)</div><div class="line"></div><div class="line">test()</div><div class="line">print(count)</div></pre></td></tr></table></figure></p>
+<h2 id="内嵌函数"><a href="#内嵌函数" class="headerlink" title="内嵌函数"></a>内嵌函数</h2><p>Python的函数定义是可以嵌套的，也就是允许在函数内部创建另一个函数，这种函数叫做内嵌函数或者内部函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func01</span><span class="params">()</span> :</span></div><div class="line">    print(<span class="string">'正在调用func01方法'</span>)</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func02</span><span class="params">()</span> :</span></div><div class="line">        print(<span class="string">'正在调用func02方法'</span>)</div></pre></td></tr></table></figure>
+<h2 id="闭包（closure）"><a href="#闭包（closure）" class="headerlink" title="闭包（closure）"></a>闭包（closure）</h2><p>闭包是函数式编程的一个重要的语法结构，函数式编程是一种编程范式，著名的函数式编程语言就是LISP语言（主要应用于绘图和人工智能，一直被认为是天才程序员使用的语言）</p>
+<p>Python中的闭包从表现形式上定义为：如果在一个函数内部，对再外部作用域但不是再全局作用域的变量进行引用，那么内部函数就被认为是闭包。</p>
+<p>eg:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">funX</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">funY</span><span class="params">(y)</span>:</span></div><div class="line">        <span class="keyword">return</span> x * y</div><div class="line">    <span class="keyword">return</span> funY</div><div class="line"></div><div class="line">funX(<span class="number">10</span>)(<span class="number">20</span>)</div></pre></td></tr></table></figure></p>
+<p>在闭包中，外部函数的局部变量对应内部函数的局部变量，相当于全局变量和局部变量的关系，在内部函数中，你只能对外部函数的局部变量进行访问，但不能进行修改；</p>
+<p>在Python3以前并没有直接的解决方案，只能间接的通过容器类来存放，因为容器类不是放在栈里，所以不会被”屏蔽“调。</p>
+<p>容器类-字符串，列表，元组</p>
+<p>在python3中，如果希望在内部函数里可以修改外部函数里的局部变量值，那么也有一个关键字可以使用，就是nonlocal，方式跟global一样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">funX</span><span class="params">()</span>:</span></div><div class="line">    x = <span class="number">10</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">funY</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">nonlocal</span> x</div><div class="line">        x *= x</div><div class="line">        <span class="keyword">return</span> x</div><div class="line">    <span class="keyword">return</span> funY</div><div class="line">    </div><div class="line">funX()()</div></pre></td></tr></table></figure>
+<h2 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h2><p>Python允许使用lambda关键字来创建匿名函数。我们提到一个新的关键字</p>
+<p>什么是lambda？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="number">2</span> * x + <span class="number">1</span></div><div class="line"></div><div class="line">func(<span class="number">5</span>)</div><div class="line"><span class="comment"># 等价于</span></div><div class="line">func = <span class="keyword">lambda</span> x : <span class="number">2</span> * x + <span class="number">1</span></div><div class="line">func(<span class="number">5</span>)</div></pre></td></tr></table></figure>
+<p>lambda表达式的语法非常精简（：左边放原函数的参数，可以有多个参数，用逗号，隔开即可；冒号右边是返回值）</p>
+<p>lambda好处：</p>
+<ol>
+<li>Python写一些执行脚本时，使用lambda可以省下定义函数的过程</li>
+<li>对于一些比较抽象并且整个程序执行下来只需要调用一两次的函数，不用考虑取名字的问题</li>
+<li>简化代码的可读性</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python08 dict和set]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython08-dict%E5%92%8Cset/</url>
+      <content type="html"><![CDATA[<p>python提供了dict和set数据集合，dict跟java的Map类似，一样的key-value键值对。<br><a id="more"></a></p>
+<h2 id="dict"><a href="#dict" class="headerlink" title="dict"></a>dict</h2><p>字典是Python中唯一的映射类型，映射是数学上的一个术语，指两个元素集之间元素相互对应关系。</p>
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>如果要实现一个’姓名’-成绩 的key-value键值映射，可以使用dict实现，无论有多少学生，当查找学生得分都可以很快速查找到。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">score = &#123;<span class="string">'zhangsan'</span>:<span class="number">90</span>,<span class="string">'lisi'</span>:<span class="number">30</span>,<span class="string">'wangwu'</span>:<span class="number">100</span>,<span class="string">'zhaoliu'</span>:<span class="number">60</span>&#125;</div><div class="line">print(score[<span class="string">'zhaoliu'</span>]</div></pre></td></tr></table></figure>
+<p>dict的查询非常快速，原因：这种key-value存储方式，在放进去的时候，必须根据key算出value的存放位置，这样，取的时候才能根据key直接拿到value。</p>
+<p>除了初始化将数据放入dict，还可以通过key的方式放入dict中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">score[<span class="string">'heqi'</span>] = <span class="number">99</span></div></pre></td></tr></table></figure>
+<p>key在dict中是唯一的，后放入的会覆盖之前的同名key值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">score[<span class="string">'heqi'</span>] = <span class="number">88</span></div><div class="line">score[<span class="string">'heqi'</span>]</div></pre></td></tr></table></figure>
+<h3 id="get、setdefault"><a href="#get、setdefault" class="headerlink" title="get、setdefault"></a>get、setdefault</h3><p>如果获取一个不存在的key，python会报错。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">score[<span class="string">'songba'</span>]</div></pre></td></tr></table></figure>
+<p>判断此key是否存在于dict中，可使用 key in dict判断或者使用dict提供的get判断</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">'songba'</span> <span class="keyword">in</span> score</div><div class="line">score.get(<span class="string">'songba'</span>) <span class="comment"># 如果不存在，返回None</span></div><div class="line">score.get(<span class="string">'songba'</span>,<span class="string">'-1'</span>) <span class="comment"># 如果不存在，返回-1</span></div></pre></td></tr></table></figure>
+<p>要删除一个key，用pop(key)方法，对应的value也会从dict中删除：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">'正在删除key:lisi'</span>)</div><div class="line">score.pop(<span class="string">'lisi'</span>)</div><div class="line">print(score)</div></pre></td></tr></table></figure>
+<p>dict可以用在需要高速查找的很多地方，在Python代码中几乎无处不在，正确使用dict非常重要，需要牢记的第一条就是dict的key必须是不可变对象。</p>
+<p>这是因为dict根据key来计算value的存储位置，如果每次计算相同的key得出的结果不同，那dict内部就完全混乱了。这个通过key计算位置的算法称为哈希算法（Hash）。</p>
+<p>要保证hash的正确性，作为key的对象就不能变。在Python中，字符串、整数等都是不可变的，因此，可以放心地作为key。</p>
+<p>setdefault()方法和get()方法有点类似，但是setdefault()在字典中找不到相应的键会自动添加<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dict01 = &#123;<span class="number">1</span>:<span class="string">"1"</span>,<span class="number">2</span>:<span class="string">"2"</span>,<span class="number">3</span>:<span class="string">"3"</span>&#125;</div><div class="line"></div><div class="line">print(dict01.setdefault(<span class="number">4</span>))</div><div class="line">print(dict01)</div><div class="line"></div><div class="line"><span class="comment"># 输出</span></div><div class="line"><span class="keyword">None</span></div><div class="line">&#123;<span class="number">1</span>: <span class="string">'1'</span>, <span class="number">2</span>: <span class="string">'2'</span>, <span class="number">3</span>: <span class="string">'3'</span>, <span class="number">4</span>: <span class="keyword">None</span>&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="fromkeys"><a href="#fromkeys" class="headerlink" title="fromkeys"></a>fromkeys</h3><p>fromkeys方法用于创建并返回一个新的字典，他有两个参数-第一个参数是字典的键；第二个参数是可选的，是传入键对应的值。如果不提供，那么默认是None</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">dict01 = &#123;&#125;</div><div class="line">print(<span class="string">"dict01 是：%s"</span> % (dict01.fromkeys((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))))</div><div class="line"></div><div class="line">dict02 = &#123;&#125;</div><div class="line">print(<span class="string">"dict02 是：%s"</span> % (dict02.fromkeys((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),<span class="string">"Number"</span>)))</div><div class="line"></div><div class="line"></div><div class="line">dict03 = &#123;&#125;</div><div class="line">print(<span class="string">"dict03 是：%s"</span> % (dict03.fromkeys((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),(<span class="string">"one"</span>,<span class="string">"two"</span>,<span class="string">"three"</span>))))</div><div class="line"></div><div class="line"><span class="comment">## 输出是</span></div><div class="line">dict01 是：&#123;<span class="number">1</span>: <span class="keyword">None</span>, <span class="number">2</span>: <span class="keyword">None</span>, <span class="number">3</span>: <span class="keyword">None</span>&#125;</div><div class="line">dict02 是：&#123;<span class="number">1</span>: <span class="string">'Number'</span>, <span class="number">2</span>: <span class="string">'Number'</span>, <span class="number">3</span>: <span class="string">'Number'</span>&#125;</div><div class="line">dict03 是：&#123;<span class="number">1</span>: (<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>), <span class="number">2</span>: (<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>), <span class="number">3</span>: (<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>)&#125;</div></pre></td></tr></table></figure>
+<h3 id="keys、values、items"><a href="#keys、values、items" class="headerlink" title="keys、values、items"></a>keys、values、items</h3><p>访问字典的方法有keys、values、items。</p>
+<ol>
+<li>keys()返回字典中的键</li>
+<li>values()返回字典中所有的值</li>
+<li>items()返回字典中的键值对</li>
+</ol>
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p>copy()方法是复制字典<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">dict01 = &#123;<span class="number">1</span>:<span class="string">"1"</span>,<span class="number">2</span>:<span class="string">"2"</span>,<span class="number">3</span>:<span class="string">"3"</span>&#125;</div><div class="line">dict02 = dict01.copy()</div><div class="line"></div><div class="line">print(<span class="string">"dict01是：%s"</span> % dict01)</div><div class="line">print(<span class="string">"dict02是：%s"</span> % dict02)</div><div class="line"></div><div class="line"><span class="comment"># 输出是</span></div><div class="line">dict01是：&#123;<span class="number">1</span>: <span class="string">'1'</span>, <span class="number">2</span>: <span class="string">'2'</span>, <span class="number">3</span>: <span class="string">'3'</span>&#125;</div><div class="line">dict02是：&#123;<span class="number">1</span>: <span class="string">'1'</span>, <span class="number">2</span>: <span class="string">'2'</span>, <span class="number">3</span>: <span class="string">'3'</span>&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="pop、popitem"><a href="#pop、popitem" class="headerlink" title="pop、popitem"></a>pop、popitem</h3><ol>
+<li>pop()是给定键弹出对应的值</li>
+<li>popitem()是弹出一个项</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">dict01 = &#123;<span class="number">1</span>:<span class="string">"1"</span>,<span class="number">2</span>:<span class="string">"2"</span>,<span class="number">3</span>:<span class="string">"3"</span>&#125;</div><div class="line"></div><div class="line">print(dict01.pop(<span class="number">1</span>))</div><div class="line">print(dict01.popitem())</div><div class="line"><span class="comment"># 输出是</span></div><div class="line"><span class="number">1</span></div><div class="line">(<span class="number">3</span>, <span class="string">'3'</span>)</div></pre></td></tr></table></figure>
+<h3 id="update"><a href="#update" class="headerlink" title="update"></a>update</h3><p>可以利用它来更新字典<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">dict01 = &#123;<span class="number">1</span>:<span class="string">"1"</span>,<span class="number">2</span>:<span class="string">"2"</span>,<span class="number">3</span>:<span class="string">"3"</span>&#125;</div><div class="line">dict01.update(&#123;<span class="number">1</span>:<span class="number">5</span>&#125;)</div><div class="line">print(dict01)</div><div class="line"></div><div class="line"><span class="comment"># 输出是</span></div><div class="line">&#123;<span class="number">1</span>: <span class="number">5</span>, <span class="number">2</span>: <span class="string">'2'</span>, <span class="number">3</span>: <span class="string">'3'</span>&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>Python的字典是对数学中映射概念支持的直接表现，下面介绍字典的表亲：集合</p>
+<p>set和dict类似，也是一组key的集合，但不存储value。由于key不能重复，所以，在set中，没有重复的key。</p>
+<p>对比一下dict和set<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">dict01 = &#123;&#125;</div><div class="line">print(type(dict01))</div><div class="line">set01 = &#123;1,2,3,4,3,2,1&#125;</div><div class="line">print(type(set01))</div><div class="line">print(set01)</div><div class="line"></div><div class="line"># 输出是</div><div class="line">&lt;class 'dict'&gt;</div><div class="line">&lt;class 'set'&gt;</div><div class="line">&#123;1, 2, 3, 4&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看出 字典跟set的区别,而且set会自动去重</p>
+<h4 id="创建set"><a href="#创建set" class="headerlink" title="创建set"></a>创建set</h4><p>创建set有两种方式</p>
+<ol>
+<li>直接把一堆元素用大括号（{}）括起来；</li>
+<li>用set() 创建</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">score01 = set(range(<span class="number">1</span>,<span class="number">6</span>))</div><div class="line">score02 = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;</div><div class="line">print(score01 == score02)</div><div class="line"></div><div class="line"><span class="comment"># 输出是</span></div><div class="line"><span class="keyword">True</span></div></pre></td></tr></table></figure>
+<h4 id="访问集合"><a href="#访问集合" class="headerlink" title="访问集合"></a>访问集合</h4><p>由于集合中的元素是无序的，所以并不能像序列那样用下标来进行访问，但是可以使用迭代把集合中的数据一个个读取出来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">setFunc</span><span class="params">()</span> :</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">11</span>):</div><div class="line">        print(i,end = <span class="string">' '</span>)</div><div class="line">setFunc()</div><div class="line"></div><div class="line"><span class="comment"># 输出是</span></div><div class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span> <span class="number">10</span></div></pre></td></tr></table></figure>
+<h4 id="判断集合是否存在元素"><a href="#判断集合是否存在元素" class="headerlink" title="判断集合是否存在元素"></a>判断集合是否存在元素</h4><p>也可以使用in、not in判断一个元素是否再集合中已经存在</p>
+<h4 id="add"><a href="#add" class="headerlink" title="add"></a>add</h4><p>使用add方法可以为集合添加元素</p>
+<h4 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h4><p>可以删除集合中已知的元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">score = set(range(<span class="number">1</span>,<span class="number">6</span>))</div><div class="line">print(score)</div><div class="line">score.add(<span class="number">4</span>)</div><div class="line">print(<span class="string">'添加元素4'</span>)</div><div class="line">print(score)</div><div class="line"></div><div class="line">print(<span class="string">'添加元素10'</span>)</div><div class="line">score.add(<span class="number">10</span>)</div><div class="line">print(score)</div><div class="line"></div><div class="line"><span class="comment">#print('删除元素9-删除不存在的元素会报错')</span></div><div class="line"><span class="comment">#score.remove(9)</span></div><div class="line"><span class="comment">#print(score)</span></div><div class="line"></div><div class="line">print(<span class="string">'删除元素10'</span>)</div><div class="line">score.remove(<span class="number">10</span>)</div><div class="line">print(score)</div></pre></td></tr></table></figure>
+<h3 id="不可变集合"><a href="#不可变集合" class="headerlink" title="不可变集合"></a>不可变集合</h3><p>有些时候希望集合中的数据具有稳定性，也就是像元组一样不能随意的增加或者删除集合中的元素。那么可以使用frozenset()定义不可变集合</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人工智能之Python07 循环]]></title>
+      <url>/2018/02/13/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython07-%E5%BE%AA%E7%8E%AF/</url>
+      <content type="html"><![CDATA[<p>上篇介绍列表，固定列表tuple，非固定列表list，下面介绍一下python的循环。<br><a id="more"></a></p>
+<h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><p>以前有个故事：“学写字”</p>
+<p>第一天老师教学生写一，第二天老师教学生写二，第三天老师教学生写三；后来学生们觉得太简单就不来上课了，期末考试老师让写万，。。。。</p>
+<p>for循环也是类似的道理，1+2+3=6，1+2+3+4=10，1+2+3+4+…+10000=?</p>
+<p>python提供for…in循环，一次把list或者tuple中的元素迭代出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">poker=[<span class="string">'♥A'</span>,<span class="string">'♥2'</span>,<span class="string">'♥3'</span>]</div><div class="line">print(<span class="string">'♥A'</span>,<span class="string">'♥2'</span>,<span class="string">'♥3'</span>)</div><div class="line"><span class="keyword">for</span> pp <span class="keyword">in</span> poker :</div><div class="line">    print(pp)</div><div class="line">print(<span class="string">'end'</span>)</div></pre></td></tr></table></figure>
+<p>Python提供一个range()函数，可以生成一个整数序列，再通过list()函数可以转换为list。比如range(5)生成的序列是从0开始小于5的整数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">'----------------------'</span>)</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</div><div class="line">    print(i)</div></pre></td></tr></table></figure>
+<p>拓展一下，计算100求和</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">'----------------------'</span>)</div><div class="line">sum = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">101</span>):</div><div class="line">    sum = sum + i</div><div class="line">print(sum)</div></pre></td></tr></table></figure>
+<h2 id="while"><a href="#while" class="headerlink" title="while"></a>while</h2><p>python提供的另外一种循环是while。</p>
+<p>利用while实现100以内奇数之和</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">n = <span class="number">1</span></div><div class="line">sum = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> n &lt; <span class="number">100</span> :</div><div class="line">    sum = sum + n</div><div class="line">    n = n + <span class="number">2</span></div><div class="line">print(sum)</div></pre></td></tr></table></figure>
+<h2 id="break"><a href="#break" class="headerlink" title="break"></a>break</h2><p>在循环中，break语句可以提前退出循环。</p>
+<p>改进之前的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">n = 1</div><div class="line">sum = 0</div><div class="line">while n &lt; 100 :</div><div class="line">    if(n &gt; 50):</div><div class="line">        break</div><div class="line">    sum = sum + n</div><div class="line">    n = n + 2</div><div class="line">print(sum)</div></pre></td></tr></table></figure>
+<p>上述代码当n&gt;50时跳出循环</p>
+<h2 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h2><p>在循环过程中，也可以通过continue语句，跳过当前的这次循环，直接开始下一次循环。</p>
+<p>改进之前的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">'--------------------'</span>)</div><div class="line">n = <span class="number">1</span></div><div class="line">sum = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> n &lt; <span class="number">101</span> :</div><div class="line">    <span class="keyword">if</span>(n % <span class="number">2</span> == <span class="number">0</span>):</div><div class="line">        <span class="keyword">continue</span></div><div class="line">    sum = sum + n</div><div class="line">    n = n + <span class="number">2</span></div><div class="line">print(sum)</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>循环几乎是每种编程语言都会自带的功能，是进行重复操作的有效手段。</p>
+<p>break跳出循环，continue结束本次循环，继续下一次循环，但是开发过程中很少用到break，continue，特别是多重循环，合适跳出循环，何时结束本次循环，很容易出错；</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python自学笔记 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[人工智能之Python06 list和tuple]]></title>
       <url>/2018/02/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B9%8BPython06-list%E5%92%8Ctuple/</url>
       <content type="html"><![CDATA[<p>上篇介绍了python的数据类型，利用那些数据类型能够对数字进行计算，本篇介绍另外的两种数据类型列表list以及元组tuple<br><a id="more"></a></p>
